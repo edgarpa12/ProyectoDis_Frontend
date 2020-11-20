@@ -1,0 +1,62 @@
+<div class="container-fluid my-auto">
+  <div class="row">
+    <div class="col-md-12 mt-5 d-flex justify-content-center">
+      <span class="text-white" style="font-size: 32px">
+        Surfy Te Ayuda A <br />
+        <b>Manejar Tu Gran Organización</b>
+      </span>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-around">
+    <div class="col-md-3 d-flex justify-content-center pb-4">
+      <div class="card py-4 px-2 mx-2 d-flex justify-content-around">
+        <img src="./assets/home/cambios.svg" class="icon" alt="Ubicacion" />
+        <p class="text-black">Visualiza los datos de tu organización</p>
+        <button
+          type="submit"
+          class="boton btn px-4 mx-auto"
+          style="background-color: #134e6f"
+          (click)="onManageOrganization()"
+        >
+          Ver Datos
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 d-flex justify-content-center pb-4">
+      <div
+        class="card py-4 px-2 d-flex justify-content-around"
+        style="margin-top: 100px"
+      >
+        <img src="./assets/home/estructura.svg" class="icon" alt="Ubicacion" />
+        <p class="text-black py-4">Define la estructura de tu organización</p>
+        <button
+          type="submit"
+          class="boton btn px-4 mx-auto"
+          style="background-color: #134e6f"
+          (click)="onMenu()"
+        >
+          Gestionar Organización
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 d-flex justify-content-center pb-4">
+      <div class="card py-4 px-2 d-flex justify-content-around">
+        <img
+          src="./assets/home/anadirMiembro.svg"
+          class="icon"
+          alt="Ubicacion"
+        />
+        <p class="text-black py-4">Añade nuevos miembros a tu Organización</p>
+        <button
+          type="submit"
+          class="boton btn px-4 mx-auto"
+          style="background-color: #134e6f"
+          (click)="getMembers()"
+        >
+          Registrar usuarios
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

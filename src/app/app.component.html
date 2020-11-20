@@ -1,0 +1,43 @@
+<div class="page-wrapper">
+  <div
+    *ngIf="this.structureService.org.length != 0"
+    class="sticky-header d-flex align-items-center"
+  >
+    <button type="submit" class="btn mr-auto">
+      <img
+        src="../assets/logo.svg"
+        style="transform: scale(0.5)"
+        class="icon pl-2"
+        (click)="goHome()"
+      />
+      Surfy
+    </button>
+    <button type="submit" class="btn p-2 m-2" (click)="orgInfo()">
+      <span class="fa fa-briefcase" style="color: #ff6150"></span> Organización
+    </button>
+    <button type="submit" class="btn p-2 m-2" (click)="signOut()">
+      <span class="fa fa-sign-out" style="color: #ff6150"></span> Sign Out
+    </button>
+  </div>
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="bg">
+        <div class="bg-color">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <footer class="py-4">
+        <div class="row">
+          <div class="col-md-3 center"><a (click)="goEasterEgg()">Acerca de nosotros</a></div>
+          <div class="col-md-3 center">
+            <a href="/#">Politica de Privacidad</a>
+          </div>
+          <div class="col-md-3 center"><a href="/#">Desarrolladores</a></div>
+          <div class="col-md-3 center"><a href="/#">© 2020 Surfy.Inc</a></div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

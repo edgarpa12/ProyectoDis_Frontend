@@ -1,0 +1,16 @@
+.boton{
+    background-color: #134e6f
+}
+
+.scrollable{
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+i:hover{
+    transform: scale(1);
+}
+
+.element button:hover {
+    transform: scale(1);
+}

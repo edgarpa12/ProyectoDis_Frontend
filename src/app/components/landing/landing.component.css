@@ -1,0 +1,26 @@
+.left-panel {
+    background-image: url("../../../assets/team.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.left-panel-color {
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.right-panel {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.icon {
+    size: 4rem;
+    margin-right: 15px;
+}

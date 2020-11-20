@@ -1,0 +1,12 @@
+.scrollable{
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+.disabled{
+    visibility: hidden;
+    display: none;
+    height: 0px;
+    width: 0px;
+}
+

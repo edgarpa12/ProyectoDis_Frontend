@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Panel Izquierdo -->
+
+    <div class="col-sm-5 left-panel">
+      <div class="row align-items-center">
+        <div class="col-sm-8 d-flex mx-auto">
+          <img src="./assets/landing/grupos.svg" class="icon" alt="Nadaremos" />
+          <p class="text-white">
+            Organiza las diferentes ramas de tu movimiento
+          </p>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-sm-8 d-flex mx-auto">
+          <img
+            src="./assets/landing/organizador.svg"
+            class="icon"
+            alt="Ubicacion"
+          />
+          <p class="text-white">Asignar miembros nunca habia sido tan fácil</p>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-sm-8 d-flex mx-auto">
+          <img
+            src="./assets/landing/profesor.svg"
+            class="icon"
+            alt="Profesor"
+          />
+          <p class="text-white">Asigna los líderes de las diferentes ámbitos</p>
+        </div>
+      </div>
+    </div>
+    <!-- End Panel Izquierdo -->
+    <!-- Panel Derecho -->
+    <div class="col-sm-7 right-panel">
+      <div class="row w-100">
+        <div class="col-sm-12 d-flex mx-auto justify-content-around">
+          <!-- Form de Login -->
+          <form
+            class="blue-form form-inline align-self-start mt-4"
+            [formGroup]="memberService.formSignIn"
+          >
+            <div class="form-group mx-sm-3 mb-2">
+              <div class="row">
+                <input
+                  type="email"
+                  class="form-control px-3 pt-2"
+                  formControlName="email"
+                />
+                <img
+                  src="./assets/landing/placeholder.svg"
+                  class="placeholder-bg"
+                />
+                <p
+                  class="placeholder-text"
+                  style="margin-left: 30px !important"
+                >
+                  <span class="fa fa-user"></span> Email
+                </p>
+              </div>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <div class="row">
+                <input
+                  type="password"
+                  class="form-control px-3 pt-2"
+                  formControlName="password"
+                />
+                <img
+                  src="./assets/landing/placeholder.svg"
+                  class="placeholder-bg"
+                />
+                <p class="placeholder-text">
+                  <span class="fa fa-lock"></span> Contraseña
+                </p>
+              </div>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <button
+                type="submit"
+                class="boton btn px-4"
+                style="background-color: #134e6f"
+                (click)="signIn()"
+              >
+                <span class="fa fa-sign-in" style="color: #60e2e7"></span>
+                Iniciar Sesion
+              </button>
+            </div>
+            <div *ngIf="mensaje != ''">
+              <p style="color: red">{{ mensaje }}</p>
+            </div>
+          </form>
+          <!-- Fin Form de Login -->
+        </div>
+      </div>
+      <div class="row w-100" style="margin-top: -50px !important">
+        <div class="d-flex col-sm-8 mx-auto flex-wrap">
+          <img
+            src="./assets/logo.svg"
+            class="icon align-self-start my-auto ml-4"
+            alt="Nadaremos"
+          />
+          <p class="text-black">
+            “Desde que empece a usar Surfy, puedo controlar mi organización más
+            eficazmente”<br />
+            -Duke Kahanamoku
+          </p>
+        </div>
+      </div>
+      <div class="row w-100">
+        <div class="d-flex col-sm-8 mx-auto flex-column">
+          <p class="text-black my-4">Unete a Surfy ahora mismo</p>
+          <button
+            type="submit"
+            class="boton btn mx-auto mt-4 px-4"
+            style="background-color: #ffa822"
+            (click)="signUp()"
+          >
+            Registrarse Ahora
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Fin Panel Derecho -->
+  </div>
+</div>

@@ -1,0 +1,225 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-page">
+        <div class="card-body">
+          <div class="row d-flex my-3">
+            <button class="btn mr-4" (click)="goBack()">
+              <i
+                class="fa fa-arrow-circle-left fa-3x"
+                style="color: #134e6f"
+              ></i>
+            </button>
+            <h1 class="text-black">Miembros disponibles</h1>
+          </div>
+          <!--create button , search-->
+          <div class="row">
+            <div class="col-md-5 col-sm-5 my-2">
+              <button
+                class="boton btn px-4 d-flex justify-content-between align-items-center"
+                style="width: 100%; background-color: #134e6f"
+                role="button"
+                data-toggle="modal"
+                href="#member"
+                (click)="addMember()"
+              >
+                <i class="fa fa-plus"></i>
+                Crear
+              </button>
+            </div>
+          </div>
+          <!--row-->
+
+          <!--ELEMENTS-->
+          <div class="row my-1 scrollable">
+            <div
+              class="col-md-10 col-sm-10 my-1"
+              *ngFor="let member of memberService.memberList"
+            >
+              <div class="element">
+                <div
+                  class="row d-flex justify-content-between align-items-center"
+                >
+                  <div
+                    class="col-sm-4 col-md-4 px-4"
+                    (click)="getMemberInfo(member)"
+                  >
+                    <span>{{ member.name }}</span>
+                  </div>
+                  <div
+                    class="col-sm-8 col-md-8 d-flex px-4 justify-content-end"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-labeled btn-primary mx-1 my-2"
+                      (click)="editMember(member)"
+                      role="button"
+                      data-toggle="modal"
+                      href="#member"
+                    >
+                      <span class="btn-label"><i class="fa fa-pencil"></i></span
+                      >Editar
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn btn-labeled btn-danger mx-2 my-2"
+                      (click)="deleteMemberAux(member)"
+                      role="button"
+                      data-toggle="modal"
+                      href="#confirm"
+                    >
+                      <span class="btn-label"><i class="fa fa-trash"></i></span
+                      >Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EDIT-->
+<div
+  class="modal fade"
+  id="member"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Miembro</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="blue-form align-self-start mx-5"
+          [formGroup]="memberService.formMiembro"
+        >
+          <div class="form-group my-4" style="width: 100%">
+            <div class="row" style="width: 100%">
+              <input type="text" class="form-control" formControlName="name" />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+              />
+              <p class="placeholder-text" style="margin-left: 30px !important">
+                <span class="fa fa-user"></span> Nombre
+              </p>
+            </div>
+          </div>
+          <div class="form-group my-4" style="width: 100%">
+            <div class="row" style="width: 100%">
+              <input type="text" class="form-control" formControlName="phone" />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+              />
+              <p class="placeholder-text" style="margin-left: 30px !important">
+                <span class="fa fa-phone"></span> Telefono
+              </p>
+            </div>
+          </div>
+          <div class="form-group my-4" style="width: 100%">
+            <div class="row" style="width: 100%">
+              <input type="text" class="form-control" formControlName="email" />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+              />
+              <p class="placeholder-text" style="margin-left: 30px !important">
+                <span class="fa fa-envelope"></span> Email
+              </p>
+            </div>
+          </div>
+          <div class="form-group my-4" style="width: 100%">
+            <div class="row" style="width: 100%">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="direction"
+              />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+              />
+              <p class="placeholder-text" style="margin-left: 30px !important">
+                <span class="fa fa-location-arrow"></span> Direccion
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="boton btn btn-success px-4"
+          (click)="confirmEditMember()"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="boton btn btn-danger px-4"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE-->
+<div
+  class="modal fade"
+  id="confirm"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">
+          ¿Está seguro de que quiere eliminar este miembro?
+        </h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="boton btn btn-success px-4"
+          (click)="deleteMember()"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-check"></i>
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="boton btn btn-danger px-4"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 my-5">
+      <div class="card px-5 py-4 d-flex justify-content-start">
+        <div class="row mx-2">
+          <button class="btn my-3 mr-4" (click)="goBack()">
+            <i class="fa fa-arrow-circle-left fa-3x" style="color: #134e6f"></i>
+          </button>
+          <h1 class="align-text-center my-3">Catálogo de Ramas</h1>
+        </div>
+        <div class="row">
+          <div class="col-md-5 col-sm-5 my-2">
+            <button
+              class="boton btn px-4 d-flex justify-content-between align-items-center"
+              style="width: 100%; background-color: #134e6f"
+              role="button"
+              data-toggle="modal"
+              href="#branch"
+              (click)="addDefaultBranch()"
+            >
+              <i class="fa fa-plus"></i>
+              Crear
+            </button>
+          </div>
+        </div>
+        <!--ELEMENTS-->
+        <div class="row my-1 scrollable">
+          <div
+            class="col-md-10 col-sm-10 my-1"
+            *ngFor="let branch of structService.org[10]"
+          >
+            <div class="element">
+              <div
+                class="row d-flex justify-content-between align-items-center"
+              >
+                <div class="col-sm-4 col-md-4 px-4">
+                  <span>{{ branch }}</span>
+                </div>
+                <div class="col-sm-8 col-md-8 d-flex px-4 justify-content-end">
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-primary mx-1 my-2"
+                    (click)="editDefaultBranch(branch)"
+                    role="button"
+                    data-toggle="modal"
+                    href="#branch"
+                  >
+                    <span class="btn-label"><i class="fa fa-pencil"></i></span
+                    >Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-danger mx-2 my-2"
+                    (click)="deleteDefaultBranchAux(branch)"
+                    role="button"
+                    data-toggle="modal"
+                    href="#confirm"
+                  >
+                    <span class="btn-label"><i class="fa fa-trash"></i></span
+                    >Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--CREATE-->
+<div
+  class="modal fade"
+  id="branch"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Crear Rama de Catalogo</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="blue-form form-inline align-self-start my-2 mx-5"
+          [formGroup]="structService.formStructure"
+        >
+          <div class="form-group" style="width: 100%">
+            <div class="row" style="width: 100%">
+              <input type="text" class="form-control" formControlName="name" />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+              />
+              <p class="placeholder-text" style="margin-left: 30px !important">
+                <span class="fa fa-user"></span> Nombre
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <p class="error" *ngIf="structService.msg != ''">
+          {{ structService.msg }}
+        </p>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="boton btn btn-success px-4"
+          (click)="aeDefaultBranch()"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="boton btn btn-danger px-4"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--DELETE-->
+<div
+  class="modal fade"
+  id="confirm"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>
+          ¿Estas seguro de que quieres eliminar esta rama de toda la
+          organización?
+        </h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="boton btn btn-success px-4"
+          (click)="deleteDefaultBranch()"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-check"></i>
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="boton btn btn-danger px-4"
+          data-dismiss="modal"
+        >
+          <i class="fa fa-times"></i>
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

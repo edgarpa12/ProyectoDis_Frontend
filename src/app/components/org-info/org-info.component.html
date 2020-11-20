@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 my-5">
+      <div class="card px-5 py-4 d-flex justify-content-start">
+        <div class="row mx-2">
+          <button class="btn my-3 mr-4" (click)="goBack()">
+            <i class="fa fa-arrow-circle-left fa-3x" style="color: #134e6f"></i>
+          </button>
+          <h1 class="align-text-center my-3">
+            {{ structureService.org[1] }}
+          </h1>
+        </div>
+        <div class="card row d-flex my-4">
+          <h3 class="d-flex justify-content-center">Información</h3>
+          <div class="col-md-6 d-flex flex-column">
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-user"></i><b> Email: </b></span>
+              <span>{{ structureService.org[8] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-lock"></i><b> Contraseña: </b></span>
+              <span>{{ structureService.org[9] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-wifi"></i><b> Web: </b></span>
+              <span>{{ structureService.org[3] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-image"></i><b> Logo: </b></span>
+              <span>{{ structureService.org[6] }}</span>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-phone"></i><b> Teléfono: </b></span>
+              <span>{{ structureService.org[5] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-file"></i><b> Certificado Legal: </b></span>
+              <span>{{ structureService.org[2] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-globe"></i><b> Pais: </b></span>
+              <span>{{ structureService.org[7] }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span
+                ><i class="fa fa-location-arrow"></i><b> Dirección: </b></span
+              >
+              <span>{{ structureService.org[4] }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
