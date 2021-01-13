@@ -26,6 +26,10 @@ export class GroupInfoComponent implements OnInit {
     this.structService.getType();
   }
 
+  goBack() {
+    this.location.back()
+  }
+
   addMemberAux() {
     this.memberService.getMembers()
   }

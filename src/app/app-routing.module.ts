@@ -18,6 +18,7 @@ import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
 import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
 import { MemberMenuComponent } from './components/memberMenu/membermenu.component';
 import { GroupInfoComponent } from './components/groupinfo/groupinfo.component';
+import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'inboxCCG', component: InboxCCGComponent },
   { path: 'inboxNews', component: InboxNewsComponent },
   { path: 'memberMenu', component: MemberMenuComponent },
-  { path: 'groupInfo', component: GroupInfoComponent }
+  { path: 'groupInfo', component: GroupInfoComponent },
+  { path: 'bossMenu', component: BossMenuComponent }
 ];
 
 @NgModule({
