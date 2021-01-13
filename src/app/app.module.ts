@@ -18,7 +18,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrgInfoComponent } from './components/org-info/org-info.component';
 import { BranchCatalogueComponent } from './components/branch-catalogue/branch-catalogue.component';
 import { EasterEggComponent } from './components/easter-egg/easter-egg.component';
-
+import { SendNewsComponent } from './components/sendNews/sendnews.component';
+import { SendCCGComponent } from './components/sendCCG/sendccg.component';
+import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
+import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
 
 
 @NgModule({
@@ -35,7 +38,11 @@ import { EasterEggComponent } from './components/easter-egg/easter-egg.component
     MemberCrudComponent,
     OrgInfoComponent,
     EasterEggComponent,
-    BranchCatalogueComponent
+    BranchCatalogueComponent,
+    SendNewsComponent,
+    SendCCGComponent,
+    InboxCCGComponent,
+    InboxNewsComponent
   ],
   imports: [
     BrowserModule,

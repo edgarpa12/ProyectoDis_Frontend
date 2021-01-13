@@ -12,6 +12,10 @@ import { MemberCrudComponent } from './components/member-crud/member-crud.compon
 import { OrgInfoComponent } from './components/org-info/org-info.component';
 import { EasterEggComponent } from './components/easter-egg/easter-egg.component';
 import { BranchCatalogueComponent } from './components/branch-catalogue/branch-catalogue.component';
+import { SendNewsComponent } from './components/sendNews/sendnews.component';
+import { SendCCGComponent } from './components/sendCCG/sendccg.component';
+import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
+import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -25,7 +29,11 @@ const routes: Routes = [
   { path: 'info', component: StructureInfoComponent },
   { path: 'orgInfo', component: OrgInfoComponent },
   { path: 'branchCatalogue', component: BranchCatalogueComponent },
-  { path: 'easterEgg', component: EasterEggComponent }
+  { path: 'easterEgg', component: EasterEggComponent },
+  { path: 'sendNews', component: SendNewsComponent },
+  { path: 'sendCCG', component: SendCCGComponent },
+  { path: 'inboxCCG', component: InboxCCGComponent },
+  { path: 'inboxNews', component: InboxNewsComponent }
 ];
 
 @NgModule({
