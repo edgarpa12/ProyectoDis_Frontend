@@ -19,6 +19,9 @@ import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
 import { MemberMenuComponent } from './components/memberMenu/membermenu.component';
 import { GroupInfoComponent } from './components/groupinfo/groupinfo.component';
 import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
+import { ShowNewComponent } from './components/showNew/shownews.component';
+import { ShowCCGComponent } from './components/showCCG/showccg.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -39,7 +42,9 @@ const routes: Routes = [
   { path: 'inboxNews', component: InboxNewsComponent },
   { path: 'memberMenu', component: MemberMenuComponent },
   { path: 'groupInfo', component: GroupInfoComponent },
-  { path: 'bossMenu', component: BossMenuComponent }
+  { path: 'bossMenu', component: BossMenuComponent },
+  { path: 'showNew', component: ShowNewComponent },
+  { path: 'showCCG', component: ShowCCGComponent }
 ];
 
 @NgModule({

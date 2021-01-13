@@ -1,0 +1,89 @@
+
+nav{
+    height: 12%;
+}
+
+.modal-title{
+    text-align: center;
+}
+
+.scrollable{
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.error{
+    font-size: 1rem;
+    float: right;
+    margin-right: 50px;
+    margin-top: 10px;
+    color: red;
+}
+
+p{
+    font-size: 20px;
+}
+
+label{
+    font-size: 20px;
+}
+
+.textarea1{
+    border-radius: 10px;
+    
+}
+
+input[type="file"] {
+    display: none;
+
+}
+.custom-file-upload {
+    border-radius: 10px;
+    background-color: #FFA822;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 100% !important;
+    width: 70% !important;
+}
+
+.btnSend{
+    border-radius: 10px;
+    background-color: #1AC0C6;
+    border-color: transparent;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 100% !important;
+    width: 15% !important;
+}
+.containerInbox{
+    background: #F5F5F5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.cardCCG{
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+}
+
+p{
+    color: #a5a5a5 !important;
+    font-size: 20px !important;
+}
+
+a{
+    font-size: 25px !important;
+}
+
+.colorA{
+    color: #e73535 !important;
+    font-size: 20px !important;
+}
+

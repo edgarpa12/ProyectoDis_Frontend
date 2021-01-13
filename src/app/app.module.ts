@@ -25,6 +25,8 @@ import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
 import { MemberMenuComponent } from './components/memberMenu/membermenu.component';
 import { GroupInfoComponent } from './components/groupinfo/groupinfo.component';
 import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
+import { ShowNewComponent } from './components/showNew/shownews.component';
+import { ShowCCGComponent } from './components/showCCG/showccg.component';
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
     InboxNewsComponent,
     MemberMenuComponent,
     GroupInfoComponent,
-    BossMenuComponent
+    BossMenuComponent,
+    ShowNewComponent,
+    ShowCCGComponent
   ],
   imports: [
     BrowserModule,
