@@ -7,53 +7,27 @@
     <div class="col-md-12">
       <div class="card-page">
         <div class="card-body">
-          <div class="row">
-            <button class="btn my-3 mr-4" (click)="goBack()">
-              <i
-                class="fa fa-arrow-circle-left fa-3x"
-                style="color: #134e6f"
-              ></i>
-            </button>
-            <h3 class="my-4">Navega a traves de tu organización</h3>
-          </div>
-          <div class="row" style="text-align: center">
-            <div class="col-md-6 divider">
-              <span>Zonas</span>
-              <div class="col-md-12">
-                <img
-                  src="../../../assets/menu/zone.svg"
-                  class="responsive mb-2"
-                />
-              </div>
-              <div class="col-md-12">
-                <button
-                  class="boton btn px-4 mt-4"
-                  style="background-color: #1ac0c6; margin-bottom: 10%"
-                  (click)="goZones()"
-                >
-                  Ir a Zonas
-                </button>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <span>Ramas</span>
-              <div class="col-md-12">
-                <img
-                  src="../../../assets/menu/branch.svg"
-                  class="responsive mb-2"
-                />
-              </div>
-              <div class="col-md-12">
-                <button
-                  class="boton btn px-4 mt-4"
-                  style="background-color: #134e6f; margin-bottom: 10%"
-                  (click)="goBranchCatalogue()"
-                >
-                  Ir a Ramas
-                </button>
-              </div>
+          <div class="row d-flex">
+            <div class="col-md-12 d-flex justify-content-center">
+              <h3 class="my-4">Menu de miembros</h3>
             </div>
           </div>
+          <div class="row d-flex my-5">
+                <div class="col-md-6 d-flex justify-content-center">
+                  <button class="btn btnLeft" (click)="verIntegrantes()">Ver integrantes</button>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  <button class="btn btnRight" (click)="verDatos()">Datos propios</button>
+                </div>
+          </div>
+          <div class="row d-flex my-5">
+            <div class="col-md-6 d-flex justify-content-center">
+              <button class="btn btnLeft" (click)="enviarCCG()">Enviar aporte</button>
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+              <button class="btn btnRight" (click)="verNews()">Ver notificaciones</button>
+            </div>
+      </div>
         </div>
       </div>
     </div>

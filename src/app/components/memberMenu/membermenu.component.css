@@ -5,7 +5,8 @@
 }
 
 .divider {
-    border-right: 3px solid #FFA822;
+    border-left: 3px solid #FFA822;
+    height: 100%;
 }
 
 @media screen and (max-width: 830px)  {
@@ -15,7 +16,7 @@
         margin-top: 5%;
     }
     .card-page{
-        height: auto;
+        height: 100%;
     }
 }
 
@@ -24,11 +25,24 @@
         display: none;
     }
     .card-page{
-        height: auto;
+        height: 100%;
     }
     .boton{
         height: 10%;
     }
 }
 
+.btnLeft{
+    background: #1AC0C6;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: white;
+}
+
+.btnRight{
+    background: #FF6150;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: white;
+}
 

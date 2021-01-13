@@ -1,43 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StructureService } from 'src/app/services/structure.service';
+import { MemberService } from 'src/app/services/member.service';
+
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-org-menu',
-  templateUrl: './org-menu.component.html',
-  styleUrls: ['./org-menu.component.css']
+  selector: 'app-membermenu',
+  templateUrl: './membermenu.component.html',
+  styleUrls: ['./membermenu.component.css']
 })
-export class OrgMenuComponent implements OnInit {
+export class MemberMenuComponent implements OnInit {
 
   constructor(
     public router: Router,
+    public location: Location,
+    public memberService: MemberService,
     public structService: StructureService,
-    public location: Location
   ) { }
 
-  ngOnInit() {
-    this.structService.structureFlow = [];
-    this.structService.setFlow();
-    this.structService.getOrg();
+  async ngOnInit() {
+    
   }
 
-  goZones() {
-    this.structService.setID(this.structService.org[0]);
-    this.onStructure('zone');
+  verIntegrantes(){
+    this.router.navigate(['/groupInfo'])
   }
 
-  onStructure(type: String) {
-    this.structService.setType(type);
-    this.router.navigate(['/manager']);
+  verDatos(member){
+    this.memberService.member = member;
+    this.router.navigate(['/memberInfo'])
   }
 
-  goBranchCatalogue() {
-    this.router.navigate(['/branchCatalogue']);
+  enviarCCG(member){
+    this.memberService.member = member;
+    this.router.navigate(['/sendCCG'])
   }
 
-  goBack() {
-    this.router.navigate(['/home']);
+  verNews(member){
+    this.memberService.member = member;
+    this.router.navigate(['/inboxNews'])
   }
 
 }

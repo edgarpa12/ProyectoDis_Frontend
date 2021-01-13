@@ -16,7 +16,7 @@ export class SendCCGComponent implements OnInit{
   }
 
   goBack() {
-    this.router.navigate(['/home'])
+    this.location.back()
   }
 
 }
