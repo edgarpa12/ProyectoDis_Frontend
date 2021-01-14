@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StructureService } from 'src/app/services/structure.service';
-import { MemberService } from 'src/app/services/member.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {StructureService} from 'src/app/services/structure.service';
+import {MemberService} from 'src/app/services/member.service';
 
-import { Location } from '@angular/common';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-bossmenu',
@@ -17,41 +17,42 @@ export class BossMenuComponent implements OnInit {
     public location: Location,
     public memberService: MemberService,
     public structService: StructureService,
-  ) { }
+  ) {
+  }
 
   async ngOnInit() {
-    
+
   }
 
-  verIntegrantes(){
-    this.router.navigate(['/groupInfo'])
+  verIntegrantes() {
+    this.router.navigate(['/groupInfo']);
   }
 
-  verDatos(member){
+  verDatos(member) {
     this.memberService.member = member;
-    this.router.navigate(['/memberInfo'])
+    this.router.navigate(['/memberInfo']);
   }
 
-  enviarCCG(member){
+  enviarCCG(member) {
     this.memberService.member = member;
-    this.router.navigate(['/sendCCG'])
+    this.router.navigate(['/sendCCG']);
   }
 
-  verNews(member){
+  verNews(member) {
     this.memberService.member = member;
-    this.router.navigate(['/inboxNews'])
+    this.router.navigate(['/inboxNews']);
   }
 
-  verGruposACargo(){
-
-  }
-
-  verDatosZonasRamas(){
+  verGruposACargo() {
 
   }
 
-  verNodo(){
-    
+  verDatosZonasRamas() {
+
+  }
+
+  verNodo() {
+
   }
 
 }

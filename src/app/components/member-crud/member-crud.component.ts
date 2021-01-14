@@ -1,7 +1,7 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MemberService } from 'src/app/services/member.service';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {MemberService} from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-member-crud',
@@ -10,25 +10,26 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class MemberCrudComponent implements OnInit {
 
-  constructor(public memberService: MemberService, public router: Router, public location: Location) { }
+  constructor(public memberService: MemberService, public router: Router, public location: Location) {
+  }
 
   selected;
 
   ngOnInit() {
-    this.memberService.getMembers()
+    this.memberService.getMembers();
   }
 
   getMemberInfo(member) {
     this.memberService.member = member;
-    this.router.navigate(['/memberInfo'])
+    this.router.navigate(['/memberInfo']);
   }
 
   addMember() {
-    this.router.navigate(['/addMember'])
+    this.router.navigate(['/addMember']);
   }
 
   goBack() {
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
 
   deleteMemberAux(member) {
@@ -40,12 +41,12 @@ export class MemberCrudComponent implements OnInit {
   }
 
   editMember(member) {
-    this.selected = member
-    this.memberService.setFormMiembro()
+    this.selected = member;
+    this.memberService.setFormMiembro();
   }
 
   confirmEditMember() {
-    this.memberService.editMember(this.selected)
+    this.memberService.editMember(this.selected);
   }
 
 }

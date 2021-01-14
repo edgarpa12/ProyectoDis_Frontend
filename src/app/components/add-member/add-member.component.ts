@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MemberService } from 'src/app/services/member.service';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {MemberService} from 'src/app/services/member.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-add-member',
@@ -10,22 +10,25 @@ import { Location } from '@angular/common';
 })
 export class AddMemberComponent implements OnInit {
 
-  constructor(public router: Router, public memberService: MemberService, public location: Location) { }
+  constructor(public router: Router, public memberService: MemberService, public location: Location) {
+  }
 
   ngOnInit() {
   }
 
   createMember() {
-    this.memberService.createMember();
-    this.memberService.setFormMiembro();
-    this.router.navigate(['/memberCrud'])
+
+    if (this.memberService.createMember()) {
+      this.memberService.setFormMiembro();
+      this.router.navigate(['/memberCrud']);
+    }
+    alert(this.memberService.msg);
   }
 
   goBack() {
     this.memberService.setFormMiembro();
     this.router.navigate(['/memberCrud']);
   }
-
 
 
 }

@@ -1,30 +1,32 @@
-import { Injectable } from '@angular/core';
-import { environment } from "../../environments/environment.prod";
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { StructureService } from './structure.service';
+import {Injectable} from '@angular/core';
+import {environment} from '../../environments/environment.prod';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {StructureService} from './structure.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
 
-  constructor(public http: HttpClient, public structService: StructureService) { }
+  constructor(public http: HttpClient, public structService: StructureService) {
+  }
 
-  uriOrganization = environment.uri + "/auth";
-  uriMember = environment.uri + "/member";
-  organizationId: String = '';
+  uriOrganization = environment.uri + '/auth';
+  uriMember = environment.uri + '/member';
+  organizationId = '';
   memberList: any;
   member: any;
-  msg: any = "";
+  msg: any = '';
+  approved: boolean;
 
-  //Form estructura
+  // Form estructura
   formSignIn: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
 
-  //Form organizacion
+  // Form organizacion
   formOrganization: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     legalCertificate: new FormControl('', Validators.required),
@@ -37,7 +39,7 @@ export class MemberService {
     password: new FormControl('', Validators.required)
   });
 
-  //Form miembro
+  // Form miembro
   formMiembro: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
@@ -48,103 +50,105 @@ export class MemberService {
 
   // Hace signIn
   signIn() {
-    var obj = {
-      email: this.formSignIn.controls['email'].value,
-      password: this.formSignIn.controls['password'].value
-    }
-    return this.http.post(this.uriOrganization + '/signin', obj)
+    const obj = {
+      email: this.formSignIn.controls.email.value,
+      password: this.formSignIn.controls.password.value
+    };
+    return this.http.post(this.uriOrganization + '/signin', obj);
   }
 
   // Registra una nueva organizacion
   signUp() {
-    var obj = {
-      name: this.formOrganization.controls['name'].value,
-      legalCertificate: this.formOrganization.controls['legalCertificate'].value,
-      web: this.formOrganization.controls['web'].value,
-      direction: this.formOrganization.controls['direction'].value,
-      phone: this.formOrganization.controls['phone'].value,
-      logoName: this.formOrganization.controls['logoName'].value,
-      country: this.formOrganization.controls['country'].value,
-      email: this.formOrganization.controls['email'].value,
-      password: this.formOrganization.controls['password'].value
-    }
+    const obj = {
+      name: this.formOrganization.controls.name.value,
+      legalCertificate: this.formOrganization.controls.legalCertificate.value,
+      web: this.formOrganization.controls.web.value,
+      direction: this.formOrganization.controls.direction.value,
+      phone: this.formOrganization.controls.phone.value,
+      logoName: this.formOrganization.controls.logoName.value,
+      country: this.formOrganization.controls.country.value,
+      email: this.formOrganization.controls.email.value,
+      password: this.formOrganization.controls.password.value
+    };
 
     return this.http.post(this.uriOrganization + '/signup', obj).subscribe(response => {
-      this.setFormOrganizacion()
-    })
+      this.setFormOrganizacion();
+    });
   }
 
   signOut() {
     this.http.get(this.uriOrganization + '/signout').subscribe(response => {
-      return response
-    })
+      return response;
+    });
   }
 
   // Consigue la info de un miembro en especifico
-  getMemberInfo(id: String) {
+  getMemberInfo(id: string) {
     const obj = {
-      id: id
-    }
+      id
+    };
     this.http.post(this.uriMember + '/getMember', obj).subscribe(response => {
       this.member = response;
-    })
+    });
   }
 
   // Edita la info de un miembro
   editMember(member) {
-    let data = member
-    data.name = this.formMiembro.controls['name'].value;
-    data.direction = this.formMiembro.controls['direction'].value;
-    data.phone = this.formMiembro.controls['phone'].value;
-    data.email = this.formMiembro.controls['email'].value;
-    var obj = {
+    const data = member;
+    data.name = this.formMiembro.controls.name.value;
+    data.direction = this.formMiembro.controls.direction.value;
+    data.phone = this.formMiembro.controls.phone.value;
+    data.email = this.formMiembro.controls.email.value;
+    const obj = {
       id: member.id,
-      data: data
-    }
+      data
+    };
     this.http.put(this.uriMember + '/update', obj).subscribe(response => {
       this.setFormMiembro();
-    })
+    });
   }
 
   // Borra a un miembro
   async deleteMember(member) {
     const obj = {
       id: member.id
-    }
-    await this.http.post(this.uriMember + '/delete', obj).toPromise()
+    };
+    await this.http.post(this.uriMember + '/delete', obj).toPromise();
   }
 
-  //Cambia a un miembro de un grupo
-  changeGroup(idUser: String, idOldGroup: String, idsNewStructure: String[]) {
+  // Cambia a un miembro de un grupo
+  changeGroup(idUser: string, idOldGroup: string, idsNewStructure: string[]) {
     const obj = {
-      idUser: idUser,
-      idOldGroup: idOldGroup,
+      idUser,
+      idOldGroup,
       ids: idsNewStructure
-    }
+    };
     this.http.post(this.uriMember + '/changeGroup', obj).subscribe(response => {
-      this.structService.structuresXMember(idUser)
-    },error => {
-      alert( "Movimiento invalido");
-    }
-    )
+        this.structService.structuresXMember(idUser);
+      }, error => {
+        alert('Movimiento invalido');
+      }
+    );
   }
 
   // Registra a un nuevo miembro
-  createMember() {
-    var obj = {
-      name: this.formMiembro.controls['name'].value,
-      phone: this.formMiembro.controls['phone'].value,
-      email: this.formMiembro.controls['email'].value,
-      direction: this.formMiembro.controls['direction'].value
-    }
-    this.http.post(this.uriMember + '/create', obj).subscribe(response => {
-      if (response['message'] == undefined) {
-        this.msg = ""
-        this.setFormMiembro();
+  async createMember(): Promise<boolean> {
+    const obj = {
+      name: this.formMiembro.controls.name.value,
+      phone: this.formMiembro.controls.phone.value,
+      email: this.formMiembro.controls.email.value,
+      direction: this.formMiembro.controls.direction.value
+    };
+    await this.http.post(this.uriMember + '/create', obj).subscribe(response => {
+      if (response !== 0) {
+        this.msg = 'Usuario agregado de manera exitosa';
+        this.approved = true;
       } else {
-        this.msg = "Ya existe una estructura con este nombre."
+        this.msg = 'Ya existe un miembro con este email.';
+        this.approved = false;
       }
-    })
+    });
+    return this.approved;
   }
 
   // Consigue a todos los miembros
@@ -156,27 +160,25 @@ export class MemberService {
     this.memberList = await this.http.get(this.uriMember + '/getMonitors').toPromise();
   }
 
-  //Limpiar el form
+  // Limpiar el form
   setFormMiembro() {
-    this.formMiembro.controls["name"].setValue("");
-    this.formMiembro.controls["phone"].setValue("");
-    this.formMiembro.controls["email"].setValue("");
-    this.formMiembro.controls["direction"].setValue("");
+    this.formMiembro.controls.name.setValue('');
+    this.formMiembro.controls.phone.setValue('');
+    this.formMiembro.controls.email.setValue('');
+    this.formMiembro.controls.direction.setValue('');
   }
 
   setFormOrganizacion() {
-    this.formMiembro.controls["name"].setValue("");
-    this.formMiembro.controls["phone"].setValue("");
-    this.formMiembro.controls["email"].setValue("");
-    this.formMiembro.controls["direction"].setValue("");
-    this.formMiembro.controls["password"].setValue("");
-    this.formMiembro.controls["web"].setValue("");
-    this.formMiembro.controls["legalCertificate"].setValue("");
-    this.formMiembro.controls["country"].setValue("");
-    this.formMiembro.controls["logoName"].setValue("");
+    this.formMiembro.controls.name.setValue('');
+    this.formMiembro.controls.phone.setValue('');
+    this.formMiembro.controls.email.setValue('');
+    this.formMiembro.controls.direction.setValue('');
+    this.formMiembro.controls.password.setValue('');
+    this.formMiembro.controls.web.setValue('');
+    this.formMiembro.controls.legalCertificate.setValue('');
+    this.formMiembro.controls.country.setValue('');
+    this.formMiembro.controls.logoName.setValue('');
   }
-
-
 
 
 }

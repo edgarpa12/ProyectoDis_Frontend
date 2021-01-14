@@ -26,7 +26,7 @@ import { MemberMenuComponent } from './components/memberMenu/membermenu.componen
 import { GroupInfoComponent } from './components/groupinfo/groupinfo.component';
 import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
 import { ShowNewComponent } from './components/showNew/shownews.component';
-import { ShowCCGComponent } from './components/showCCG/showccg.component';
+import { ShowccgComponent } from './components/showCCG/showccg.component';
 
 
 @NgModule({
@@ -52,7 +52,7 @@ import { ShowCCGComponent } from './components/showCCG/showccg.component';
     GroupInfoComponent,
     BossMenuComponent,
     ShowNewComponent,
-    ShowCCGComponent
+    ShowccgComponent
   ],
   imports: [
     BrowserModule,

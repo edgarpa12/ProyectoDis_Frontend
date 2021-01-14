@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StructureService } from 'src/app/services/structure.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {StructureService} from 'src/app/services/structure.service';
 
 @Component({
   selector: 'app-branch-catalogue',
@@ -9,7 +9,8 @@ import { StructureService } from 'src/app/services/structure.service';
 })
 export class BranchCatalogueComponent implements OnInit {
 
-  constructor(public router: Router, public structService: StructureService) { }
+  constructor(public router: Router, public structService: StructureService) {
+  }
 
   selected;
   action;
@@ -26,17 +27,17 @@ export class BranchCatalogueComponent implements OnInit {
   }
 
   deleteDefaultBranchAux(branch) {
-    this.selected = branch
+    this.selected = branch;
   }
 
   deleteDefaultBranch() {
-    this.structService.deleteDefaultBranch(this.selected)
+    this.structService.deleteDefaultBranch(this.selected);
   }
 
   aeDefaultBranch() {
-    if (this.action == 'Crear') {
+    if (this.action === 'Crear') {
       this.structService.addDefaultBranch();
-    } else if (this.action == 'Editar') {
+    } else if (this.action === 'Editar') {
       this.structService.editDefaultBranch(this.selected);
     }
   }
@@ -46,7 +47,6 @@ export class BranchCatalogueComponent implements OnInit {
     this.selected = branch;
     this.structService.formStructure.controls['name'].setValue(branch);
   }
-
 
 
 }
