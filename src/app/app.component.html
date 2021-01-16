@@ -10,7 +10,7 @@
         class="icon pl-2"
         (click)="goHome()"
       />
-      Surfy
+      {{ structureService.org[1] }}
     </button>
     <button type="submit" class="btn p-2 m-2" (click)="orgInfo()">
       <span class="fa fa-briefcase" style="color: #ff6150"></span> Organización
@@ -30,7 +30,9 @@
     <div class="footer">
       <footer class="py-4">
         <div class="row">
-          <div class="col-md-3 center"><a (click)="goEasterEgg()">Acerca de nosotros</a></div>
+          <div class="col-md-3 center">
+            <a (click)="goEasterEgg()">Acerca de nosotros</a>
+          </div>
           <div class="col-md-3 center">
             <a href="/#">Politica de Privacidad</a>
           </div>

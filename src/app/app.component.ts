@@ -24,7 +24,7 @@ export class AppComponent {
   }
 
   signOut() {
-    this.memberService.signOut;
+    this.memberService.signOut();
     this.structureService.setOrg([]);
     this.router.navigate(['/']);
   }

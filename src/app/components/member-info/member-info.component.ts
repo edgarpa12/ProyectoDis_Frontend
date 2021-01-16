@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MemberService } from 'src/app/services/member.service';
-import { Location } from '@angular/common';
-import { StructureService } from 'src/app/services/structure.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {MemberService} from 'src/app/services/member.service';
+import {Location} from '@angular/common';
+import {StructureService} from 'src/app/services/structure.service';
 
 @Component({
   selector: 'app-member-info',
@@ -11,31 +11,33 @@ import { StructureService } from 'src/app/services/structure.service';
 })
 export class MemberInfoComponent implements OnInit {
 
-  constructor(public router: Router, public memberService: MemberService, public structureService: StructureService, public location: Location) { }
+  constructor(public router: Router, public memberService: MemberService,
+              public structureService: StructureService, public location: Location) {
+  }
 
 
   originSelected = false;
-  origin:any;
+  origin: any;
 
   destinySelected = false;
-  destiny:any;
+  destiny: any;
 
   ngOnInit() {
     this.structureService.structureFlow = [];
     this.structureService.setFlow();
-    this.structureService.structuresXMember(this.memberService.member.id)
+    this.structureService.structuresXMember(this.memberService.member.id);
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
-  clear(){
+  clear() {
     this.originSelected = false;
-    this.origin=null;
+    this.origin = null;
 
     this.destinySelected = false;
-    this.destiny=null;
+    this.destiny = null;
 
     this.structureService.structureFlow = [];
     this.structureService.setFlow();
@@ -43,24 +45,24 @@ export class MemberInfoComponent implements OnInit {
     this.loadZone();
   }
 
-  selectOrigin(structure){
+  selectOrigin(structure) {
     this.origin = structure;
     this.originSelected = true;
   }
 
-  selectDestiny(structure){
+  selectDestiny(structure) {
     this.destiny = structure;
     this.destinySelected = true;
-    console.log(this.structureService.structureFlow)
+    console.log(this.structureService.structureFlow);
     this.structureService.structureFlow.push(structure);
-    var type = this.structureService.type;
-    if (type == 'zone') {
+    const type = this.structureService.type;
+    if (type === 'zone') {
       this.structureService.setFlow();
       this.changeCategory();
     }
   }
 
-  loadZone(){
+  loadZone() {
     this.structureService.getOrg();
     this.structureService.setID(this.structureService.org[0]);
     this.structureService.setType('zone');
@@ -68,17 +70,16 @@ export class MemberInfoComponent implements OnInit {
   }
 
   changeCategory() {
-    var type = this.structureService.type;
-    if (type == 'zone') {
-      this.structureService.setType('branch')
-    }
-    else if (type == 'branch') {
-      this.structureService.setType('group')
+    const type = this.structureService.type;
+    if (type === 'zone') {
+      this.structureService.setType('branch');
+    } else if (type === 'branch') {
+      this.structureService.setType('group');
     }
   }
 
   goStructure(structure) {
-    if (this.structureService.type != 'group') {
+    if (this.structureService.type !== 'group') {
       this.structureService.structureFlow.push(structure);
       this.structureService.setFlow();
       this.changeCategory();
@@ -86,8 +87,8 @@ export class MemberInfoComponent implements OnInit {
     }
   }
 
-  changeGroup(){
-    this.memberService.changeGroup(this.memberService.member.id, this.origin.id, this.structureService.getIds())
+  changeGroup() {
+    this.memberService.changeGroup(this.memberService.member.id, this.origin.id, this.structureService.getIds());
   }
 
 }

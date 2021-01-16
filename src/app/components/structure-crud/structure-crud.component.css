@@ -28,6 +28,10 @@ nav{
     transform: scale(1);
 }
 
+.noHover {
+    cursor: default;
+}
+
 .break {
     flex-basis: 100%;
     height: 0;
@@ -73,3 +77,8 @@ nav{
     padding: 10px;
     outline: none;
 } */
+
+.buttons-div {
+    background-color: #eee;
+    border-radius: 0 0 10px 10px;
+}

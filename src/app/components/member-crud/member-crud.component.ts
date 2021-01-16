@@ -1,7 +1,7 @@
-import {Location} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MemberService} from 'src/app/services/member.service';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-member-crud',
@@ -15,8 +15,8 @@ export class MemberCrudComponent implements OnInit {
 
   selected;
 
-  ngOnInit() {
-    this.memberService.getMembers();
+  async ngOnInit() {
+    await this.memberService.getMembers();
   }
 
   getMemberInfo(member) {

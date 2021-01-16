@@ -36,11 +36,6 @@ export class StructureService {
     this.formStructure.controls.monitor.setValue('');
   }
 
-  // Asigna un valor al controlador del formulario
-  populateForm(structure) {
-    this.formStructure.setValue(name);
-  }
-
   // Guarda un id en el localstorage y en el servicio
   setID(id) {
     this.structureId = id;

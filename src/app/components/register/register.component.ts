@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MemberService } from 'src/app/services/member.service';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {MemberService} from 'src/app/services/member.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +10,8 @@ import { Location } from '@angular/common';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(public router: Router, public memberService: MemberService, public location: Location) { }
+  constructor(public router: Router, public memberService: MemberService, public location: Location) {
+  }
 
   ngOnInit() {
   }
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
 }

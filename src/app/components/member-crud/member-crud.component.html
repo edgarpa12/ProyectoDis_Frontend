@@ -106,7 +106,12 @@
         >
           <div class="form-group my-4" style="width: 100%">
             <div class="row" style="width: 100%">
-              <input type="text" class="form-control" formControlName="name" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                value="{{ selected.name }}"
+              />
               <img
                 src="./assets/landing/placeholder.svg"
                 class="placeholder-bg"
@@ -118,7 +123,12 @@
           </div>
           <div class="form-group my-4" style="width: 100%">
             <div class="row" style="width: 100%">
-              <input type="text" class="form-control" formControlName="phone" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="phone"
+                value="{{ selected.phone }}"
+              />
               <img
                 src="./assets/landing/placeholder.svg"
                 class="placeholder-bg"
@@ -130,7 +140,12 @@
           </div>
           <div class="form-group my-4" style="width: 100%">
             <div class="row" style="width: 100%">
-              <input type="text" class="form-control" formControlName="email" />
+              <input
+                type="text"
+                class="form-control"
+                formControlName="email"
+                value="{{ selected.email }}"
+              />
               <img
                 src="./assets/landing/placeholder.svg"
                 class="placeholder-bg"
@@ -146,6 +161,7 @@
                 type="text"
                 class="form-control"
                 formControlName="direction"
+                value="{{ selected.direction }}"
               />
               <img
                 src="./assets/landing/placeholder.svg"
@@ -155,6 +171,16 @@
                 <span class="fa fa-location-arrow"></span> Direccion
               </p>
             </div>
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="monitor"
+              formControlName="monitor"
+              [checked]="selected.monitor"
+            />
+            <p class="checkbox-text">Monitor</p>
           </div>
         </form>
       </div>

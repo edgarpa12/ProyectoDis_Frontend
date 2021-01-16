@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { StructureService } from 'src/app/services/structure.service';
 import { Location } from '@angular/common';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-home',
@@ -10,21 +11,25 @@ import { Location } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public router: Router, public structService: StructureService) { }
+  constructor(public router: Router, public structService: StructureService, public memberService: MemberService) {
+  }
 
   ngOnInit() {
+    // this.memberService.getLoggedUser().subscribe(response => {
+    //   this.memberService.loggedUser = response;
+    // }, error => console.log("Error"));
   }
 
   onMenu() {
-    this.router.navigate(['/menu'])
+    this.router.navigate(['/menu']);
   }
 
   getMembers() {
-    this.router.navigate(['/memberCrud'])
+    this.router.navigate(['/memberCrud']);
   }
 
-  onManageOrganization() {
-    this.router.navigate(['/orgInfo'])
+  onSendCCGs() {
+    this.router.navigate(['/sendCCG']);
   }
 
 }

@@ -57,64 +57,70 @@
               *ngFor="let structure of structService.structureList"
             >
               <div class="element noHover">
-                <div
-                  class="row justify-content-between d-flex align-items-center"
-                >
-                  <div class="col-sm-4 col-md-4 mx-3">
-                    <span
-                      >{{ structure.name }} {{ structure.groupNumber }}</span
-                    >
-                  </div>
-                  <div class="col-sm-8-md-8 mx-3">
-                    <button
-                      *ngIf="structService.getType() != 'group'"
-                      type="button"
-                      class="btn btn-labeled btn-warning mx-2 my-2"
-                      style="color: white"
-                      (click)="goStructure(structure)"
-                      role="button"
-                    >
-                      <span class="btn-label"
-                        ><i class="fa fa-sitemap"></i></span
-                      >Jerarquia
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-labeled btn-success mx-2 my-2"
-                      (click)="infoStructure(structure)"
-                      role="button"
-                      data-toggle="modal"
-                      href="#struct"
-                    >
-                      <span class="btn-label"
-                        ><i class="fa fa-info-circle"></i></span
-                      >Ver más
-                    </button>
+                <div class="col-12 px-6 py-3">
+                  <span
+                    >{{ structure.name }}
+                    <small>{{ structure.groupNumber }}</small></span
+                  >
+                </div>
+                <div class="col-12 px-2 buttons-div">
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-info mx-2 my-2"
+                    style="color: white"
+                    (click)="goNews(structure)"
+                    role="button"
+                  >
+                    <span class="btn-label"><i class="fa fa-sitemap"></i></span
+                    >Enviar noticia
+                  </button>
+                  <button
+                    *ngIf="structService.getType() != 'group'"
+                    type="button"
+                    class="btn btn-labeled btn-warning mx-2 my-2"
+                    style="color: white"
+                    (click)="goStructure(structure)"
+                    role="button"
+                  >
+                    <span class="btn-label"><i class="fa fa-sitemap"></i></span
+                    >Jerarquia
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-success mx-2 my-2"
+                    (click)="infoStructure(structure)"
+                    role="button"
+                    data-toggle="modal"
+                    href="#struct"
+                  >
+                    <span class="btn-label"
+                      ><i class="fa fa-info-circle"></i></span
+                    >Ver más
+                  </button>
 
-                    <button
-                      type="button"
-                      class="btn btn-labeled btn-primary mx-2 my-2"
-                      (click)="editStructure(structure)"
-                      role="button"
-                      data-toggle="modal"
-                      href="#struct"
-                    >
-                      <span class="btn-label"><i class="fa fa-pencil"></i></span
-                      >Editar
-                    </button>
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-primary mx-2 my-2"
+                    (click)="editStructure(structure)"
+                    role="button"
+                    data-toggle="modal"
+                    href="#struct"
+                  >
+                    <span class="btn-label"><i class="fa fa-pencil"></i></span
+                    >Editar
+                  </button>
 
-                    <button
-                      type="button"
-                      class="btn btn-labeled btn-danger mx-2 my-2"
-                      (click)="deleteStructureAux(structure._id)"
-                      role="button"
-                      data-toggle="modal"
-                      href="#confirm"
-                    >
-                      <span class="btn-label"><i class="fa fa-trash"></i></span
-                      >Eliminar
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-labeled btn-danger mx-2 my-2"
+                    (click)="deleteStructureAux(structure._id)"
+                    role="button"
+                    data-toggle="modal"
+                    href="#confirm"
+                  >
+                    <span class="btn-label"><i class="fa fa-trash"></i></span
+                    >Eliminar
+                  </button>
                 </div>
               </div>
             </div>
@@ -141,25 +147,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'zone'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'zone'">
           {{ action }} Zona
         </h5>
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'branch'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'branch'">
           {{ action }} Rama
         </h5>
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'group'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'group'">
           {{ action }} Grupo
         </h5>
         <button type="button" class="close" data-dismiss="modal">
@@ -236,8 +230,8 @@
             </div>
           </div>
         </form>
-        <div *ngIf="mensaje != ''">
-          <p style="color: red">{{ mensaje }}</p>
+        <div *ngIf="structService.msg != ''">
+          <p style="color: red">{{ structService.msg }}</p>
         </div>
         <form
           class="blue-form align-self-start mt-4 d-flex justify-content-center"
@@ -253,7 +247,7 @@
                 role="button"
                 data-toggle="modal"
                 href="#monitor"
-                (click)="loadMembers()"
+                (click)="loadMonitors()"
                 data-dismiss="modal"
                 readonly
                 style="background-color: #134e6f; color: white"
@@ -383,25 +377,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'zone'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'zone'">
           ¿Está seguro de que quiere eliminar esta zona?
         </h5>
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'branch'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'branch'">
           ¿Está seguro de que quiere eliminar esta rama?
         </h5>
-        <h5
-          class="modal-title"
-          id="myModalLabel"
-          *ngIf="structService.type == 'group'"
-        >
+        <h5 class="modal-title" *ngIf="structService.type == 'group'">
           ¿Está seguro de que quiere eliminar este grupo?
         </h5>
         <button type="button" class="close" data-dismiss="modal">

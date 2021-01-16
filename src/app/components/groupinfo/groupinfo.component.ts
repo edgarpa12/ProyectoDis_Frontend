@@ -80,21 +80,21 @@ export class GroupInfoComponent implements OnInit {
   }
 
   breadcrumb(type) {
-    if (type == 0) {
+    if (type === 0) {
       this.structService.setID(this.structService.org[0]);
       this.structService.getLevel(this.structService.org[0]);
       this.structService.setType('zone');
       this.structService.structureFlow = [];
       this.structService.setFlow();
       this.router.navigate(['/manager']);
-    } else if (type == 1) {
+    } else if (type === 1) {
       this.structService.setID(this.structService.structureFlow[0]._id);
       this.structService.getLevel(this.structService.structureFlow[0]._id);
       this.structService.setType('branch');
       this.structService.structureFlow = this.structService.structureFlow.slice(0, 1);
       this.structService.setFlow();
       this.router.navigate(['/manager']);
-    } else if (type == 2) {
+    } else if (type === 2) {
       this.structService.setID(this.structService.structureFlow[1]._id);
       this.structService.getLevel(this.structService.structureFlow[1]._id);
       this.structService.setType('group');

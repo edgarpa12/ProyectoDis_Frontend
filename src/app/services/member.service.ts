@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment.prod';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
-import {StructureService} from './structure.service';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.prod';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { StructureService } from './structure.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ export class MemberService {
   constructor(public http: HttpClient, public structService: StructureService) {
   }
 
+
   uriOrganization = environment.uri + '/auth';
   uriMember = environment.uri + '/member';
   organizationId = '';
@@ -19,6 +20,7 @@ export class MemberService {
   member: any;
   msg: any = '';
   approved: boolean;
+  loggedUser: any;
 
   // Form estructura
   formSignIn: FormGroup = new FormGroup({
@@ -44,7 +46,23 @@ export class MemberService {
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    direction: new FormControl('', Validators.required)
+    direction: new FormControl('', Validators.required),
+    monitor: new FormControl(false, Validators.required)
+  });
+
+  // Form CCG
+  formCCG: FormGroup = new FormGroup({
+    from: new FormControl('', Validators.required),
+    body: new FormControl('', Validators.required),
+    type: new FormControl('Petition', Validators.required)
+  });
+
+  // Form News
+  formNews: FormGroup = new FormGroup({
+    from: new FormControl('', Validators.required),
+    to: new FormControl('', Validators.required),
+    body: new FormControl('', Validators.required),
+    images: new FormControl('', Validators.required)
   });
 
 
@@ -55,6 +73,14 @@ export class MemberService {
       password: this.formSignIn.controls.password.value
     };
     return this.http.post(this.uriOrganization + '/signin', obj);
+  }
+
+  getLoggedUser() {
+    const logged = {
+      id: "6001f7421a513b6337f03c6e"
+    };
+
+    return this.http.post(this.uriMember + '/getMember', logged);
   }
 
   // Registra una nueva organizacion
@@ -99,6 +125,7 @@ export class MemberService {
     data.direction = this.formMiembro.controls.direction.value;
     data.phone = this.formMiembro.controls.phone.value;
     data.email = this.formMiembro.controls.email.value;
+    data.monitor = this.formMiembro.controls.monitor.value;
     const obj = {
       id: member.id,
       data
@@ -124,28 +151,31 @@ export class MemberService {
       ids: idsNewStructure
     };
     this.http.post(this.uriMember + '/changeGroup', obj).subscribe(response => {
-        this.structService.structuresXMember(idUser);
-      }, error => {
-        alert('Movimiento invalido');
-      }
+      this.structService.structuresXMember(idUser);
+    }, error => {
+      alert('Movimiento invalido');
+    }
     );
   }
 
   // Registra a un nuevo miembro
-  async createMember(): Promise<boolean> {
+  createMember(): boolean {
     const obj = {
       name: this.formMiembro.controls.name.value,
       phone: this.formMiembro.controls.phone.value,
       email: this.formMiembro.controls.email.value,
-      direction: this.formMiembro.controls.direction.value
+      direction: this.formMiembro.controls.direction.value,
+      monitor: this.formMiembro.controls.monitor.value
     };
-    await this.http.post(this.uriMember + '/create', obj).subscribe(response => {
+    this.http.post(this.uriMember + '/create', obj).subscribe(response => {
       if (response !== 0) {
-        this.msg = 'Usuario agregado de manera exitosa';
+        // this.msg = 'Usuario agregado de manera exitosa';
         this.approved = true;
+        alert('Usuario agregado de manera exitosa');
       } else {
-        this.msg = 'Ya existe un miembro con este email.';
+        // this.msg = 'Ya existe un miembro con este email';
         this.approved = false;
+        alert('Ya existe un miembro con este email');
       }
     });
     return this.approved;
@@ -156,8 +186,21 @@ export class MemberService {
     this.memberList = await this.http.get(this.uriMember + '/getMembers').toPromise();
   }
 
+  // Consigue a todos los miembros
   async getMonitors() {
     this.memberList = await this.http.get(this.uriMember + '/getMonitors').toPromise();
+  }
+
+  sendCCG() {
+    const obj = {
+      from: this.loggedUser.id,
+      body: this.formCCG.controls.body.value,
+      type: this.formCCG.controls.type.value
+    };
+
+    this.http.post(this.uriMember + '/sendCCG', obj).subscribe(response => {
+      alert("CCG mandado exitosamente")
+    }, error => { console.log(error) });
   }
 
   // Limpiar el form
@@ -166,6 +209,7 @@ export class MemberService {
     this.formMiembro.controls.phone.setValue('');
     this.formMiembro.controls.email.setValue('');
     this.formMiembro.controls.direction.setValue('');
+    this.formMiembro.controls.monitor.setValue(false);
   }
 
   setFormOrganizacion() {
@@ -178,6 +222,10 @@ export class MemberService {
     this.formMiembro.controls.legalCertificate.setValue('');
     this.formMiembro.controls.country.setValue('');
     this.formMiembro.controls.logoName.setValue('');
+  }
+
+  setFormCCG() {
+    this.formCCG.controls.body.setValue('');
   }
 
 

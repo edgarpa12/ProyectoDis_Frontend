@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StructureService } from 'src/app/services/structure.service';
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {StructureService} from 'src/app/services/structure.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-org-menu',
@@ -14,7 +14,8 @@ export class OrgMenuComponent implements OnInit {
     public router: Router,
     public structService: StructureService,
     public location: Location
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.structService.structureFlow = [];
@@ -27,7 +28,7 @@ export class OrgMenuComponent implements OnInit {
     this.onStructure('zone');
   }
 
-  onStructure(type: String) {
+  onStructure(type: string) {
     this.structService.setType(type);
     this.router.navigate(['/manager']);
   }
