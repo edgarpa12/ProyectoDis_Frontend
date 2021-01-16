@@ -19,7 +19,6 @@ export class MemberService {
   memberList: any;
   member: any;
   msg: any = '';
-  approved: boolean;
   loggedUser: any;
 
   // Form estructura
@@ -35,6 +34,7 @@ export class MemberService {
     web: new FormControl('', Validators.required),
     direction: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
+    logo: new FormControl(null, Validators.required),
     logoName: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -47,7 +47,7 @@ export class MemberService {
     phone: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     direction: new FormControl('', Validators.required),
-    monitor: new FormControl(false, Validators.required)
+    monitor: new FormControl(false)
   });
 
   // Form CCG
@@ -85,21 +85,49 @@ export class MemberService {
 
   // Registra una nueva organizacion
   signUp() {
-    const obj = {
+    const ceo = {
+      name: this.formMiembro.controls.name.value,
+      phone: this.formMiembro.controls.phone.value,
+      email: this.formMiembro.controls.email.value,
+      direction: this.formMiembro.controls.direction.value,
+      monitor: this.formMiembro.controls.monitor.value
+    };
+
+    const organization = {
       name: this.formOrganization.controls.name.value,
       legalCertificate: this.formOrganization.controls.legalCertificate.value,
       web: this.formOrganization.controls.web.value,
       direction: this.formOrganization.controls.direction.value,
       phone: this.formOrganization.controls.phone.value,
+      logo: this.formOrganization.controls.logo.value,
       logoName: this.formOrganization.controls.logoName.value,
       country: this.formOrganization.controls.country.value,
-      email: this.formOrganization.controls.email.value,
-      password: this.formOrganization.controls.password.value
+      email: this.formOrganization.controls.email.value
     };
 
-    return this.http.post(this.uriOrganization + '/signup', obj).subscribe(response => {
+    const obj = {
+      ceo,
+      organization,
+      logo: organization.logo as File
+    };
+
+    console.log(obj);
+
+    return this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).subscribe(response => {
+      this.setFormMiembro();
       this.setFormOrganizacion();
     });
+  }
+
+  toFormData<T>( formValue: T ) {
+    const formData = new FormData();
+
+    for ( const key of Object.keys(formValue) ) {
+      const value = formValue[key];
+      formData.append(key, value);
+    }
+
+    return formData;
   }
 
   signOut() {
@@ -159,7 +187,7 @@ export class MemberService {
   }
 
   // Registra a un nuevo miembro
-  createMember(): boolean {
+  async createMember(): Promise<boolean> {
     const obj = {
       name: this.formMiembro.controls.name.value,
       phone: this.formMiembro.controls.phone.value,
@@ -167,18 +195,13 @@ export class MemberService {
       direction: this.formMiembro.controls.direction.value,
       monitor: this.formMiembro.controls.monitor.value
     };
-    this.http.post(this.uriMember + '/create', obj).subscribe(response => {
-      if (response !== 0) {
-        // this.msg = 'Usuario agregado de manera exitosa';
-        this.approved = true;
-        alert('Usuario agregado de manera exitosa');
-      } else {
-        // this.msg = 'Ya existe un miembro con este email';
-        this.approved = false;
-        alert('Ya existe un miembro con este email');
-      }
-    });
-    return this.approved;
+    const response = await this.http.post(this.uriMember + '/create', obj).toPromise();
+    if (response !== 0) {
+      this.msg = 'Usuario agregado de manera exitosa';
+      return true;
+    }
+    this.msg = 'Ya existe un miembro con este email';
+    return false;
   }
 
   // Consigue a todos los miembros
@@ -191,16 +214,21 @@ export class MemberService {
     this.memberList = await this.http.get(this.uriMember + '/getMonitors').toPromise();
   }
 
-  sendCCG() {
+  async sendCCG() {
     const obj = {
       from: this.loggedUser.id,
       body: this.formCCG.controls.body.value,
       type: this.formCCG.controls.type.value
     };
 
-    this.http.post(this.uriMember + '/sendCCG', obj).subscribe(response => {
-      alert("CCG mandado exitosamente")
-    }, error => { console.log(error) });
+    await new Promise((resolve, reject) => {
+
+      this.http.post(this.uriMember + '/sendCCG', obj).subscribe(response => {
+        alert('CCG mandado exitosamente');
+        resolve(response);
+      }, error => { console.log(error); reject(error); });
+
+    });
   }
 
   // Limpiar el form

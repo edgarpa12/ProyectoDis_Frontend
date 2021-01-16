@@ -13,7 +13,13 @@ export class MemberCrudComponent implements OnInit {
   constructor(public memberService: MemberService, public router: Router, public location: Location) {
   }
 
-  selected;
+  selected = {
+    name: '',
+    phone: '',
+    direction: '',
+    monitor: false,
+    email: ''
+  };
 
   async ngOnInit() {
     await this.memberService.getMembers();

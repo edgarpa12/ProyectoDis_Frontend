@@ -23,6 +23,7 @@ export class SendCCGComponent implements OnInit {
   sendCCG() {
     if (this.memberService.formCCG.controls.body.value !== '') {
       this.memberService.sendCCG();
+      this.memberService.setFormCCG();
     } else {
       alert('Por favor escribir un mensaje');
     }
