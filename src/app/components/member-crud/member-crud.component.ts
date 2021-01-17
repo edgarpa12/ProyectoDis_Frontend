@@ -49,6 +49,7 @@ export class MemberCrudComponent implements OnInit {
   }
 
   editMember(member) {
+    console.log(member);
     this.selected = member;
   }
 
