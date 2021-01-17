@@ -230,9 +230,9 @@
             </div>
           </div>
         </form>
-        <div *ngIf="structService.msg != ''">
+        <!-- <div *ngIf="structService.msg != ''">
           <p style="color: red">{{ structService.msg }}</p>
-        </div>
+        </div> -->
         <form
           class="blue-form align-self-start mt-4 d-flex justify-content-center"
           [formGroup]="structService.formStructure"
@@ -264,9 +264,7 @@
           </div>
         </form>
 
-        <p class="error" *ngIf="structService.msg != ''">
-          {{ structService.msg }}
-        </p>
+
       </div>
 
       <div class="modal-footer">

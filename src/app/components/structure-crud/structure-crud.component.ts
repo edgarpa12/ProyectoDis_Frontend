@@ -60,16 +60,18 @@ export class StructureCrudComponent implements OnInit {
     this.action = 'Crear';
   }
 
-  aeStructure() {
+  async aeStructure() {
     if (this.action === 'Crear') {
-      this.structService.addStructure();
+      await this.structService.addStructure();
     } else if (this.action === 'Editar') {
-      this.structService.editStructure(this.selected);
+      await this.structService.editStructure(this.selected);
     }
+    alert(this.structService.msg);
   }
 
-  deleteStructure() {
-    this.structService.deleteStructure(this.selected);
+  async deleteStructure() {
+    await this.structService.deleteStructure(this.selected);
+    alert(this.structService.msg);
   }
 
   deleteStructureAux(id) {

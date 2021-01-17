@@ -87,8 +87,9 @@ export class MemberInfoComponent implements OnInit {
     }
   }
 
-  changeGroup() {
-    this.memberService.changeGroup(this.memberService.member.id, this.origin.id, this.structureService.getIds());
+  async changeGroup() {
+    await this.memberService.changeGroup(this.memberService.member.id, this.origin.id, this.structureService.getIds());
+    alert(this.memberService.msg);
   }
 
 }

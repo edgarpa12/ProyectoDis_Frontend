@@ -29,8 +29,7 @@ export class RegisterComponent implements OnInit {
   onFileChange(event) {
     const field = 'logo';
     if (event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      console.log(file);
+
       const [file] = event.target.files;
       console.log(file);
       // just checking if it is an image, ignore if you want

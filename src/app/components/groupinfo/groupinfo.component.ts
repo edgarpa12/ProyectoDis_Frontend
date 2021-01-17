@@ -31,20 +31,16 @@ export class GroupInfoComponent implements OnInit {
     this.location.back();
   }
 
-  addMemberAux() {
-    this.memberService.getMembers();
-  }
-
   async addMember(member) {
-    const response = await this.structService.addMember(member.id);
+    await this.structService.addMember(member.id);
     await this.structService.getStructureMembers();
-    alert(response['message']);
+    alert(this.structService.msg);
   }
 
   async addBoss(member) {
-    const response = await this.structService.addBoss(member.id);
-
-    alert(response['message']);
+    await this.structService.addBoss(member.id);
+    await this.structService.getStructureMembers();
+    alert(this.memberService.msg);
 
   }
 
@@ -53,17 +49,17 @@ export class GroupInfoComponent implements OnInit {
     this.router.navigate(['/memberInfo']);
   }
 
-  deleteMemberAux(member) {
-    this.selected = member;
-    this.structService.type = 'member';
-  }
+  // deleteMemberAux(member) {
+  //   this.selected = member;
+  //   this.structService.type = 'member';
+  // }
 
   async deleteMember() {
     const structureFlow = this.structService.structureFlow;
     const group = structureFlow[structureFlow.length - 1];
-    const response = await this.structService.deleteMember(this.selected.id, group._id);
-
-    alert(response['message']);
+    await this.structService.deleteMember(this.selected.id, group._id);
+    await this.structService.getStructureMembers();
+    alert(this.memberService.msg);
 
   }
 

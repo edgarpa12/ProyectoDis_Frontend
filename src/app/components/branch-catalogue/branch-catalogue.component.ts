@@ -30,16 +30,20 @@ export class BranchCatalogueComponent implements OnInit {
     this.selected = branch;
   }
 
-  deleteDefaultBranch() {
-    this.structService.deleteDefaultBranch(this.selected);
+  async deleteDefaultBranch() {
+    await this.structService.deleteDefaultBranch(this.selected);
+    alert(this.structService.msg);
   }
 
-  aeDefaultBranch() {
+  async aeDefaultBranch() {
     if (this.action === 'Crear') {
-      this.structService.addDefaultBranch();
+      await this.structService.addDefaultBranch();
     } else if (this.action === 'Editar') {
-      this.structService.editDefaultBranch(this.selected);
+      await this.structService.editDefaultBranch(this.selected);
     }
+    this.structService.setFormStructure();
+    await this.structService.getDefaultBranches();
+    alert(this.structService.msg);
   }
 
   editDefaultBranch(branch) {

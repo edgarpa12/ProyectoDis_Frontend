@@ -147,8 +147,9 @@ export class MemberService {
   }
 
   // Edita la info de un miembro
-  editMember(member) {
+  async editMember(member) {
     const data = member;
+    console.log(data);
     data.name = this.formMiembro.controls.name.value;
     data.direction = this.formMiembro.controls.direction.value;
     data.phone = this.formMiembro.controls.phone.value;
@@ -158,9 +159,13 @@ export class MemberService {
       id: member.id,
       data
     };
-    this.http.put(this.uriMember + '/update', obj).subscribe(response => {
-      this.setFormMiembro();
-    });
+    const response = await this.http.put(this.uriMember + '/update', obj).toPromise();
+
+    if(response["msg"] !=0 ){
+      this.msg = "Usuario Editado Correctamente"
+    }else{
+      this.msg = "Ocurrio un error"
+    }
   }
 
   // Borra a un miembro
@@ -169,21 +174,24 @@ export class MemberService {
       id: member.id
     };
     await this.http.post(this.uriMember + '/delete', obj).toPromise();
+    this.msg = "Usuario eliminado correctamente";
   }
 
   // Cambia a un miembro de un grupo
-  changeGroup(idUser: string, idOldGroup: string, idsNewStructure: string[]) {
+  async changeGroup(idUser: string, idOldGroup: string, idsNewStructure: string[]) {
     const obj = {
       idUser,
       idOldGroup,
       ids: idsNewStructure
     };
-    this.http.post(this.uriMember + '/changeGroup', obj).subscribe(response => {
+
+    const response =  await this.http.post(this.uriMember + '/changeGroup', obj).toPromise()
+    if(response["msg"] != 0 ){
       this.structService.structuresXMember(idUser);
-    }, error => {
-      alert('Movimiento invalido');
+      this.msg = "Se realizo el cambio de grupo correctamente!"
+    }else{
+      this.msg = "No se pudo realizar el cambio"
     }
-    );
   }
 
   // Registra a un nuevo miembro

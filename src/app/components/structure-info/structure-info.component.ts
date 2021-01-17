@@ -32,9 +32,9 @@ export class StructureInfoComponent implements OnInit {
   }
 
   async addMember(member) {
-    const response = await this.structService.addMember(member.id);
+    await this.structService.addMember(member.id);
     await this.structService.getStructureMembers();
-    alert(response['message']);
+    alert(this.structService.msg);
   }
 
   async addBoss(member) {

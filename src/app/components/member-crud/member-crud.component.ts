@@ -42,17 +42,20 @@ export class MemberCrudComponent implements OnInit {
     this.selected = member;
   }
 
-  deleteMember() {
-    this.memberService.deleteMember(this.selected);
+  async deleteMember() {
+    await this.memberService.deleteMember(this.selected);
+    await this.memberService.getMembers();
+    alert(this.memberService.msg);
   }
 
   editMember(member) {
     this.selected = member;
-    this.memberService.setFormMiembro();
   }
 
-  confirmEditMember() {
-    this.memberService.editMember(this.selected);
+  async confirmEditMember() {
+    await this.memberService.editMember(this.selected);
+    await this.memberService.getMembers();
+    alert(this.memberService.msg);
   }
 
 }
