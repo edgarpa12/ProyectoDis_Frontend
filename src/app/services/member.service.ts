@@ -46,6 +46,7 @@ export class MemberService {
     name: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
     direction: new FormControl('', Validators.required),
     monitor: new FormControl(false)
   });
@@ -90,7 +91,8 @@ export class MemberService {
       phone: this.formMiembro.controls.phone.value,
       email: this.formMiembro.controls.email.value,
       direction: this.formMiembro.controls.direction.value,
-      monitor: this.formMiembro.controls.monitor.value
+      monitor: this.formMiembro.controls.monitor.value,
+      password: this.formMiembro.controls.password.value
     };
 
     const organization = {
@@ -120,14 +122,22 @@ export class MemberService {
   }
 
   toFormData<T>( formValue: T ) {
-    const formData = new FormData();
+    // const formData = new FormData();
+    //
+    // for ( const key of Object.keys(formValue) ) {
+    //   let value = formValue[key];
+    //   if (value instanceof Object) {
+    //     value = this.toFormData(value);
+    //   }
+    //   formData.append(key, value);
+    // }
+    //
+    // return formData;
 
-    for ( const key of Object.keys(formValue) ) {
-      const value = formValue[key];
-      formData.append(key, value);
-    }
-
-    return formData;
+    return Object.keys(formValue).reduce((formData, key) => {
+      formData.append(key, formValue[key] instanceof File ? formValue[key] : JSON.stringify(formValue[key]));
+      return formData;
+    }, new FormData());
   }
 
   signOut() {

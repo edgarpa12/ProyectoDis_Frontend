@@ -31,8 +31,6 @@ export class RegisterComponent implements OnInit {
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       console.log(file);
-      const [file] = event.target.files;
-      console.log(file);
       // just checking if it is an image, ignore if you want
       if (!file.type.startsWith('image')) {
         this.memberService.formOrganization.get(field).setErrors({
