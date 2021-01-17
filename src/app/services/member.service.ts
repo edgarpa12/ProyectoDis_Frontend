@@ -37,8 +37,7 @@ export class MemberService {
     logo: new FormControl(null, Validators.required),
     logoName: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required)
   });
 
   // Form miembro
@@ -48,7 +47,7 @@ export class MemberService {
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     direction: new FormControl('', Validators.required),
-    monitor: new FormControl(false)
+    role: new FormControl('', Validators.required)
   });
 
   // Form CCG
@@ -91,7 +90,7 @@ export class MemberService {
       phone: this.formMiembro.controls.phone.value,
       email: this.formMiembro.controls.email.value,
       direction: this.formMiembro.controls.direction.value,
-      monitor: this.formMiembro.controls.monitor.value,
+      role: this.formMiembro.controls.role.value,
       password: this.formMiembro.controls.password.value
     };
 
@@ -121,19 +120,7 @@ export class MemberService {
     });
   }
 
-  toFormData<T>( formValue: T ) {
-    // const formData = new FormData();
-    //
-    // for ( const key of Object.keys(formValue) ) {
-    //   let value = formValue[key];
-    //   if (value instanceof Object) {
-    //     value = this.toFormData(value);
-    //   }
-    //   formData.append(key, value);
-    // }
-    //
-    // return formData;
-
+  toFormData<T>(formValue: T) {
     return Object.keys(formValue).reduce((formData, key) => {
       formData.append(key, formValue[key] instanceof File ? formValue[key] : JSON.stringify(formValue[key]));
       return formData;
@@ -171,9 +158,9 @@ export class MemberService {
     };
     const response = await this.http.put(this.uriMember + '/update', obj).toPromise();
 
-    if(response["msg"] !=0 ){
+    if (response["msg"] != 0) {
       this.msg = "Usuario Editado Correctamente"
-    }else{
+    } else {
       this.msg = "Ocurrio un error"
     }
   }
@@ -195,11 +182,11 @@ export class MemberService {
       ids: idsNewStructure
     };
 
-    const response =  await this.http.post(this.uriMember + '/changeGroup', obj).toPromise()
-    if(response["msg"] != 0 ){
+    const response = await this.http.post(this.uriMember + '/changeGroup', obj).toPromise()
+    if (response["msg"] != 0) {
       this.structService.structuresXMember(idUser);
       this.msg = "Se realizo el cambio de grupo correctamente!"
-    }else{
+    } else {
       this.msg = "No se pudo realizar el cambio"
     }
   }
