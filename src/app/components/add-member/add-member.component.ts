@@ -19,9 +19,9 @@ export class AddMemberComponent implements OnInit {
   async createMember() {
     if (await this.memberService.createMember()) {
       this.memberService.setFormMiembro();
-      alert(this.memberService.msg);
       this.router.navigate(['/memberCrud']);
     }
+    alert(this.memberService.msg);
   }
 
   goBack() {

@@ -44,12 +44,12 @@ export class LandingComponent implements OnInit {
 
     const response = await this.memberService.signIn().toPromise();
 
-    if (response !== []) {
-      this.structureService.org = response[0];
-      this.structureService.setOrg(response[0])
-      console.log("Organizacion: ", response[0]);
-      this.memberService.loggedUser = response[1];
-      console.log("Usuario Loggeado: ", response[1]);
+    if (response !== 0) {
+      this.memberService.setLoggedUser(response[1]);
+      console.log("Usuario Loggeado: ", this.memberService.loggedUser.name, " Role: ", this.memberService.loggedUser.role);
+      this.structureService.setOrg(response[0]);
+      console.log(response[0]);
+      console.log("Organizacion: ", this.structureService.org);
       this.router.navigate(['/home']);
     } else {
       alert("Los Datos no Existen");

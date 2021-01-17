@@ -17,15 +17,14 @@ export class AppComponent {
     public memberService: MemberService,
     public router: Router,
     public location: Location
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.structureService.getOrg();
   }
 
-  signOut() {
-    this.memberService.signOut();
-    this.structureService.setOrg([]);
+  async signOut() {
+    await this.memberService.signOut();
     this.router.navigate(['/']);
   }
 

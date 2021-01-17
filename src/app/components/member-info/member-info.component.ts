@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MemberService} from 'src/app/services/member.service';
-import {Location} from '@angular/common';
-import {StructureService} from 'src/app/services/structure.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MemberService } from 'src/app/services/member.service';
+import { Location } from '@angular/common';
+import { StructureService } from 'src/app/services/structure.service';
 
 @Component({
   selector: 'app-member-info',
@@ -12,7 +12,7 @@ import {StructureService} from 'src/app/services/structure.service';
 export class MemberInfoComponent implements OnInit {
 
   constructor(public router: Router, public memberService: MemberService,
-              public structureService: StructureService, public location: Location) {
+    public structureService: StructureService, public location: Location) {
   }
 
 

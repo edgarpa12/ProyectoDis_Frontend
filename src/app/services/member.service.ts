@@ -65,6 +65,17 @@ export class MemberService {
     images: new FormControl('', Validators.required)
   });
 
+  // Guarda el miembro loggeado en el localstorage y en el servicio
+  setLoggedUser(member) {
+    this.loggedUser = member;
+    localStorage.setItem("loggedUser", JSON.stringify(member));
+  }
+
+  // Obtiene un flow del localstorage
+  getLoggedUser() {
+    this.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+  }
+
 
   // Hace signIn
   signIn() {
@@ -73,14 +84,6 @@ export class MemberService {
       password: this.formSignIn.controls.password.value
     };
     return this.http.post(this.uriOrganization + '/signin', obj);
-  }
-
-  getLoggedUser() {
-    const logged = {
-      id: "6001f7421a513b6337f03c6e"
-    };
-
-    return this.http.post(this.uriMember + '/getMember', logged);
   }
 
   // Registra una nueva organizacion
@@ -112,8 +115,6 @@ export class MemberService {
       logo: organization.logo as File
     };
 
-    console.log(obj);
-
     return this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).subscribe(response => {
       this.setFormMiembro();
       this.setFormOrganizacion();
@@ -127,10 +128,9 @@ export class MemberService {
     }, new FormData());
   }
 
-  signOut() {
-    this.http.get(this.uriOrganization + '/signout').subscribe(response => {
-      return response;
-    });
+  async signOut() {
+    localStorage.clear();
+    return await this.http.get(this.uriOrganization + '/signout').toPromise();
   }
 
   // Consigue la info de un miembro en especifico
@@ -151,7 +151,7 @@ export class MemberService {
     data.direction = this.formMiembro.controls.direction.value;
     data.phone = this.formMiembro.controls.phone.value;
     data.email = this.formMiembro.controls.email.value;
-    data.monitor = this.formMiembro.controls.monitor.value;
+    data.role = this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER";
     const obj = {
       id: member.id,
       data
@@ -193,13 +193,16 @@ export class MemberService {
 
   // Registra a un nuevo miembro
   async createMember(): Promise<boolean> {
+
     const obj = {
       name: this.formMiembro.controls.name.value,
       phone: this.formMiembro.controls.phone.value,
       email: this.formMiembro.controls.email.value,
+      password: this.formMiembro.controls.password.value,
       direction: this.formMiembro.controls.direction.value,
-      monitor: this.formMiembro.controls.monitor.value
+      role: this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER"
     };
+
     const response = await this.http.post(this.uriMember + '/create', obj).toPromise();
     if (response !== 0) {
       this.msg = 'Usuario agregado de manera exitosa';
@@ -221,7 +224,7 @@ export class MemberService {
 
   async sendCCG() {
     const obj = {
-      from: this.loggedUser.id,
+      from: this.loggedUser._id,
       body: this.formCCG.controls.body.value,
       type: this.formCCG.controls.type.value
     };
@@ -241,8 +244,9 @@ export class MemberService {
     this.formMiembro.controls.name.setValue('');
     this.formMiembro.controls.phone.setValue('');
     this.formMiembro.controls.email.setValue('');
+    this.formMiembro.controls.password.setValue('');
     this.formMiembro.controls.direction.setValue('');
-    this.formMiembro.controls.monitor.setValue(false);
+    this.formMiembro.controls.role.setValue(false);
   }
 
   setFormOrganizacion() {

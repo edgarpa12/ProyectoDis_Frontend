@@ -15,9 +15,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.memberService.getLoggedUser().subscribe(response => {
-    //   this.memberService.loggedUser = response;
-    // }, error => console.log("Error"));
   }
 
   onMenu() {

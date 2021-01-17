@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
   providedIn: "root",
 })
 export class StructureService {
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   uri = environment.uri + "/structure";
   type: string;
@@ -68,8 +68,8 @@ export class StructureService {
   }
 
   // Guarda un flow en el localstorage y en el servicio
-  setOrg(org) {
-    localStorage.setItem("org", JSON.stringify(org));
+  async setOrg(org) {
+    await localStorage.setItem("org", JSON.stringify(org));
   }
 
   // Obtiene un flow del localstorage
@@ -286,7 +286,7 @@ export class StructureService {
   }
 
   async getDefaultBranches() {
-    this.org[10] = await this.http
+    this.org[9] = await this.http
       .get(this.uri + "/getDefaultBranches")
       .toPromise();
   }
@@ -300,9 +300,9 @@ export class StructureService {
       .post(this.uri + "/addDefaultBranch", obj)
       .toPromise();
     // await this.getDefaultBranches();
-    if(response["msg"] !=0){
+    if (response["msg"] != 0) {
       this.msg = "Rama añadida correctamente"
-    }else{
+    } else {
       this.msg = "Ya existe una rama con el mismo nombre"
     }
 
@@ -317,7 +317,7 @@ export class StructureService {
     const response = await this.http.post(this.uri + "/updateDefaultBranch", obj).toPromise();
     if (response["msg"] != 0) {
       this.msg = "Rama editada correctamente"
-    }else{
+    } else {
       this.msg = "Existe una rama con el mismo nombre intente de nuevo"
     }
   }
@@ -334,7 +334,7 @@ export class StructureService {
     if (response["msg"] != 0) {
       await this.getDefaultBranches();
       this.msg = "Rama removida correctamente"
-    }else{
+    } else {
       this.msg = "Ocurrio un error intente de nuevo"
     }
   }

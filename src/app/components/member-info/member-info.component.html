@@ -54,7 +54,10 @@
               </div>
             </div>
             <div class="d-flex py-3 align-items-center">
-              <h3>Monitor: {{ memberService.member.monitor ? "Sí" : "No" }}</h3>
+              <h3>
+                Monitor:
+                {{ memberService.member.role === "MONITOR" ? "Sí" : "No" }}
+              </h3>
             </div>
           </div>
         </div>
