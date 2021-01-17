@@ -18,10 +18,11 @@ export class AddMemberComponent implements OnInit {
 
   async createMember() {
     if (await this.memberService.createMember()) {
-      this.memberService.setFormMiembro();
+      //this.memberService.setFormMiembro();
       this.router.navigate(['/memberCrud']);
     }
     alert(this.memberService.msg);
+    this.memberService.setFormMiembro();
   }
 
   goBack() {

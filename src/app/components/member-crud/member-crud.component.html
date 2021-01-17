@@ -141,10 +141,11 @@
           <div class="form-group my-4" style="width: 100%">
             <div class="row" style="width: 100%">
               <input
-                type="text"
+                type="email"
                 class="form-control"
                 formControlName="email"
                 value="{{ selected.email }}"
+                required
               />
               <img
                 src="./assets/landing/placeholder.svg"
@@ -162,6 +163,7 @@
                 class="form-control"
                 formControlName="direction"
                 value="{{ selected.direction }}"
+                required type="text"
               />
               <img
                 src="./assets/landing/placeholder.svg"

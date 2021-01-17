@@ -150,17 +150,26 @@ export class MemberService {
 
   // Edita la info de un miembro
   async editMember(member) {
-    const data = member;
-    console.log(data);
-    data.name = this.formMiembro.controls.name.value;
-    data.direction = this.formMiembro.controls.direction.value;
-    data.phone = this.formMiembro.controls.phone.value;
-    data.email = this.formMiembro.controls.email.value;
-    data.role = this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER";
+    const name = this.formMiembro.controls.name.value;
+    const direction = this.formMiembro.controls.direction.value;
+    const phone = this.formMiembro.controls.phone.value;
+    const email = this.formMiembro.controls.email.value;
+    const role = this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER";
+
+    const data = {
+      name: name != "" ? name: member.name,
+      direction: direction != "" ? direction: member.direction,
+      phone: phone != "" ? phone: member.phone,
+      email: email != "" ? email: member.email,
+      role: role
+    }
+
+    console.log(data)
     const obj = {
       id: member.id,
       data
     };
+
     const response = await this.http.put(this.uriMember + '/update', obj).toPromise();
 
     if (response["msg"] != 0) {
