@@ -123,7 +123,7 @@ export class StructureCrudComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/menu']);
+    this.location.back();
   }
 
 }

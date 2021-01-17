@@ -50,6 +50,7 @@ export class LandingComponent implements OnInit {
       this.structureService.setOrg(response[0]);
       console.log(response[0]);
       console.log("Organizacion: ", this.structureService.org[1]);
+      this.memberService.setFormSignIn();
       this.router.navigate(['/home']);
     } else {
       alert("Los Datos no Existen");

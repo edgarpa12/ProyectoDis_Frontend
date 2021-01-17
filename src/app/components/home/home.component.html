@@ -29,14 +29,24 @@
         style="margin-top: 100px"
       >
         <img src="./assets/home/estructura.svg" class="icon" alt="Ubicacion" />
-        <p class="text-black py-4">Define la estructura de tu organización</p>
+        <p class="text-black py-4">
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Define la estructura de tu organización"
+              : "Ver la estructura de la organización"
+          }}
+        </p>
         <button
           type="submit"
           class="boton btn px-4 mx-auto"
           style="background-color: #134e6f"
           (click)="onMenu()"
         >
-          Gestionar Organización
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Gestionar Organización"
+              : "Ver Estructura"
+          }}
         </button>
       </div>
     </div>
@@ -47,14 +57,24 @@
           class="icon"
           alt="Ubicacion"
         />
-        <p class="text-black py-4">Añade nuevos miembros a tu Organización</p>
+        <p class="text-black py-4">
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Añade nuevos miembros a tu Organización"
+              : "Ver tu ficha de Datos"
+          }}
+        </p>
         <button
           type="submit"
           class="boton btn px-4 mx-auto"
           style="background-color: #134e6f"
           (click)="getMembers()"
         >
-          Registrar usuarios
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Registrar Usuarios"
+              : "Ver mis Datos"
+          }}
         </button>
       </div>
     </div>

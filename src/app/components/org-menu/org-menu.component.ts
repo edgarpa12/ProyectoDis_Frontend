@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {StructureService} from 'src/app/services/structure.service';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { StructureService } from 'src/app/services/structure.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-org-menu',
@@ -20,7 +20,6 @@ export class OrgMenuComponent implements OnInit {
   ngOnInit() {
     this.structService.structureFlow = [];
     this.structService.setFlow();
-    this.structService.getOrg();
   }
 
   goZones() {

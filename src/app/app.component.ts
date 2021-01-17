@@ -20,6 +20,7 @@ export class AppComponent {
   ) { }
 
   ngOnInit() {
+    this.memberService.getLoggedUser();
     this.structureService.getOrg();
   }
 
@@ -41,7 +42,15 @@ export class AppComponent {
     this.location.back();
   }
 
-  orgInfo() {
+  goOrgInfo() {
     this.router.navigate(['/orgInfo']);
+  }
+
+  goInboxCCG() {
+    this.router.navigate(['/inboxCCG']);
+  }
+
+  goInboxNews() {
+    this.router.navigate(['/inboxNews']);
   }
 }

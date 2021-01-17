@@ -1,4 +1,4 @@
-nav{
+nav {
     height: 12%;
 }
 
@@ -6,20 +6,20 @@ nav{
     border: 2px solid #134e6f;
 }
 
-.p{
+.p {
     padding: 10px;
     margin: 0px !important;
 }
 
-.modal-title{
+.modal-title {
     text-align: center;
 }
 
-.blue-form input[type = "text"] {
+.blue-form input[type="text"] {
     margin-left: 30px !important;
 }
 
-.scrollable{
+.scrollable {
     overflow-y: auto;
     max-height: 300px;
 }
@@ -37,7 +37,7 @@ nav{
     height: 0;
 }
 
-.error{
+.error {
     font-size: 1rem;
     float: right;
     margin-right: 50px;
@@ -45,7 +45,7 @@ nav{
     color: red;
 }
 
-.monitor:hover{
+.monitor:hover {
     cursor: pointer;
 }
 
@@ -81,4 +81,12 @@ nav{
 .buttons-div {
     background-color: #eee;
     border-radius: 0 0 10px 10px;
+}
+
+i:hover {
+    transform: scale(1);
+}
+
+.element button:hover {
+    transform: scale(1);
 }

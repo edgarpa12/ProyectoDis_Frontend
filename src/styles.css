@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
 
 * {
     margin: 0px;
@@ -8,7 +8,7 @@
 }
 
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: 1.8vw;
     min-height: 100vh;
 }
@@ -29,7 +29,7 @@ body {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    transition: transform .2s;
+    transition: transform 0.2s;
     height: 6vh;
     color: white;
     font-size: 1rem;
@@ -40,7 +40,7 @@ body {
     transform: scale(1.05);
 }
 
-.card-page{
+.card-page {
     margin-top: 5%;
     margin-bottom: 5%;
     margin-left: 10%;
@@ -48,7 +48,7 @@ body {
     height: 60vh auto;
     border-radius: 10px;
     background-color: white;
-    box-shadow: 8px 0px 8px 8px rgba(0,0,0,0.2);
+    box-shadow: 8px 0px 8px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card {
@@ -71,13 +71,15 @@ body {
     margin-top: -12px !important;
     margin-left: 20px !important;
     font-size: 0.8rem;
-    color: #134E6F;
+    color: #134e6f;
 }
 
-.blue-form input[type = "text"],.blue-form input[type = "password"],.blue-form input[type = "email"] {
+.blue-form input[type="text"],
+.blue-form input[type="password"],
+.blue-form input[type="email"] {
     border: 0;
-    border-color: #134E6F;
-    background-color: #60E2E7;
+    border-color: #134e6f;
+    background-color: #60e2e7;
     border-radius: 10px;
     height: 5vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -85,44 +87,46 @@ body {
 
 .blue-form textarea {
     border: 0;
-    border-color: #134E6F;
-    background-color: #60E2E7;
+    border-color: #134e6f;
+    background-color: #60e2e7;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.blue-form textarea:focus,.blue-form input:focus {
-    border: 1px solid #134E6F;
-    background-color:#60E2E7;
+.blue-form textarea:focus,
+.blue-form input:focus {
+    border: 1px solid #134e6f;
+    background-color: #60e2e7;
 }
 
-.blue-form input[type = "checkbox"]:focus {
-    background-color: #FFFFFF;
+.blue-form input[type="checkbox"]:focus {
+    background-color: #ffffff;
 }
 
-.element{
+.element {
     border-radius: 10px;
     margin: 5px;
     box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.25);
     font-size: 1rem;
-    transition: transform .2s;
+    transition: transform 0.2s;
+    min-height: 50px;
 }
 
-.element:hover{
+.element:hover {
     cursor: pointer;
     transform: scale(1.02);
 }
 
-.element button{
+.element button {
     font-size: 0.8rem;
 }
 
-.element button:hover{
+.element button:hover {
     cursor: pointer;
     transform: scale(1.02);
 }
 
-.icons{
+.icons {
     margin-left: 10px;
 }
 
@@ -131,16 +135,27 @@ i:hover {
     transform: scale(1.05);
 }
 
-.btn-label {position: relative;left: -12px;display: inline-block;padding: 6px 12px;background: rgba(0,0,0,0.15);border-radius: 3px 0 0 3px;}
-.btn-labeled {padding-top: 0;padding-bottom: 0;}
-.btn { margin-bottom:10px; }
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn {
+    margin-bottom: 10px;
+}
 
-.breadcrumb{
+.breadcrumb {
     cursor: pointer;
     background-color: white;
 }
 
-
-.blue-form input[type = "checkbox"]:focus {
-    background-color: #FFFFFF;
+.blue-form input[type="checkbox"]:focus {
+    background-color: #ffffff;
 }

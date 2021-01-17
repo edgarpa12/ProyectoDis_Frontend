@@ -269,5 +269,10 @@ export class MemberService {
     this.formCCG.controls.body.setValue('');
   }
 
+  setFormSignIn() {
+    this.formSignIn.controls.email.setValue('');
+    this.formSignIn.controls.password.setValue('');
+  }
+
 
 }

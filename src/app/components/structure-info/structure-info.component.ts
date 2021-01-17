@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {MemberService} from 'src/app/services/member.service';
-import {StructureService} from 'src/app/services/structure.service';
-import {Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MemberService } from 'src/app/services/member.service';
+import { StructureService } from 'src/app/services/structure.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-structure-info',
@@ -98,6 +98,10 @@ export class StructureInfoComponent implements OnInit {
       this.structService.setFlow();
       this.router.navigate(['/manager']);
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }
