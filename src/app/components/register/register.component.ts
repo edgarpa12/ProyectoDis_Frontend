@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     this.memberService.signUp();
-    // this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
   goBack() {

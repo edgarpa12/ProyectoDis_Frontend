@@ -25,6 +25,7 @@ export class AppComponent {
 
   async signOut() {
     await this.memberService.signOut();
+    this.structureService.org = null;
     this.router.navigate(['/']);
   }
 

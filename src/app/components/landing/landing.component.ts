@@ -49,7 +49,7 @@ export class LandingComponent implements OnInit {
       console.log("Usuario Loggeado: ", this.memberService.loggedUser.name, " Role: ", this.memberService.loggedUser.role);
       this.structureService.setOrg(response[0]);
       console.log(response[0]);
-      console.log("Organizacion: ", this.structureService.org);
+      console.log("Organizacion: ", this.structureService.org[1]);
       this.router.navigate(['/home']);
     } else {
       alert("Los Datos no Existen");

@@ -87,7 +87,7 @@ export class MemberService {
   }
 
   // Registra una nueva organizacion
-  signUp() {
+  async signUp() {
     const ceo = {
       name: this.formMiembro.controls.name.value,
       phone: this.formMiembro.controls.phone.value,
@@ -115,10 +115,15 @@ export class MemberService {
       logo: organization.logo as File
     };
 
-    return this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).subscribe(response => {
-      this.setFormMiembro();
-      this.setFormOrganizacion();
-    });
+    const response = await this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).toPromise();
+
+    this.setFormMiembro();
+    this.setFormOrganizacion();
+
+    // return this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).subscribe(response => {
+    //   this.setFormMiembro();
+    //   this.setFormOrganizacion();
+    // });
   }
 
   toFormData<T>(formValue: T) {
@@ -250,15 +255,14 @@ export class MemberService {
   }
 
   setFormOrganizacion() {
-    this.formMiembro.controls.name.setValue('');
-    this.formMiembro.controls.phone.setValue('');
-    this.formMiembro.controls.email.setValue('');
-    this.formMiembro.controls.direction.setValue('');
-    this.formMiembro.controls.password.setValue('');
-    this.formMiembro.controls.web.setValue('');
-    this.formMiembro.controls.legalCertificate.setValue('');
-    this.formMiembro.controls.country.setValue('');
-    this.formMiembro.controls.logoName.setValue('');
+    this.formOrganization.controls.name.setValue('');
+    this.formOrganization.controls.phone.setValue('');
+    this.formOrganization.controls.email.setValue('');
+    this.formOrganization.controls.direction.setValue('');
+    this.formOrganization.controls.web.setValue('');
+    this.formOrganization.controls.legalCertificate.setValue('');
+    this.formOrganization.controls.country.setValue('');
+    this.formOrganization.controls.logoName.setValue('');
   }
 
   setFormCCG() {

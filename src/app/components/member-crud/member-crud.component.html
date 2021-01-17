@@ -174,10 +174,13 @@
           </div>
 
           <div class="form-check">
-            <input type="checkbox" class="form-check-input" name="monitor"
-            formControlName="role" [checked]={{
-              selected.role === "MONITOR" ? "true" : "false"
-            }}/>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="role"
+              formControlName="role"
+              [checked]="selected.role === 'MONITOR' ? true : false"
+            />
             <p class="checkbox-text">Monitor</p>
           </div>
         </form>

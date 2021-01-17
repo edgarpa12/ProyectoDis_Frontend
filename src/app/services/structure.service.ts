@@ -68,8 +68,9 @@ export class StructureService {
   }
 
   // Guarda un flow en el localstorage y en el servicio
-  async setOrg(org) {
-    await localStorage.setItem("org", JSON.stringify(org));
+  setOrg(org) {
+    this.org = org;
+    localStorage.setItem("org", JSON.stringify(org));
   }
 
   // Obtiene un flow del localstorage

@@ -1,6 +1,8 @@
 <div class="page-wrapper">
   <div
-    *ngIf="this.structureService.org.length != 0"
+    *ngIf="
+      this.structureService.org != null && this.structureService.org.length != 0
+    "
     class="sticky-header d-flex align-items-center"
   >
     <button type="submit" class="btn mr-auto">
