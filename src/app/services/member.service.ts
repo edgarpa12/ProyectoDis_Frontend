@@ -21,6 +21,7 @@ export class MemberService {
   member: any;
   msg: any = '';
   loggedUser: any;
+  ccg: any;
 
   // Form estructura
   formSignIn: FormGroup = new FormGroup({
@@ -144,13 +145,12 @@ export class MemberService {
   }
 
   // Consigue la info de un miembro en especifico
-  getMemberInfo(id: string) {
+  async getMemberInfo(id: string) {
     const obj = {
       id
     };
-    this.http.post(this.uriMember + '/getMember', obj).subscribe(response => {
+      const response = await this.http.post(this.uriMember + '/getMember', obj).toPromise();
       this.member = response;
-    });
   }
 
   // Edita la info de un miembro

@@ -10,13 +10,17 @@
                 style="color: #134e6f"
               ></i>
             </button>
-            <h1 class="text-black">Aporte/CCG</h1>
+            <h1 class="text-black mb-3">Aporte/CCG</h1>
           </div>
 
 
         <div class="row">
+          <div>
+            <h3 class="pl-3">{{memberService.member.name}}</h3>
+            <h3 class="pl-3">{{this.structService.foundCCG.type}}</h3>
+          </div>
           <div class="col-md-12">
-            <textarea class="form-control" id="textAreaNews" rows="5" disabled>Chas tardes y buenas gracias</textarea>
+            <textarea class="form-control" id="textAreaNews" rows="5" disabled>{{this.structService.foundCCG.body}}</textarea>
           </div>
         </div>
       </div>

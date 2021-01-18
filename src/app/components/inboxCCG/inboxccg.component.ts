@@ -11,23 +11,35 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class InboxCCGComponent implements OnInit {
 
-  constructor(public router: Router, public location: Location, public memberService: MemberService, public structService: StructureService) {
+  constructor (public structService: StructureService, public router: Router, public memberService: MemberService, public location: Location) {
   }
   selected;
   action;
 
   ngOnInit() {
-
+    this.getCCGs();
   }
 
   goBack() {
     this.location.back();
   }
 
-  enabledCCGs(structure){
-    this.action = 'Editar';
-    this.selected = structure;
-    this.structService.enabledCCGs(structure._id);
+  async enabledCCGs(){
+    console.log("click");
+    const structId = this.structService.org[0]
+    await this.structService.enabledCCGs(structId);
+    this.getCCGs();
+  }
+
+  async getCCGs(){
+    const structId = this.structService.org[0]
+    await this.structService.getCCGs(structId);
+  }
+
+  goCCG(ccg){
+    this.structService.ccg = ccg._id;
+    this.memberService.ccg = ccg.from;
+    this.router.navigate(['/showCCG']);
   }
 
 }

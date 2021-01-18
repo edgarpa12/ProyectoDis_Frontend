@@ -17,9 +17,11 @@
 
             <div class="col-md-12 mt-1">
               <h3>Lista de aportes: </h3>
+              <div class="row d-flex cardCCG my-3" *ngFor="let ccg of structService.ccgList" (click)="goCCG(ccg)">
+                  <a>{{ccg.body}} - </a>
+                <p> {{ccg.type}}</p>
+              </div>
             </div>
-
-
           <div class="row d-flex mt-3">
             <div class="col-md-12 d-flex justify-content-end pr-5">
               <button class="btnSend" (click)="enabledCCGs()">Descargar</button>

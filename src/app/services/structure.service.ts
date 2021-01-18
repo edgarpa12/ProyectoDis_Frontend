@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.prod";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { forEach } from "@angular/router/src/utils/collection";
 
 @Injectable({
   providedIn: "root",
@@ -20,6 +21,9 @@ export class StructureService {
   org: any = [];
   groupsOfMember: any;
   bossType: any = "";
+  ccgList: any = [];
+  ccg: any;
+  foundCCG: any = [];
 
   // Form estructura
   formStructure: FormGroup = new FormGroup({
@@ -360,11 +364,31 @@ export class StructureService {
     return response;
   }
 
-  async enabledCCGs(structure){
+  async enabledCCGs(structId: String){
     const obj = {
-      _id: structure._id,
+      id: structId,
     }
     await this.http.put(this.uri + '/enabledCCGs',obj).toPromise();
+  }
+
+  async getCCGs(structureId: string){
+    const obj = {
+      id: structureId,
+    }
+    console.log("ccg:", obj);
+    this.ccgList = await this.http.post(this.uri + '/getAllCCGs', obj).toPromise();
+  }
+
+  async findCCG(ccg){
+
+    for(const foundccg of this.ccgList){
+      if(foundccg._id === ccg){
+        this.foundCCG = foundccg;
+        break;
+      }
+    }
+    
+    console.log(this.foundCCG);
   }
 
 }
