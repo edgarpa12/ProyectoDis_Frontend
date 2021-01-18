@@ -22,10 +22,13 @@ export class MemberInfoComponent implements OnInit {
   destinySelected = false;
   destiny: any;
 
-  ngOnInit() {
+  async ngOnInit() {
     this.structureService.structureFlow = [];
-    this.structureService.setFlow();
-    this.structureService.structuresXMember(this.memberService.member.id);
+    await this.structureService.setFlow();
+    this.memberService.loggedUser.role !== 'CEO'
+      ? await this.structureService.structuresXMember(this.memberService.loggedUser._id)
+      : await this.structureService.structuresXMember(this.memberService.member.id);
+    console.log(this.structureService.groupsOfMember);
   }
 
   goBack() {

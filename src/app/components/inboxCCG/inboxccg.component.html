@@ -3,35 +3,48 @@
     <div class="col-md-12">
       <div class="card-page">
         <div class="card-body">
-
-            <div class="row d-flex my-3">
-              <button class="btn mr-4" (click)="goBack()">
-                <i
-                  class="fa fa-arrow-circle-left fa-3x"
-                  style="color: #134e6f"
-                ></i>
-              </button>
-              <h1 class="text-black">Bandeja Aportes / CCG</h1>
-            </div>
-
-
-            <div class="col-md-12 mt-1">
-              <h3>Lista de aportes: </h3>
-              <div class="row d-flex cardCCG my-3" *ngFor="let ccg of structService.ccgList" (click)="goCCG(ccg)">
-                  <a>{{ccg.body}} - </a>
-                <p> {{ccg.type}}</p>
+          <div class="row d-flex my-3">
+            <button class="btn mr-4" (click)="goBack()">
+              <i
+                class="fa fa-arrow-circle-left fa-3x"
+                style="color: #134e6f"
+              ></i>
+            </button>
+            <h1 class="text-black">Bandeja Aportes / CCG</h1>
+          </div>
+          <div class="row my-1 scrollable">
+            <div
+              class="col-md-10 col-sm-10 my-1"
+              *ngFor="let ccg of structService.ccgList"
+            >
+              <div class="element" (click)="goCCG(ccg)">
+                <div class="row d-flex align-items-center">
+                  <div class="col-sm-8 col-md-8 px-4 my-2">
+                    <span>{{ ccg.body }} - </span>
+                    <span class="type">{{ ccg.type }}</span>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <hr />
+
           <div class="row d-flex mt-3">
-            <div class="col-md-12 d-flex justify-content-end pr-5">
-              <button class="btnSend" (click)="enabledCCGs()">Descargar</button>
+            <div class="col-md-12 d-flex justify-content-end">
+              <button
+                type="button"
+                class="boton btn px-4 align-self-center"
+                style="background-color: #ffa822"
+                (click)="enabledCCGs()"
+              >
+                Descargar
+                <span class="fa fa-arrow-down"></span>
+              </button>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

@@ -161,7 +161,8 @@
                 class="form-control"
                 formControlName="direction"
                 value="{{ selected.direction }}"
-                required type="text"
+                required
+                type="text"
               />
               <img
                 src="./assets/landing/placeholder.svg"
@@ -173,7 +174,7 @@
             </div>
           </div>
 
-          <div class="form-check">
+          <div *ngIf="selected.role !== 'BOSS'" class="form-check">
             <input
               type="checkbox"
               class="form-check-input"

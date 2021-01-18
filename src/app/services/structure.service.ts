@@ -382,30 +382,31 @@ export class StructureService {
     return [];
   }
 
-  async enabledCCGs(structId: String){
+  async enabledCCGs(structId: String) {
     const obj = {
       id: structId,
     }
     await this.http.put(this.uri + '/enabledCCGs', obj).toPromise();
+
+    alert("CCGs reporte generado y buzón limpiado");
   }
 
-  async getCCGs(structureId: string){
+  async getCCGs(structureId: string) {
     const obj = {
       id: structureId,
     }
-    console.log("ccg:", obj);
     this.ccgList = await this.http.post(this.uri + '/getAllCCGs', obj).toPromise();
   }
 
-  async findCCG(ccg){
+  async findCCG(ccg) {
 
-    for(const foundccg of this.ccgList){
-      if(foundccg._id === ccg){
+    for (const foundccg of this.ccgList) {
+      if (foundccg._id === ccg) {
         this.foundCCG = foundccg;
         break;
       }
     }
-    
+
     console.log(this.foundCCG);
   }
 

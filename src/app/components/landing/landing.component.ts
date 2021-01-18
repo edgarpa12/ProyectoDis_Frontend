@@ -19,38 +19,17 @@ export class LandingComponent implements OnInit {
 
   ngOnInit() {
     this.structureService.setOrg([]);
+    this.memberService.setFormSignIn();
   }
 
-  // getLoggedUser() {
-  //   this.memberService.getLoggedUser().subscribe(response => {
-  //     console.log(response);
-  //     this.memberService.loggedUser = response;
-  //   }, error => console.log("Error"));
-  // }
-
   async signIn() {
-    // this.memberService.signIn().subscribe(response => {
-    //   if (response[0] !== undefined) {
-    //     this.structureService.org = response;
-    //     this.structureService.setOrg(response);
-    //     console.log(response);
-    //     this.getLoggedUser();
-    //     this.router.navigate(['/home']);
-    //   } else {
-    //     this.mensaje = 'Los datos no existen';
-    //   }
-    // },
-    //   error => this.mensaje = 'Los datos no existen');
-
     const response = await this.memberService.signIn().toPromise();
 
     if (response !== 0) {
       this.memberService.setLoggedUser(response[1]);
       console.log("Usuario Loggeado: ", this.memberService.loggedUser.name, " Role: ", this.memberService.loggedUser.role);
       this.structureService.setOrg(response[0]);
-      console.log(response[0]);
       console.log("Organizacion: ", this.structureService.org[1]);
-      this.memberService.setFormSignIn();
       this.router.navigate(['/home']);
     } else {
       alert("Los Datos no Existen");

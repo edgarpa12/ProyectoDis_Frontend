@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   getMembers() {
     if (this.memberService.loggedUser.role === "CEO") {
       this.router.navigate(['/memberCrud']);
-    }else{
+    } else {
       this.memberService.member = this.memberService.loggedUser;
       this.router.navigate(['/memberInfo']);
     }
@@ -30,12 +30,8 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/sendCCG']);
   }
 
-  onMenu(){
-    if (this.memberService.loggedUser.role === "CEO") {
-      this.router.navigate(['/menu']);
-    } else {
-      this.router.navigate(['/bossMenu']);
-    }
+  onMenu() {
+    this.router.navigate(['/menu']);
   }
 
 }

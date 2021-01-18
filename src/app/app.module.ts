@@ -22,9 +22,6 @@ import { SendNewsComponent } from './components/sendNews/sendnews.component';
 import { SendCCGComponent } from './components/sendCCG/sendccg.component';
 import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
 import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
-import { MemberMenuComponent } from './components/memberMenu/membermenu.component';
-import { GroupInfoComponent } from './components/groupinfo/groupinfo.component';
-import { BossMenuComponent } from './components/bossMenu/bossmenu.component';
 import { ShowNewComponent } from './components/showNew/shownews.component';
 import { ShowccgComponent } from './components/showCCG/showccg.component';
 
@@ -48,9 +45,6 @@ import { ShowccgComponent } from './components/showCCG/showccg.component';
     SendCCGComponent,
     InboxCCGComponent,
     InboxNewsComponent,
-    MemberMenuComponent,
-    GroupInfoComponent,
-    BossMenuComponent,
     ShowNewComponent,
     ShowccgComponent
   ],

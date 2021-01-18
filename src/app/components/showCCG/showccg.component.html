@@ -1,8 +1,8 @@
 <div class="container-fluid">
-  <div class="col-md-12">
-    <div class="card-page">
-      <div class="card-body">
-
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card-page">
+        <div class="card-body">
           <div class="row d-flex my-3">
             <button class="btn mr-4" (click)="goBack()">
               <i
@@ -10,17 +10,21 @@
                 style="color: #134e6f"
               ></i>
             </button>
-            <h1 class="text-black mb-3">Aporte/CCG</h1>
+            <h1 class="text-black">Aporte / CCG</h1>
           </div>
-
-
-        <div class="row">
-          <div>
-            <h3 class="pl-3">{{memberService.member.name}}</h3>
-            <h3 class="pl-3">{{this.structService.foundCCG.type}}</h3>
-          </div>
-          <div class="col-md-12">
-            <textarea class="form-control" id="textAreaNews" rows="5" disabled>{{this.structService.foundCCG.body}}</textarea>
+          <div class="card row d-flex my-4 mx-4">
+            <div class="row d-flex mx-2 my-2">
+              <span><b> Enviado por: </b></span>
+              <span>{{ memberService.member.name }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><b> Tipo: </b></span>
+              <span>{{ this.structService.foundCCG.type }}</span>
+            </div>
+            <div class="row d-flex mx-2 my-2">
+              <span><i class="fa fa-envelope"></i><b> Mensaje: </b></span>
+              <span> {{ this.structService.foundCCG.body }}</span>
+            </div>
           </div>
         </div>
       </div>
