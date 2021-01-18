@@ -18,16 +18,18 @@
               <span>{{ structureService.org[8] }}</span>
             </div>
             <div class="row d-flex mx-2 my-2">
-              <span><i class="fa fa-lock"></i><b> Contraseña: </b></span>
-              <span>{{ structureService.org[9] }}</span>
-            </div>
-            <div class="row d-flex mx-2 my-2">
               <span><i class="fa fa-wifi"></i><b> Web: </b></span>
               <span>{{ structureService.org[3] }}</span>
             </div>
             <div class="row d-flex mx-2 my-2">
               <span><i class="fa fa-image"></i><b> Logo: </b></span>
-              <span>{{ structureService.org[6] }}</span>
+              <img
+                [src]="
+                  'http://localhost:3000/uploads/' + structureService.org[6]
+                "
+                class="icon pl-2 imagen-nav"
+                (click)="goHome()"
+              />
             </div>
           </div>
           <div class="col-md-6">

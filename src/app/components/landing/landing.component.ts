@@ -11,27 +11,29 @@ import { Location } from '@angular/common';
 })
 export class LandingComponent implements OnInit {
 
-  constructor(public router: Router, public memberService: MemberService, public structureService: StructureService, public location: Location) { }
-
-  mensaje: any = "";
-
-  ngOnInit() {
-    this.structureService.setOrg([])
+  constructor(public router: Router, public memberService: MemberService,
+    public structureService: StructureService, public location: Location) {
   }
 
-  signIn() {
-    this.memberService.signIn().subscribe(response => {
-      if (response[0] != undefined) {
-        this.structureService.org = response;
-        this.structureService.setOrg(response);
-        console.log(response);
-        this.router.navigate(['/home']);
-      }
-      else {
-        this.mensaje = "Los datos no existen"
-      }
-    },
-      error => this.mensaje = "Los datos no existen")
+  mensaje: any = '';
+
+  ngOnInit() {
+    this.structureService.setOrg([]);
+    this.memberService.setFormSignIn();
+  }
+
+  async signIn() {
+    const response = await this.memberService.signIn().toPromise();
+
+    if (response !== 0) {
+      this.memberService.setLoggedUser(response[1]);
+      console.log("Usuario Loggeado: ", this.memberService.loggedUser.name, " Role: ", this.memberService.loggedUser.role);
+      this.structureService.setOrg(response[0]);
+      console.log("Organizacion: ", this.structureService.org[1]);
+      this.router.navigate(['/home']);
+    } else {
+      alert("Los Datos no Existen");
+    }
   }
 
   signUp() {

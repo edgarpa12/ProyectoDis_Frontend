@@ -22,6 +22,8 @@ import { SendNewsComponent } from './components/sendNews/sendnews.component';
 import { SendCCGComponent } from './components/sendCCG/sendccg.component';
 import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
 import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
+import { ShowNewComponent } from './components/showNew/shownews.component';
+import { ShowccgComponent } from './components/showCCG/showccg.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
     SendNewsComponent,
     SendCCGComponent,
     InboxCCGComponent,
-    InboxNewsComponent
+    InboxNewsComponent,
+    ShowNewComponent,
+    ShowccgComponent
   ],
   imports: [
     BrowserModule,

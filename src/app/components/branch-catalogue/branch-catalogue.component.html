@@ -11,6 +11,7 @@
         <div class="row">
           <div class="col-md-5 col-sm-5 my-2">
             <button
+              *ngIf="this.memberService.loggedUser.role === 'CEO'"
               class="boton btn px-4 d-flex justify-content-between align-items-center"
               style="width: 100%; background-color: #134e6f"
               role="button"
@@ -27,7 +28,7 @@
         <div class="row my-1 scrollable">
           <div
             class="col-md-10 col-sm-10 my-1"
-            *ngFor="let branch of structService.org[10]"
+            *ngFor="let branch of structService.org[9]"
           >
             <div class="element">
               <div
@@ -38,6 +39,7 @@
                 </div>
                 <div class="col-sm-8 col-md-8 d-flex px-4 justify-content-end">
                   <button
+                    *ngIf="this.memberService.loggedUser.role === 'CEO'"
                     type="button"
                     class="btn btn-labeled btn-primary mx-1 my-2"
                     (click)="editDefaultBranch(branch)"
@@ -50,6 +52,7 @@
                   </button>
 
                   <button
+                    *ngIf="this.memberService.loggedUser.role === 'CEO'"
                     type="button"
                     class="btn btn-labeled btn-danger mx-2 my-2"
                     (click)="deleteDefaultBranchAux(branch)"
@@ -104,10 +107,6 @@
             </div>
           </div>
         </form>
-
-        <p class="error" *ngIf="structService.msg != ''">
-          {{ structService.msg }}
-        </p>
       </div>
 
       <div class="modal-footer">

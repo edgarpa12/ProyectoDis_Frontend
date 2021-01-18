@@ -1,147 +1,173 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../environments/environment.prod";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.prod';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { visit } from '@angular/compiler-cli/src/ngtsc/util/src/visitor';
+import { forEach } from "@angular/router/src/utils/collection";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class StructureService {
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient) {
+  }
 
-  uri = environment.uri + "/structure";
-  type: String;
+  uri = environment.uri + '/structure';
+  type: string;
   structureId: any;
   structureList: any;
   structureFlow: any = [];
   memberList: any = [];
   bossList: any = [];
-  msg: any = "";
+  msg: any = '';
   org: any = [];
   groupsOfMember: any;
   bossType: any = "";
+  ccgList: any = [];
+  ccg: any;
+  foundCCG: any = [];
 
-  //Form estructura
+  // Form estructura
   formStructure: FormGroup = new FormGroup({
     name: new FormControl("", Validators.required),
     groupNumber: new FormControl("", Validators.required),
     monitor: new FormControl("", Validators.required),
-    idMonitor: new FormControl("", Validators.required)
+    idMonitor: new FormControl("", Validators.required),
+    integrante1: new FormControl("", Validators.required),
+    idintegrante1: new FormControl("", Validators.required),
+    integrante2: new FormControl("", Validators.required),
+    idintegrante2: new FormControl("", Validators.required)
   });
 
   setFormStructure() {
-    this.formStructure.controls["name"].setValue("");
-    this.formStructure.controls["groupNumber"].setValue("");
-    this.formStructure.controls["monitor"].setValue("");
+    this.formStructure.controls.name.setValue("");
+    this.formStructure.controls.groupNumber.setValue("");
+    this.formStructure.controls.monitor.setValue("");
+    this.formStructure.controls.integrante1.setValue("");
+    this.formStructure.controls.integrante2.setValue("");
   }
 
-  //Asigna un valor al controlador del formulario
-  populateForm(structure) {
-    this.formStructure.setValue(name);
-  }
-
-  //Guarda un id en el localstorage y en el servicio
+  // Guarda un id en el localstorage y en el servicio
   setID(id) {
     this.structureId = id;
-    localStorage.setItem("id", id);
+    localStorage.setItem('id', id);
   }
 
-  //Obtiene un id del localstorage
+  // Obtiene un id del localstorage
   getID() {
-    return localStorage.getItem("id");
+    return localStorage.getItem('id');
   }
 
-  //Guarda un id en el localstorage y en el servicio
+  // Guarda un id en el localstorage y en el servicio
   setType(type) {
     this.type = type;
-    localStorage.setItem("type", type);
+    localStorage.setItem('type', type);
   }
 
-  //Obtiene un id del localstorage
+  // Obtiene un id del localstorage
   getType() {
-    return localStorage.getItem("type");
+    return localStorage.getItem('type');
   }
 
-  //Guarda un flow en el localstorage y en el servicio
+  // Guarda un flow en el localstorage y en el servicio
   setFlow() {
-    localStorage.setItem("flow", JSON.stringify(this.structureFlow));
+    localStorage.setItem('flow', JSON.stringify(this.structureFlow));
   }
 
-  //Obtiene un flow del localstorage
+  // Obtiene un flow del localstorage
   getFlow() {
-    this.structureFlow = JSON.parse(localStorage.getItem("flow"));
+    this.structureFlow = JSON.parse(localStorage.getItem('flow'));
   }
 
-  //Guarda un flow en el localstorage y en el servicio
+  // Guarda un flow en el localstorage y en el servicio
   setOrg(org) {
-    localStorage.setItem("org", JSON.stringify(org));
+    this.org = org;
+    localStorage.setItem('org', JSON.stringify(org));
   }
 
-  //Obtiene un flow del localstorage
+  // Obtiene un flow del localstorage
   getOrg() {
-    this.org = JSON.parse(localStorage.getItem("org"));
+    this.org = JSON.parse(localStorage.getItem('org'));
   }
 
-  //Obtiene las subestructuras de una estructura
-  getLevel(id: String) {
-    var obj = {
+  // Obtiene las subestructuras de una estructura
+  getLevel(id: string) {
+    const obj = {
       parent: id,
     };
-    this.http.post(this.uri + "/getLevel", obj).subscribe((response) => {
+    this.http.post(this.uri + '/getLevel', obj).subscribe((response) => {
       this.setID(id);
       this.structureList = response;
     });
   }
 
-  //Añade una estructura, para esto requiere un nombre y el id de la estructura padre
+  // Añade una estructura, para esto requiere un nombre y el id de la estructura padre
   async addStructure() {
-    if (this.type == "group") {
+    if (this.type === 'group') {
       await this.createGroup();
     } else {
       const obj = {
-        name: this.formStructure.controls["name"].value,
-        groupNumber: " ",
+        name: this.formStructure.controls.name.value,
+        groupNumber: ' ',
         idParent: this.structureId,
       };
-      const added = await this.http.post(this.uri + "/create", obj).toPromise()
-
-      if (added["message"] == undefined) {
+      const response = await this.http
+        .post(this.uri + '/create', obj)
+        .toPromise();
+      if (response !== 0) {
         this.getLevel(this.structureId);
-        this.msg = "";
-        this.setFormStructure()
+        this.msg = 'Estructura añadida correctamente';
+        this.setFormStructure();
       } else {
-        this.msg = "Ya existe una estructura con este nombre.";
+        this.msg = 'Ya existe una estructura con este nombre.';
       }
     }
-
   }
 
-  //Edita una estructura
-  editStructure(structure) {
-    var data = structure;
-    data.name = this.formStructure.controls["name"].value;
-    var obj = {
+  // Filtro para que no se repitan selecciones
+  filtrarMiembros(member, list) {
+    for (const selectedMembers of list)
+      return selectedMembers.id === member.id ? false : true;
+  }
+
+  // Edita una estructura
+  async editStructure(structure) {
+    const data = structure;
+    data.name = this.formStructure.controls.name.value;
+    const obj = {
       _id: structure._id,
       newName: data.name,
     };
-    this.http.put(this.uri + "/update", obj).subscribe((res) => {
+    const response = await this.http.put(this.uri + '/update', obj).toPromise();
+    console.log('response', response);
+    if (response['msg'] != 0) {
       this.getLevel(this.structureId);
-      this.setFormStructure()
-    });
+      this.msg = 'Estructura editada correctamente';
+    } else {
+      this.msg = 'Usted quiere usar un nombre que ya existe';
+    }
+    this.setFormStructure();
   }
 
-  //Elimina una estructura
-  deleteStructure(id) {
+  // Elimina una estructura
+  async deleteStructure(id) {
     const obj = {
-      id: id,
+      id,
     };
-    this.http.post(this.uri + "/delete", obj).subscribe((res) => {
+    const response = await this.http
+      .post(this.uri + '/delete', obj)
+      .toPromise();
+    console.log('response["msg"]', response['msg']);
+    if (response['msg'] != 0) {
       this.getLevel(this.structureId);
-    });
+      this.msg = 'Estructurada Eliminada Correctamente';
+    } else {
+      this.msg = 'Ocurrio un error eliminando, intente de nuevo';
+    }
   }
 
   getIds() {
-    var ids = [];
+    const ids = [];
     this.structureFlow.forEach((element) => {
       ids.push(element._id);
     });
@@ -149,144 +175,285 @@ export class StructureService {
   }
 
   async getStructureMembers() {
-    var ids = this.getIds();
-    var obj = {
-      ids: ids,
+    const ids = this.getIds();
+    const obj = {
+      ids,
     };
     this.memberList = await this.http
-      .post(this.uri + "/getStructureMembers", obj)
+      .post(this.uri + '/getStructureMembers', obj)
       .toPromise();
   }
 
   async getStructureBosses() {
-    var ids = this.getIds();
-    var obj = {
-      ids: ids,
+    const ids = this.getIds();
+    const obj = {
+      ids,
     };
     this.bossList = await this.http
-      .post(this.uri + "/getStructureBosses", obj)
+      .post(this.uri + '/getStructureBosses', obj)
       .toPromise();
   }
 
-  async addMember(idMember) {
-    var ids = this.getIds();
-    var obj = {
-      idMember: idMember,
-      ids: ids,
+  async addMember(idMember, group) {
+    const ids = this.getIds();
+    if (this.type === "group") {
+      ids.push(group["_id"]);
+    }
+    const obj = {
+      idMember,
+      ids,
     };
-    const responseFromDB = await this.http
-      .post(this.uri + "/addMemberToGroup", obj)
+    const response = await this.http
+      .post(this.uri + '/addMemberToGroup', obj)
       .toPromise();
 
-    return responseFromDB;
+    if (response['msg'] != 0) {
+      this.msg = 'Usuario Añadido';
+    } else {
+      this.msg = 'Este usuario ya existe en una estructura cercana';
+    }
   }
 
   async addBoss(idMember) {
-    var ids = this.getIds();
-    var obj = {
-      ids: ids,
+    const ids = this.getIds();
+    const obj = {
+      ids,
       idBoss: idMember,
+      bossType: "BOSS"
     };
-    const responseFromDB = await this.http.post(this.uri + "/addBossToGroup", obj).toPromise();
-    await this.getStructureBosses();
-    this.bossType = "Boss"
-    return responseFromDB;
+    const response = await this.http
+      .post(this.uri + '/addBossToGroup', obj)
+      .toPromise();
+    if (response['msg'] != 0) {
+      await this.getStructureBosses();
+      this.bossType = 'BOSS';
+      this.msg = 'Jefe añadido correctamente';
+    } else {
+      this.msg = 'Ocurrio un problema, intente de nuevo';
+    }
   }
 
   async deleteMember(idMember, idGroup) {
-    var obj = {
-      idMember: idMember,
-      idGroup: idGroup,
+    const obj = {
+      idMember,
+      idGroup,
     };
-    const responseFromDB = await this.http
-      .post(this.uri + "/removeMemberFromStructure", obj)
+    const response = await this.http
+      .post(this.uri + '/removeMemberFromStructure', obj)
       .toPromise();
-    await this.getStructureMembers();
-    return responseFromDB;
+    if (response['msg'] != 0) {
+      await this.getStructureMembers();
+      this.msg = 'Usuario eliminado correctamente';
+    } else {
+      this.msg = 'Ocurrio un problema, intente de nuevo';
+    }
   }
 
   async deleteBoss(idMember, idBranch, idGroup) {
-    var obj = {
-      idMember: idMember,
+    const obj = {
+      idMember,
       idBranch: idBranch._id,
       idGroup: idGroup._id,
-    }
-    const deleted = await this.http.post(this.uri + '/removeBossFromStructure', obj).toPromise()
+    };
+    const deleted = await this.http
+      .post(this.uri + '/removeBossFromStructure', obj)
+      .toPromise();
     await this.getStructureBosses();
   }
 
-  async addMonitor(idMember) {
-    var ids = this.getIds();
-    var obj = {
-      ids: ids,
+  async addMonitor(idMember, group) {
+    const ids = this.getIds();
+    ids.push(group['_id']);
+    const obj = {
+      ids,
       idMonitor: idMember,
+      bossType: "MONITOR"
     };
-    const responseFromDB = await this.http.post(this.uri + "/addMonitorToGroup", obj).toPromise();
-    console.log("Respuesta", responseFromDB)
-    await this.getStructureBosses();
-    return responseFromDB;
+    const response = await this.http
+      .post(this.uri + '/addMonitorToGroup', obj)
+      .toPromise();
+
+    if (response["msg"] !== 0) {
+      this.msg = "Monitor Añadido";
+    } else {
+      this.msg = 'Ocurrió un error';
+    }
   }
 
   async createGroup() {
     const obj = {
-      name: this.formStructure.controls["name"].value,
-      groupNumber: this.formStructure.controls["groupNumber"].value,
+      name: this.formStructure.controls.name.value,
+      groupNumber: this.formStructure.controls.groupNumber.value,
       idParent: this.structureId,
     };
-    const response = await this.http.post(this.uri + "/create", obj).toPromise();
+    const response = await this.http
+      .post(this.uri + '/create', obj)
+      .toPromise();
+    if (response !== 0) {
+      this.getLevel(this.structureId);
+      this.msg = 'Estructura añadida correctamente';
 
-    await this.getLevel(this.structureId);
-    await this.structureFlow.push(response);
+      await this.addMonitor(
+        this.formStructure.controls.idMonitor.value,
+        response
+      );
 
-    const monitorAdded = await this.addMonitor(this.formStructure.controls["idMonitor"].value);
-    alert("Monitor Agregado")
+      await this.addMember(this.formStructure.controls.idintegrante1.value, response);
+      await this.addMember(this.formStructure.controls.idintegrante2.value, response);
 
-    this.bossType = "Monitor"
-    this.setFormStructure()
+    } else {
+      this.msg = 'Ya existe una estructura con este nombre.';
+    }
   }
 
-  async structuresXMember(id: String) {
+  async structuresXMember(id: string, includeBosses: boolean = false) {
     const obj = {
       idUser: id,
+      includeBosses
     };
-    this.groupsOfMember = await this.http.post(this.uri + "/getStructureXMember", obj).toPromise();
+    this.groupsOfMember = await this.http
+      .post(this.uri + '/getStructureXMember', obj)
+      .toPromise();
+  }
+
+  async isMember(id: string) {
+    if (this.structuresXMember(id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async getDefaultBranches() {
-    this.org[10] = await this.http.get(this.uri + "/getDefaultBranches").toPromise();
+    this.org[9] = await this.http
+      .get(this.uri + '/getDefaultBranches')
+      .toPromise();
   }
 
   async addDefaultBranch() {
     const obj = {
       idOrganization: this.org[0],
-      name: this.formStructure.controls['name'].value
+      name: this.formStructure.controls.name.value,
+    };
+    const response = await this.http
+      .post(this.uri + '/addDefaultBranch', obj)
+      .toPromise();
+    // await this.getDefaultBranches();
+    if (response['msg'] != 0) {
+      this.msg = 'Rama añadida correctamente';
+    } else {
+      this.msg = 'Ya existe una rama con el mismo nombre';
     }
-    const res = await this.http.post(this.uri + "/addDefaultBranch", obj).toPromise()
-    await this.getDefaultBranches();
-    this.setFormStructure()
+
   }
 
   async editDefaultBranch(oldName) {
     const obj = {
-      oldName: oldName,
-      name: this.formStructure.controls['name'].value
+      oldName,
+      name: this.formStructure.controls.name.value,
+    };
+
+    const response = await this.http.post(this.uri + '/updateDefaultBranch', obj).toPromise();
+    if (response['msg'] != 0) {
+      this.msg = 'Rama editada correctamente';
+    } else {
+      this.msg = 'Existe una rama con el mismo nombre intente de nuevo';
     }
-
-    await this.http.post(this.uri + "/updateDefaultBranch", obj).toPromise()
-
-    await this.getDefaultBranches();
-    this.setFormStructure()
   }
 
   async deleteDefaultBranch(branch) {
     const obj = {
-      name: branch
+      name: branch,
+    };
+
+    const response = await this.http
+      .post(this.uri + '/removeDefaultBranch', obj)
+      .toPromise();
+
+    if (response['msg'] != 0) {
+      await this.getDefaultBranches();
+      this.msg = 'Rama removida correctamente';
+    } else {
+      this.msg = 'Ocurrio un error intente de nuevo';
     }
-
-    await this.http.post(this.uri + "/removeDefaultBranch", obj).toPromise()
-
-    await this.getDefaultBranches();
   }
 
+  async getNews(userId: string) {
+    await this.structuresXMember(userId, true);
 
+    const structures = [];
+    for (const group of this.groupsOfMember) {
+      const obj = {
+        structureId: group.id
+      };
+      const path = await this.http.post(this.uri + '/getPath', obj).toPromise();
+      structures.push(path);
+    }
+
+    const seenNews: any = (await this.http.post(this.uri + '/getSeenNews', { idMember: userId }).toPromise());
+    const visited = [];
+    const news = [];
+
+    for (const path of structures) {
+      const relativePath = [];
+      for (const node of path) {
+        relativePath.push(node.name);
+        if (visited.indexOf(node.id) <= -1) {
+          visited.push(node.id);
+          const elementNews: any = await this.http.post(this.uri + '/getNews', {
+              structureId: node.id
+            }
+          ).toPromise();
+          if (elementNews.length > 0) {
+            for (const news1 of elementNews) {
+              news1.seen = seenNews.indexOf(news1._id) > -1;
+              news.push({
+                data: news1,
+                path: relativePath.join(' > ')
+              });
+            }
+          }
+        }
+      }
+    }
+
+    console.log('Final news: ', news);
+
+    return news;
+  }
+
+  async enabledCCGs(structId: String) {
+    const obj = {
+      id: structId,
+    }
+    await this.http.put(this.uri + '/enabledCCGs', obj).toPromise();
+
+    alert("CCGs reporte generado y buzón limpiado");
+  }
+
+  async getCCGs(structureId: string) {
+    const obj = {
+      id: structureId,
+    }
+    this.ccgList = await this.http.post(this.uri + '/getAllCCGs', obj).toPromise();
+  }
+
+  async findCCG(ccg) {
+
+    for (const foundccg of this.ccgList) {
+      if (foundccg._id === ccg) {
+        this.foundCCG = foundccg;
+        break;
+      }
+    }
+
+    console.log(this.foundCCG);
+  }
+
+  async markesAsSeen(seenNews: string, idMember: string) {
+    await this.http.post(this.uri + '/seenNews', {
+      idMember,
+      seenNews
+    }).toPromise();
+  }
 }

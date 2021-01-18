@@ -4,40 +4,31 @@
       <div class="card-page">
         <div class="card-body">
           <div class="row d-flex my-3">
-            <div class="col-md-12">
-              <button class="btn" (click)="goBack()">
-                <i
-                  class="fa fa-arrow-circle-left fa-3x"
-                  style="color: #134e6f"></i>
-              </button>
-              <h1 class="text-black">Bandeja de Noticias</h1>
-            </div>
-            <div class="col-md-12 mt-1">
-              <h3>Lista de noticias: </h3>
-            </div>
+            <button class="btn mr-4" (click)="goBack()">
+              <i
+                class="fa fa-arrow-circle-left fa-3x"
+                style="color: #134e6f"
+              ></i>
+            </button>
+            <h1 class="text-black">Bandeja de Noticias</h1>
           </div>
-          <div class="row mx-3 d-flex containerInbox py-3 px-3">
-            <div class="card cardCCG">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-4 d-flex justify-content-start">
-                    <a>05/01/2021 - Agradecimiento</a>
-                  </div>
-                  <div class="col-md-4 d-flex justify-content-start">
-                    <p>Kendall Tiro Fijo Tames</p>
-                  </div>
-                  <div class="col-md-4 d-flex justify-content-end">
-                    <a class="colorA">~ Nuevo</a>
-                  </div>
-                </div>
+
+          <div class="col-md-12 mt-1">
+            <h3>Lista de noticias:</h3>
+            <!-- *ngfor="let news in structService.getNews()" -->
+            <p *ngIf="showLoading">Cargando ...</p>
+            <div *ngIf="!showLoading">
+              <div class="card news-container" *ngFor="let n of news" (click)="showNews(n)">
+                <small
+                  class="text-black-50 d-flex justify-content-between"><span><b>{{ n.path }}</b></span><span>{{ n.data.date | date: 'dd-MM-yyyy HH:mm:ss' }}</span></small>
+                <small
+                  class="text-black-50 d-flex justify-content-between"><span>Enviada por {{ n.data.from }}</span><span
+                  class="text-danger" *ngIf="!n.data.seen"><i>¡Nuevo!</i></span></small>
               </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

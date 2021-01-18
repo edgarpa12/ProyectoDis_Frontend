@@ -12,7 +12,7 @@
         </div>
         <div class="row d-flex my-4">
           <div class="card col-md-6 my-2 px-4 py-4">
-            <h3 >Informacion General</h3>
+            <h3>Información General</h3>
 
             <div>
               <span><i class="fa fa-phone"></i><b> Teléfono</b></span>
@@ -23,7 +23,7 @@
               <p>{{ memberService.member.direction }}</p>
             </div>
           </div>
-          <div class="col-md-6 my-2 ">
+          <div class="col-md-6 my-2">
             <div class="card px-5 py-4 d-flex justify-content-start scrollable">
               <h3>Sus grupos</h3>
               <div
@@ -35,19 +35,30 @@
 
               <div class="px-5">
                 <button
+                  *ngIf="this.memberService.loggedUser.role === 'CEO'"
                   class="boton btn px-5 d-flex justify-content-around align-items-center"
-                  style="width: 100%; background-color: #134e6f; margin-top: 20px;"
+                  style="
+                    width: 100%;
+                    background-color: #134e6f;
+                    margin-top: 20px;
+                  "
                   role="button"
                   data-toggle="modal"
                   href="#member"
                   (click)="clear()"
-                  href="#change" 
+                  href="#change"
                   data-toggle="modal"
                 >
                   <i class="fa fa-plus"></i>
                   Cambio de grupo
                 </button>
               </div>
+            </div>
+            <div class="d-flex py-3 align-items-center">
+              <h3>
+                Role:
+                {{ memberService.member.role }}
+              </h3>
             </div>
           </div>
         </div>
@@ -56,14 +67,17 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="change" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="change"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">
-          Cambio de grupo
-        </h5> 
+        <h5 class="modal-title" id="myModalLabel">Cambio de grupo</h5>
         <button type="button" class="close" data-dismiss="modal">
           <span aria-hidden="true">×</span>
         </button>
@@ -72,16 +86,16 @@
         <div class="row">
           <!--Origen-->
           <div class="col-md-12">
-            <p style="font-size: 15px;">Estructura origen:</p>
+            <p style="font-size: 15px">Estructura origen:</p>
             <div
-            class="element d-flex justify-content-center px-4 my-2 py-3"
-            *ngIf="origin!=undefined"
-          >
-            {{ origin.name }}
-          </div>
+              class="element d-flex justify-content-center px-4 my-2 py-3"
+              *ngIf="origin != undefined"
+            >
+              {{ origin.name }}
+            </div>
             <div
               *ngFor="let structure of structureService.groupsOfMember"
-              class="element d-flex px-4 my-2 py-3 "
+              class="element d-flex px-4 my-2 py-3"
               [class.disabled]="originSelected"
               (click)="selectOrigin(structure)"
             >
@@ -93,59 +107,62 @@
                 href="#struct"
                 (click)="selectOrigin(structure)"
               >
-                <span class="btn-label"
-                  ><i class="fa fa-info-circle"></i></span
+                <span class="btn-label"><i class="fa fa-info-circle"></i></span
                 >Seleccionar
               </button>
-              <p style="margin-top: 20px;">{{ structure.name }}</p>
+              <p style="margin-top: 20px">{{ structure.name }}</p>
             </div>
           </div>
           <!--Destino-->
           <div class="col-md-12">
-            <p style="font-size: 15px;">Estructura destino:</p>
+            <p style="font-size: 15px">Estructura destino:</p>
             <div
-            class="element d-flex justify-content-center px-4 my-2 py-3"
-            *ngIf="destiny!=undefined"
-          >
-            {{ destiny.name }}
-          </div>
+              class="element d-flex justify-content-center px-4 my-2 py-3"
+              *ngIf="destiny != undefined"
+            >
+              {{ destiny.name }}
+            </div>
             <div
               *ngFor="let structure of structureService.structureList"
-              class="element d-flex  px-4 my-2 py-3"
+              class="element d-flex px-4 my-2 py-3"
               [class.disabled]="destinySelected"
             >
-            <button
-              type="button"
-              class="btn btn-labeled btn-success mx-2 my-2"
-              role="button"
-              data-toggle="modal"
-              href="#struct"
-              (click)="selectDestiny(structure)"
-            >
-              <span class="btn-label"
-                ><i class="fa fa-info-circle"></i></span
-              >Seleccionar
-            </button>
-            <button
-              *ngIf="structureService.getType() != 'group'"
-              type="button"
-              class="btn btn-labeled btn-warning mx-2 my-2"
-              (click)="goStructure(structure)"
-              style="color: white;"
-              role="button"
-            >
-              <span class="btn-label"
-                ><i class="fa fa-sitemap"></i></span
-              >Jerarquia
-            </button>
-            
-            <p style="margin-top: 20px;">{{ structure.name }}</p>
+              <button
+                type="button"
+                class="btn btn-labeled btn-success mx-2 my-2"
+                role="button"
+                data-toggle="modal"
+                href="#struct"
+                (click)="selectDestiny(structure)"
+              >
+                <span class="btn-label"><i class="fa fa-info-circle"></i></span
+                >Seleccionar
+              </button>
+              <button
+                *ngIf="structureService.getType() != 'group'"
+                type="button"
+                class="btn btn-labeled btn-warning mx-2 my-2"
+                (click)="goStructure(structure)"
+                style="color: white"
+                role="button"
+              >
+                <span class="btn-label"><i class="fa fa-sitemap"></i></span
+                >Jerarquia
+              </button>
+
+              <p style="margin-top: 20px">{{ structure.name }}</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer"> 
-        <button type="button" class="btn btn-primary" (click)="changeGroup()" *ngIf="originSelected && destinySelected" data-dismiss="modal">
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="changeGroup()"
+          *ngIf="originSelected && destinySelected"
+          data-dismiss="modal"
+        >
           Guardar
         </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -155,4 +172,3 @@
     </div>
   </div>
 </div>
-

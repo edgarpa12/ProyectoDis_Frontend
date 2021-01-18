@@ -8,62 +8,90 @@
               <button class="btn" (click)="goBack()">
                 <i
                   class="fa fa-arrow-circle-left fa-3x"
-                  style="color: #134e6f"></i>
+                  style="color: #134e6f"
+                ></i>
               </button>
               <h1 class="text-black">Enviar noticia</h1>
             </div>
             <div class="col-md-12 mt-1">
               <h3>Datos de la noticia</h3>
-              <p>Publicar en: </p>
+              <!-- <p>Publicar en:</p> -->
             </div>
           </div>
-          <div class="row d-flex ml-2">
-            <div class="form-check  form-check form-check-inline d-flex">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Zona
-              </label>
-            </div>
-            <div class=" form-check form-check form-check-inline d-flex ml-1">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Rama
-              </label>
-            </div>
-            <div class=" form-check form-check form-check-inline d-flex ml-1">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Grupo
-              </label>
-            </div>
-          </div>
-          <div class="row d-flex mt-3">
-            <div class="col-md-9">
-              <div class="form-group">
-                <label for="newsInput">Mensaje: </label>
-                <textarea class="form-control textarea1" id="newsInput" rows="5" placeholder="Escriba aqui..."></textarea>
+          <form [formGroup]="memberService.formNews">
+            <!-- <div class="row d-flex ml-2">
+              <div class="form-check form-check form-check-inline d-flex">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Zona
+                </label>
+              </div>
+              <div class="form-check form-check form-check-inline d-flex ml-1">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Rama
+                </label>
+              </div>
+              <div class="form-check form-check form-check-inline d-flex ml-1">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Grupo
+                </label>
+              </div>
+            </div> -->
+            <div class="row d-flex mt-3">
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="newsInput">Mensaje: </label>
+                  <textarea
+                    class="form-control textarea1"
+                    id="newsInput"
+                    rows="5"
+                    placeholder="Escriba aqui..."
+                    formControlName="body"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <h3>Imagenes:</h3>
+                  <label for="file-upload" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> Subir
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    data-show-caption="true"
+                    formControlName="images"
+                    (change)="onFileChange($event)"
+                    multiple
+                  />
+                </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <h3>Imagenes: </h3>
-                <label for="file-upload" class="custom-file-upload">
-                  <i class="fa fa-cloud-upload"></i> Subir
-              </label>
-              <input id="file-upload" type="file" data-show-caption="true" multiple/>
+            <div class="row d-flex mt-3">
+              <div class="col-md-12 d-flex justify-content-end pr-5">
+                <button class="btnSend" (click)="sendNews()">Enviar</button>
               </div>
             </div>
-          </div>
-          <div class="row d-flex mt-3">
-            <div class="col-md-12 d-flex justify-content-end pr-5">
-              <button class="btnSend">Enviar</button>
-            </div>
-          </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

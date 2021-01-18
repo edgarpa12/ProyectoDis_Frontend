@@ -7,175 +7,279 @@
             <i class="fa fa-arrow-circle-left fa-3x" style="color: #134e6f"></i>
           </button>
           <p class="text-black align-text-center my-4">
-            Registra tu Organización
+            {{
+              pageNumber === 1
+                ? "Registrate como Asesor"
+                : "Registra tu Organización"
+            }}
           </p>
         </div>
-        <form
-          class="blue-form d-flex flex-wrap justify-content-center"
-          [formGroup]="memberService.formOrganization"
-        >
-          <div class="col-md-4">
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="name"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-users"></span> Organización
-                </p>
+        <span [ngSwitch]="pageNumber">
+          <form
+            class="blue-form justify-content-center"
+            [formGroup]="memberService.formMiembro"
+            *ngSwitchCase="1"
+          >
+            <div class="d-flex flex-wrap justify-content-center">
+              <div class="col-md-6">
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="name"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-user"></span> Nombre
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="email"
+                      class="form-control px-3 pt-2"
+                      formControlName="email"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-envelope"></span> Email
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="password"
+                      class="form-control px-3 pt-2"
+                      formControlName="password"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-lock"></span> Contraseña
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="phone"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-phone"></span> Telefono
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <textarea
+                      rows="4"
+                      class="form-control px-3 pt-2"
+                      formControlName="direction"
+                    ></textarea>
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-address-card"></span> Direccion
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="legalCertificate"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-file"></span> Certificado
-                </p>
-              </div>
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="web"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-wifi"></span> Web
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="phone"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-phone"></span> Telefono
-                </p>
-              </div>
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="logoName"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-image"></span> Logo
-                </p>
-              </div>
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="text"
-                  class="form-control px-3 pt-2"
-                  formControlName="country"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-globe"></span> País
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="email"
-                  class="form-control px-3 pt-2"
-                  formControlName="email"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-user"></span> Email
-                </p>
-              </div>
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <input
-                  type="password"
-                  class="form-control px-3 pt-2"
-                  formControlName="password"
-                />
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-lock"></span> Contraseña
-                </p>
-              </div>
-            </div>
-            <div class="form-group mx-sm-3 mb-2">
-              <div class="row py-4">
-                <textarea
-                  rows="3"
-                  class="form-control px-3 pt-2"
-                  formControlName="direction"
-                ></textarea>
-                <img
-                  src="./assets/landing/placeholder.svg"
-                  class="placeholder-bg"
-                />
-                <p class="placeholder-text">
-                  <span class="fa fa-address-card"></span> Direccion
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
+            <hr />
             <button
-              type="button"
-              class="boton btn px-4 align-self-center"
-              style="background-color: #ffa822"
-              (click)="signUp()"
+              (click)="pageForward()"
+              class="boton btn p-2 align-self-center"
+              style="background-color: #134e6f; float: right"
             >
-              Registrar
-              <span class="fa fa-arrow-right"></span>
+              Siguiente <span class="fa fa-arrow-right"></span>
             </button>
-          </div>
-        </form>
+          </form>
+          <form
+            class="blue-form"
+            [formGroup]="memberService.formOrganization"
+            *ngSwitchCase="2"
+          >
+            <div class="d-flex flex-wrap justify-content-center">
+              <div class="col-md-4">
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="name"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-users"></span> Organización
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="legalCertificate"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-file"></span> Certificado
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="web"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-wifi"></span> Web
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="phone"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-phone"></span> Telefono
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="text"
+                      class="form-control px-3 pt-2"
+                      formControlName="country"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-globe"></span> País
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="email"
+                      class="form-control px-3 pt-2"
+                      formControlName="email"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-user"></span> Email
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <textarea
+                      rows="4"
+                      class="form-control px-3 pt-2"
+                      formControlName="direction"
+                    ></textarea>
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-address-card"></span> Direccion
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <div class="row py-4">
+                    <input
+                      type="file"
+                      class="form-control px-3 pt-2"
+                      formControlName="logoName"
+                      (change)="onFileChange($event)"
+                    />
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-image"></span> Logo
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="form-group mx-sm-3 mb-2"> -->
+            <hr />
+            <div>
+              <button
+                (click)="pageBack()"
+                class="boton btn p-2 align-self-center justify-content-between"
+                style="background-color: #134e6f"
+              >
+                <span class="fa fa-arrow-left"></span> Anterior
+              </button>
+              <button
+                type="button"
+                class="boton btn px-4 align-self-center"
+                style="background-color: #ffa822; float: right"
+                (click)="signUp()"
+              >
+                Registrar
+                <span class="fa fa-arrow-right"></span>
+              </button>
+            </div>
+            <!-- </div> -->
+          </form>
+        </span>
       </div>
     </div>
   </div>

@@ -10,22 +10,25 @@ import { Location } from '@angular/common';
 })
 export class AddMemberComponent implements OnInit {
 
-  constructor(public router: Router, public memberService: MemberService, public location: Location) { }
+  constructor(public router: Router, public memberService: MemberService, public location: Location) {
+  }
 
   ngOnInit() {
   }
 
-  createMember() {
-    this.memberService.createMember();
+  async createMember() {
+    if (await this.memberService.createMember()) {
+      //this.memberService.setFormMiembro();
+      this.router.navigate(['/memberCrud']);
+    }
+    alert(this.memberService.msg);
     this.memberService.setFormMiembro();
-    this.router.navigate(['/memberCrud'])
   }
 
   goBack() {
     this.memberService.setFormMiembro();
     this.router.navigate(['/memberCrud']);
   }
-
 
 
 }

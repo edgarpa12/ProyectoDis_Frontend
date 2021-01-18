@@ -16,6 +16,9 @@ import { SendNewsComponent } from './components/sendNews/sendnews.component';
 import { SendCCGComponent } from './components/sendCCG/sendccg.component';
 import { InboxCCGComponent } from './components/inboxCCG/inboxccg.component';
 import { InboxNewsComponent } from './components/inboxNews/inboxnews.component';
+import { ShowNewComponent } from './components/showNew/shownews.component';
+import { ShowccgComponent } from './components/showCCG/showccg.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -33,11 +36,14 @@ const routes: Routes = [
   { path: 'sendNews', component: SendNewsComponent },
   { path: 'sendCCG', component: SendCCGComponent },
   { path: 'inboxCCG', component: InboxCCGComponent },
-  { path: 'inboxNews', component: InboxNewsComponent }
+  { path: 'inboxNews', component: InboxNewsComponent },
+  { path: 'showNew', component: ShowNewComponent },
+  { path: 'showCCG', component: ShowccgComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

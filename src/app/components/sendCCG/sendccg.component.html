@@ -4,56 +4,89 @@
       <div class="card-page">
         <div class="card-body">
           <div class="row d-flex my-3">
-            <div class="col-md-12">
-              <button class="btn" (click)="goBack()">
+            <div class="col-md-12 d-flex my-3">
+              <button class="btn mr-4" (click)="goBack()">
                 <i
                   class="fa fa-arrow-circle-left fa-3x"
-                  style="color: #134e6f"></i>
+                  style="color: #134e6f"
+                ></i>
               </button>
               <h1 class="text-black">Enviar Aporte / CCG</h1>
             </div>
-            <div class="col-md-12 mt-1">
-              <h3>Tipo de aporte: </h3>
+            <div class="row d-flex mx-5">
+              <h3>Tipo de aporte:</h3>
             </div>
           </div>
-          <div class="row d-flex ml-5">
-            <div class="form-check  form-check form-check-inline d-flex">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Petitoria
-              </label>
-            </div>
-            <div class=" form-check form-check form-check-inline d-flex ml-1">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Agredecimiento
-              </label>
-            </div>
-            <div class=" form-check form-check form-check-inline d-flex ml-1">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" for="flexRadioDefault1">
-                Ofrecimiento
-              </label>
-            </div>
-          </div>
-          <div class="row d-flex mt-3">
+          <div class="row d-flex mx-4">
             <div class="col-md-12">
-              <div class="form-group mx-5">
-                <label for="newsInput">Mensaje: </label>
-                <textarea class="form-control textarea1" id="newsInput" rows="5" placeholder="Escriba aqui..."></textarea>
-              </div>
+              <form class="blue-form" [formGroup]="memberService.formCCG">
+                <div class="row d-flex ml-1">
+                  <div class="form-check form-check form-check-inline d-flex">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="type"
+                      value="Petition"
+                    />
+                    <label class="form-check-label"> Petitoria </label>
+                  </div>
+                  <div
+                    class="form-check form-check form-check-inline d-flex ml-1"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="type"
+                      value="Gratitude"
+                    />
+                    <label class="form-check-label"> Agradecimiento </label>
+                  </div>
+                  <div
+                    class="form-check form-check form-check-inline d-flex ml-1"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      formControlName="type"
+                      value="Offering"
+                    />
+                    <label class="form-check-label"> Ofrecimiento </label>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 mb-2 mt-3">
+                  <div class="row py-4">
+                    <textarea
+                      rows="5"
+                      class="form-control px-3 pt-2"
+                      formControlName="body"
+                    ></textarea>
+                    <img
+                      src="./assets/landing/placeholder.svg"
+                      class="placeholder-bg"
+                    />
+                    <p class="placeholder-text">
+                      <span class="fa fa-envelope"></span> Mensaje
+                    </p>
+                  </div>
+                </div>
+                <div class="form-group mx-sm-3 my-2">
+                  <div class="col-md-12 d-flex justify-content-end">
+                    <button
+                      type="button"
+                      class="boton btn px-4 align-self-center"
+                      style="background-color: #ffa822"
+                      (click)="sendCCG()"
+                    >
+                      Enviar
+                      <span class="fa fa-arrow-right"></span>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="row d-flex mt-3">
-            <div class="col-md-12 d-flex justify-content-end pr-5">
-              <button class="btnSend">Enviar</button>
-            </div>
-          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

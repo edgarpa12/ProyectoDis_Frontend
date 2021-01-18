@@ -10,42 +10,53 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class MemberCrudComponent implements OnInit {
 
-  constructor(public memberService: MemberService, public router: Router, public location: Location) { }
+  constructor(public memberService: MemberService, public router: Router, public location: Location) {
+  }
 
-  selected;
+  selected = {
+    name: '',
+    phone: '',
+    direction: '',
+    role: '',
+    email: ''
+  };
 
-  ngOnInit() {
-    this.memberService.getMembers()
+  async ngOnInit() {
+    await this.memberService.getMembers();
   }
 
   getMemberInfo(member) {
     this.memberService.member = member;
-    this.router.navigate(['/memberInfo'])
+    this.router.navigate(['/memberInfo']);
   }
 
   addMember() {
-    this.router.navigate(['/addMember'])
+    this.router.navigate(['/addMember']);
   }
 
   goBack() {
-    this.router.navigate(['/home'])
+    this.router.navigate(['/home']);
   }
 
   deleteMemberAux(member) {
     this.selected = member;
   }
 
-  deleteMember() {
-    this.memberService.deleteMember(this.selected);
+  async deleteMember() {
+    await this.memberService.deleteMember(this.selected);
+    await this.memberService.getMembers();
+    alert(this.memberService.msg);
   }
 
   editMember(member) {
-    this.selected = member
-    this.memberService.setFormMiembro()
+    console.log(member);
+    this.selected = member;
   }
 
-  confirmEditMember() {
-    this.memberService.editMember(this.selected)
+  async confirmEditMember() {
+    await this.memberService.editMember(this.selected);
+    await this.memberService.getMembers();
+    alert(this.memberService.msg);
   }
 
 }

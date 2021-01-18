@@ -15,42 +15,49 @@ export class StructureInfoComponent implements OnInit {
     public structService: StructureService,
     public router: Router,
     public memberService: MemberService,
-    public location: Location) { }
+    public location: Location) {
+  }
 
   selected;
 
   async ngOnInit() {
-    this.structService.getFlow()
+    this.structService.getFlow();
+    this.structService.memberList = [];
+    this.structService.bossList = [];
     await this.structService.getStructureMembers();
     await this.structService.getStructureBosses();
+    this.structService.bossType = this.structService.bossList[0].role;
     this.structService.getType();
   }
 
   addMemberAux() {
-    this.memberService.getMembers()
+    this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.bossList));
+    this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.memberList));
   }
 
   async addMember(member) {
-    const response = await this.structService.addMember(member.id);
+    await this.structService.addMember(member.id, "");
     await this.structService.getStructureMembers();
-    alert(response["message"]);
+    alert(this.structService.msg);
   }
 
   async addBoss(member) {
-    const response = await this.structService.addBoss(member.id);
+    this.selected = this.structService.bossList[0];
+    await this.deleteBoss();
+    await this.structService.addBoss(member.id);
 
-    alert(response["message"]);
+    alert("Jefe añadido");
 
   }
 
   getMemberInfo(member) {
     this.memberService.member = member;
-    this.router.navigate(['/memberInfo'])
+    this.router.navigate(['/memberInfo']);
   }
 
   deleteMemberAux(member) {
-    this.selected = member
-    this.structService.type = "member"
+    this.selected = member;
+    this.structService.type = 'member';
   }
 
   async deleteMember() {
@@ -58,45 +65,51 @@ export class StructureInfoComponent implements OnInit {
     const group = structureFlow[structureFlow.length - 1];
     const response = await this.structService.deleteMember(this.selected.id, group._id);
 
-    alert(response["message"]);
+    alert(response['message']);
 
   }
 
   deleteBossAux(boss) {
-    this.selected = boss
-    this.structService.type = "boss"
+    this.selected = boss;
+    this.structService.type = 'boss';
   }
 
   async deleteBoss() {
     const structureFlow = this.structService.structureFlow;
-    const group = structureFlow[structureFlow.length - 1]
-    const parent = structureFlow[structureFlow.length - 2]
-    await this.structService.deleteBoss(this.selected.id, parent, group)
+    const group = structureFlow[structureFlow.length - 1];
+    const parent = structureFlow[structureFlow.length - 2];
+    await this.structService.deleteBoss(this.selected.id, parent, group);
   }
 
   breadcrumb(type) {
-    if (type == 0) {
+    if (type === 0) {
       this.structService.setID(this.structService.org[0]);
       this.structService.getLevel(this.structService.org[0]);
-      this.structService.setType("zone");
+      this.structService.setType('zone');
       this.structService.structureFlow = [];
       this.structService.setFlow();
-      this.router.navigate(['/manager'])
-    } else if (type == 1) {
+      this.router.navigate(['/manager']);
+    } else if (type === 1) {
       this.structService.setID(this.structService.structureFlow[0]._id);
       this.structService.getLevel(this.structService.structureFlow[0]._id);
-      this.structService.setType("branch");
+      this.structService.setType('branch');
       this.structService.structureFlow = this.structService.structureFlow.slice(0, 1);
       this.structService.setFlow();
-      this.router.navigate(['/manager'])
-    } else if (type == 2) {
+      this.router.navigate(['/manager']);
+    } else if (type === 2) {
       this.structService.setID(this.structService.structureFlow[1]._id);
       this.structService.getLevel(this.structService.structureFlow[1]._id);
-      this.structService.setType("group");
+      this.structService.setType('group');
       this.structService.structureFlow = this.structService.structureFlow.slice(0, 2);
       this.structService.setFlow();
-      this.router.navigate(['/manager'])
+      this.router.navigate(['/manager']);
     }
+  }
+
+  goBack() {
+    this.structService.structureFlow.pop();
+    this.structService.setFlow();
+    this.location.back();
   }
 
 }

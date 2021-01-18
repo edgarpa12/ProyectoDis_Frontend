@@ -1,7 +1,11 @@
 <div class="container-fluid my-auto">
   <div class="row">
     <div class="col-md-12 mt-5 d-flex justify-content-center">
-      <span class="text-white" style="font-size: 32px">
+      <span
+        *ngIf="this.memberService.loggedUser.role === 'CEO'"
+        class="text-white"
+        style="font-size: 32px"
+      >
         Surfy Te Ayuda A <br />
         <b>Manejar Tu Gran Organización</b>
       </span>
@@ -12,31 +16,44 @@
     <div class="col-md-3 d-flex justify-content-center pb-4">
       <div class="card py-4 px-2 mx-2 d-flex justify-content-around">
         <img src="./assets/home/cambios.svg" class="icon" alt="Ubicacion" />
-        <p class="text-black">Visualiza los datos de tu organización</p>
+        <p class="text-black">Envía aportes / CCGs</p>
         <button
           type="submit"
           class="boton btn px-4 mx-auto"
           style="background-color: #134e6f"
-          (click)="onManageOrganization()"
+          (click)="onSendCCGs()"
         >
-          Ver Datos
+          Enviar
         </button>
       </div>
     </div>
-    <div class="col-md-3 d-flex justify-content-center pb-4">
+    <div
+      *ngIf="this.memberService.loggedUser.role !== 'MEMBER'"
+      class="col-md-3 d-flex justify-content-center pb-4"
+    >
       <div
         class="card py-4 px-2 d-flex justify-content-around"
         style="margin-top: 100px"
       >
         <img src="./assets/home/estructura.svg" class="icon" alt="Ubicacion" />
-        <p class="text-black py-4">Define la estructura de tu organización</p>
+        <p class="text-black py-4">
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Define la estructura de tu organización"
+              : "Ver estructura de Organización"
+          }}
+        </p>
         <button
           type="submit"
           class="boton btn px-4 mx-auto"
           style="background-color: #134e6f"
           (click)="onMenu()"
         >
-          Gestionar Organización
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Gestionar Organización"
+              : "Ver Estructura de la Organización"
+          }}
         </button>
       </div>
     </div>
@@ -47,14 +64,24 @@
           class="icon"
           alt="Ubicacion"
         />
-        <p class="text-black py-4">Añade nuevos miembros a tu Organización</p>
+        <p class="text-black py-4">
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Añade nuevos miembros a tu Organización"
+              : "Ver tu ficha de Datos"
+          }}
+        </p>
         <button
           type="submit"
           class="boton btn px-4 mx-auto"
           style="background-color: #134e6f"
           (click)="getMembers()"
         >
-          Registrar usuarios
+          {{
+            memberService.loggedUser.role === "CEO"
+              ? "Registrar Usuarios"
+              : "Ver mis Datos"
+          }}
         </button>
       </div>
     </div>

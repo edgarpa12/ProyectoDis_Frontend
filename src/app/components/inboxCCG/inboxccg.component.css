@@ -1,18 +1,17 @@
-
-nav{
+nav {
     height: 12%;
 }
 
-.modal-title{
+.modal-title {
     text-align: center;
 }
 
-.scrollable{
+.scrollable {
     overflow-y: auto;
     max-height: 300px;
 }
 
-.error{
+.error {
     font-size: 1rem;
     float: right;
     margin-right: 50px;
@@ -20,26 +19,24 @@ nav{
     color: red;
 }
 
-p{
+p {
     font-size: 20px;
 }
 
-label{
+label {
     font-size: 20px;
 }
 
-.textarea1{
+.textarea1 {
     border-radius: 10px;
-    
 }
 
 input[type="file"] {
     display: none;
-
 }
 .custom-file-upload {
     border-radius: 10px;
-    background-color: #FFA822;
+    background-color: #ffa822;
     color: white;
     text-align: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -47,9 +44,9 @@ input[type="file"] {
     width: 70% !important;
 }
 
-.btnSend{
+.btnSend {
     border-radius: 10px;
-    background-color: #1AC0C6;
+    background-color: #1ac0c6;
     border-color: transparent;
     color: white;
     text-align: center;
@@ -57,27 +54,32 @@ input[type="file"] {
     height: 100% !important;
     width: 15% !important;
 }
-.containerInbox{
-    background: #F5F5F5;
+.containerInbox {
+    background: #f5f5f5;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
 }
 
-.cardCCG{
+.cardCCG {
     background: #ffffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 20px;
+    border-radius: 15px;
     width: 100%;
     height: 100%;
-    font-size: 20px;
+    padding-left: 2rem;
 }
 
-p{
+p {
     color: #a5a5a5 !important;
     font-size: 20px !important;
+    padding-left: 10px;
 }
 
-a{
-    font-size: 25px !important;
+.type {
+    color: #a5a5a5;
 }
 
+a {
+    font-size: 20px !important;
+    padding-right: 10px;
+}

@@ -10,13 +10,14 @@ import { Location } from '@angular/common';
 })
 export class OrgInfoComponent implements OnInit {
 
-  constructor(public router: Router, public structureService: StructureService, public location: Location) { }
+  constructor(public router: Router, public structureService: StructureService, public location: Location) {
+  }
 
   ngOnInit() {
   }
 
   goBack() {
-    this.location.back()
+    this.location.back();
   }
 
 }

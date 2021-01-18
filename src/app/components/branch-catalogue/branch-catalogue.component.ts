@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { StructureService } from 'src/app/services/structure.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {StructureService} from 'src/app/services/structure.service';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-branch-catalogue',
@@ -9,7 +10,8 @@ import { StructureService } from 'src/app/services/structure.service';
 })
 export class BranchCatalogueComponent implements OnInit {
 
-  constructor(public router: Router, public structService: StructureService) { }
+  constructor(public router: Router, public structService: StructureService, public memberService: MemberService) {
+  }
 
   selected;
   action;
@@ -26,19 +28,23 @@ export class BranchCatalogueComponent implements OnInit {
   }
 
   deleteDefaultBranchAux(branch) {
-    this.selected = branch
+    this.selected = branch;
   }
 
-  deleteDefaultBranch() {
-    this.structService.deleteDefaultBranch(this.selected)
+  async deleteDefaultBranch() {
+    await this.structService.deleteDefaultBranch(this.selected);
+    alert(this.structService.msg);
   }
 
-  aeDefaultBranch() {
-    if (this.action == 'Crear') {
-      this.structService.addDefaultBranch();
-    } else if (this.action == 'Editar') {
-      this.structService.editDefaultBranch(this.selected);
+  async aeDefaultBranch() {
+    if (this.action === 'Crear') {
+      await this.structService.addDefaultBranch();
+    } else if (this.action === 'Editar') {
+      await this.structService.editDefaultBranch(this.selected);
     }
+    this.structService.setFormStructure();
+    await this.structService.getDefaultBranches();
+    alert(this.structService.msg);
   }
 
   editDefaultBranch(branch) {
@@ -46,7 +52,6 @@ export class BranchCatalogueComponent implements OnInit {
     this.selected = branch;
     this.structService.formStructure.controls['name'].setValue(branch);
   }
-
 
 
 }

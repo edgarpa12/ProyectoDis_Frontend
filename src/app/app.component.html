@@ -1,18 +1,31 @@
 <div class="page-wrapper">
   <div
-    *ngIf="this.structureService.org.length != 0"
+    *ngIf="
+      this.structureService.org != null && this.structureService.org.length != 0
+    "
     class="sticky-header d-flex align-items-center"
   >
-    <button type="submit" class="btn mr-auto">
+    <button type="submit" class="btn mr-auto" (click)="goHome()">
       <img
-        src="../assets/logo.svg"
-        style="transform: scale(0.5)"
-        class="icon pl-2"
+        [src]="'http://localhost:3000/uploads/' + structureService.org[6]"
+        class="icon pl-2 imagen-nav"
         (click)="goHome()"
       />
-      Surfy
+      {{ structureService.org[1] }}
     </button>
-    <button type="submit" class="btn p-2 m-2" (click)="orgInfo()">
+    <button
+      *ngIf="this.memberService.loggedUser.role === 'CEO'"
+      type="submit"
+      class="btn p-2 m-2"
+      (click)="goInboxCCG()"
+    >
+      <span class="fa fa-globe" style="color: #ff6150"></span> CCGs
+    </button>
+    <button type="submit" class="btn p-2 m-2" (click)="goInboxNews()">
+      <span class="fa fa-envelope" style="color: #ff6150"></span>
+      Noticias
+    </button>
+    <button type="submit" class="btn p-2 m-2" (click)="goOrgInfo()">
       <span class="fa fa-briefcase" style="color: #ff6150"></span> Organización
     </button>
     <button type="submit" class="btn p-2 m-2" (click)="signOut()">
@@ -30,7 +43,9 @@
     <div class="footer">
       <footer class="py-4">
         <div class="row">
-          <div class="col-md-3 center"><a (click)="goEasterEgg()">Acerca de nosotros</a></div>
+          <div class="col-md-3 center">
+            <a (click)="goEasterEgg()">Acerca de nosotros</a>
+          </div>
           <div class="col-md-3 center">
             <a href="/#">Politica de Privacidad</a>
           </div>

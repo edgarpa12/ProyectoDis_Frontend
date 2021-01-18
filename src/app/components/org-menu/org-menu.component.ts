@@ -14,12 +14,12 @@ export class OrgMenuComponent implements OnInit {
     public router: Router,
     public structService: StructureService,
     public location: Location
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.structService.structureFlow = [];
     this.structService.setFlow();
-    this.structService.getOrg();
   }
 
   goZones() {
@@ -27,7 +27,7 @@ export class OrgMenuComponent implements OnInit {
     this.onStructure('zone');
   }
 
-  onStructure(type: String) {
+  onStructure(type: string) {
     this.structService.setType(type);
     this.router.navigate(['/manager']);
   }
@@ -37,7 +37,7 @@ export class OrgMenuComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.location.back();
   }
 
 }
