@@ -17,8 +17,13 @@ export class SendNewsComponent {
     this.location.back();
   }
 
-  sendNews() {
-    this.memberService.sendNews();
+  async sendNews() {
+    await this.memberService.sendNews();
+    for (const control of Object.values(this.memberService.formNews.controls)) {
+      control.reset();
+    }
+    alert('Noticias enviadas');
+    this.goBack();
   }
 
   onFileChange(event) {
