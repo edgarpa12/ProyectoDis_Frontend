@@ -26,21 +26,25 @@ export class StructureInfoComponent implements OnInit {
     this.structService.bossList = [];
     await this.structService.getStructureMembers();
     await this.structService.getStructureBosses();
+    this.structService.bossType = this.structService.bossList[0].role;
     this.structService.getType();
   }
 
   addMemberAux() {
-    this.memberService.getMembers();
+    this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.bossList));
+    this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.memberList));
   }
 
   async addMember(member) {
-    await this.structService.addMember(member.id);
+    await this.structService.addMember(member.id, "");
     await this.structService.getStructureMembers();
     alert(this.structService.msg);
   }
 
   async addBoss(member) {
-    const response = await this.structService.addBoss(member.id);
+    this.selected = this.structService.bossList[0];
+    await this.deleteBoss();
+    await this.structService.addBoss(member.id);
 
     alert("Jefe añadido");
 

@@ -19,6 +19,8 @@ export class StructureCrudComponent implements OnInit {
 
   selected;
   action;
+  integrante;
+  listaSeleccionados = [];
 
   ngOnInit() {
     this.structService.getLevel(this.structService.getID());
@@ -64,9 +66,11 @@ export class StructureCrudComponent implements OnInit {
   async aeStructure() {
     if (this.action === 'Crear') {
       await this.structService.addStructure();
+      await this.structService.getStructureBosses();
     } else if (this.action === 'Editar') {
       await this.structService.editStructure(this.selected);
     }
+    this.structService.setFormStructure();
     alert(this.structService.msg);
   }
 
@@ -102,8 +106,10 @@ export class StructureCrudComponent implements OnInit {
     }
   }
 
-  loadMembers() {
-    this.memberService.getMembers();
+  async loadMembers(integrante) {
+    this.integrante = integrante;
+    await this.memberService.getMembers();
+    this.memberService.memberList = await this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.listaSeleccionados));
   }
 
   loadMonitors() {
@@ -121,6 +127,13 @@ export class StructureCrudComponent implements OnInit {
   selectMonitor(member) {
     this.structService.formStructure.controls.monitor.setValue(member.name);
     this.structService.formStructure.controls.idMonitor.setValue(member.id);
+    this.listaSeleccionados.push(member);
+  }
+
+  selectMember(member) {
+    this.structService.formStructure.controls[this.integrante].setValue(member.name);
+    this.structService.formStructure.controls["id" + this.integrante].setValue(member.id);
+    this.listaSeleccionados.push(member);
   }
 
   goBack() {
