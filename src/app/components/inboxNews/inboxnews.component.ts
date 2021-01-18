@@ -1,8 +1,8 @@
-import {Location} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import { StructureService } from 'src/app/services/structure.service';
-import { MemberService } from 'src/app/services/member.service';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MemberService } from '../../services/member.service';
+import { StructureService } from '../../services/structure.service';
 
 @Component({
   selector: 'app-inboxnews',
@@ -11,14 +11,15 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class InboxNewsComponent implements OnInit {
 
-  constructor(public router: Router, public location: Location, public memberService: MemberService, public structService: StructureService) {
+  constructor(public router: Router, public location: Location,
+              private memberService: MemberService, private structureService: StructureService
+  ) {
   }
 
   news = [];
 
-  ngOnInit() {
-    this.news.push(this.structService.getNews(this.memberService.loggedUser._id));
-    this.structService.structuresXMember(this.memberService.loggedUser.id);
+  async ngOnInit() {
+    this.news = await this.structureService.getNews(this.memberService.loggedUser._id);
   }
 
   goBack() {
