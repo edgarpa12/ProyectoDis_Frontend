@@ -46,7 +46,7 @@ export class StructureCrudComponent implements OnInit {
   }
 
   goNews(structure) {
-    localStorage.setItem('newsStructure', structure);
+    localStorage.setItem('newsStructure', JSON.stringify(structure));
     this.router.navigate(['sendNews']);
   }
 

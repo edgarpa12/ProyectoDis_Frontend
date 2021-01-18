@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment.prod';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { StructureService } from './structure.service';
+import { isArray } from 'rxjs/internal-compatibility';
 
 @Injectable({
   providedIn: 'root'
@@ -59,21 +60,20 @@ export class MemberService {
 
   // Form News
   formNews: FormGroup = new FormGroup({
-    from: new FormControl('', Validators.required),
-    to: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
-    images: new FormControl('', Validators.required)
+    images: new FormControl('', Validators.required),
+    imagesData: new FormControl([]),
   });
 
   // Guarda el miembro loggeado en el localstorage y en el servicio
   setLoggedUser(member) {
     this.loggedUser = member;
-    localStorage.setItem("loggedUser", JSON.stringify(member));
+    localStorage.setItem('loggedUser', JSON.stringify(member));
   }
 
   // Obtiene un flow del localstorage
   getLoggedUser() {
-    this.loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+    this.loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
   }
 
 
@@ -128,7 +128,17 @@ export class MemberService {
 
   toFormData<T>(formValue: T) {
     return Object.keys(formValue).reduce((formData, key) => {
-      formData.append(key, formValue[key] instanceof File ? formValue[key] : JSON.stringify(formValue[key]));
+      if (isArray(formValue[key])) {
+        for (const file of formValue[key]) {
+          formData.append(key, file);
+        }
+      } else {
+        formData.append(key,
+          formValue[key] instanceof File
+            ? formValue[key]
+            : JSON.stringify(formValue[key])
+        );
+      }
       return formData;
     }, new FormData());
   }
@@ -154,17 +164,17 @@ export class MemberService {
     const direction = this.formMiembro.controls.direction.value;
     const phone = this.formMiembro.controls.phone.value;
     const email = this.formMiembro.controls.email.value;
-    const role = this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER";
+    const role = this.formMiembro.controls.role.value ? 'MONITOR' : 'MEMBER';
 
     const data = {
-      name: name != "" ? name: member.name,
-      direction: direction != "" ? direction: member.direction,
-      phone: phone != "" ? phone: member.phone,
-      email: email != "" ? email: member.email,
-      role: role
-    }
+      name: name !== '' ? name : member.name,
+      direction: direction !== '' ? direction : member.direction,
+      phone: phone !== '' ? phone : member.phone,
+      email: email !== '' ? email : member.email,
+      role
+    };
 
-    console.log(data)
+    console.log(data);
     const obj = {
       id: member.id,
       data
@@ -172,10 +182,10 @@ export class MemberService {
 
     const response = await this.http.put(this.uriMember + '/update', obj).toPromise();
 
-    if (response["msg"] != 0) {
-      this.msg = "Usuario Editado Correctamente"
+    if ((response as any).msg != 0) {
+      this.msg = 'Usuario Editado Correctamente';
     } else {
-      this.msg = "Ocurrio un error"
+      this.msg = 'Ocurrio un error';
     }
   }
 
@@ -185,7 +195,7 @@ export class MemberService {
       id: member.id
     };
     await this.http.post(this.uriMember + '/delete', obj).toPromise();
-    this.msg = "Usuario eliminado correctamente";
+    this.msg = 'Usuario eliminado correctamente';
   }
 
   // Cambia a un miembro de un grupo
@@ -196,12 +206,12 @@ export class MemberService {
       ids: idsNewStructure
     };
 
-    const response = await this.http.post(this.uriMember + '/changeGroup', obj).toPromise()
-    if (response["msg"] != 0) {
+    const response = await this.http.post(this.uriMember + '/changeGroup', obj).toPromise();
+    if ((response as any).msg != 0) {
       this.structService.structuresXMember(idUser);
-      this.msg = "Se realizo el cambio de grupo correctamente!"
+      this.msg = 'Se realizo el cambio de grupo correctamente!';
     } else {
-      this.msg = "No se pudo realizar el cambio"
+      this.msg = 'No se pudo realizar el cambio';
     }
   }
 
@@ -214,7 +224,7 @@ export class MemberService {
       email: this.formMiembro.controls.email.value,
       password: this.formMiembro.controls.password.value,
       direction: this.formMiembro.controls.direction.value,
-      role: this.formMiembro.controls.role.value ? "MONITOR" : "MEMBER"
+      role: this.formMiembro.controls.role.value ? 'MONITOR' : 'MEMBER'
     };
 
     const response = await this.http.post(this.uriMember + '/create', obj).toPromise();
@@ -248,7 +258,10 @@ export class MemberService {
       this.http.post(this.uriMember + '/sendCCG', obj).subscribe(response => {
         alert('CCG mandado exitosamente');
         resolve(response);
-      }, error => { console.log(error); reject(error); });
+      }, error => {
+        console.log(error);
+        reject(error);
+      });
 
     });
   }
@@ -283,5 +296,19 @@ export class MemberService {
     this.formSignIn.controls.password.setValue('');
   }
 
+  // formNews: FormGroup = new FormGroup({
+  //   body: new FormControl('', Validators.required),
+  //   images: new FormControl('', Validators.required)
+  // });
 
+
+  async sendNews() {
+    const obj = {
+      from: this.loggedUser._id,
+      body: this.formNews.controls.body.value,
+      images: this.formNews.controls.imagesData.value,
+      to: JSON.parse(localStorage.getItem('newsStructure'))._id
+    };
+    console.log(await this.http.post(this.uriMember + '/sendNews', this.toFormData(obj)).toPromise());
+  }
 }

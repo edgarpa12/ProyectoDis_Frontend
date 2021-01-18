@@ -63,6 +63,7 @@
                     id="newsInput"
                     rows="5"
                     placeholder="Escriba aqui..."
+                    formControlName="body"
                   ></textarea>
                 </div>
               </div>
@@ -76,6 +77,8 @@
                     id="file-upload"
                     type="file"
                     data-show-caption="true"
+                    formControlName="images"
+                    (change)="onFileChange($event)"
                     multiple
                   />
                 </div>
@@ -83,7 +86,7 @@
             </div>
             <div class="row d-flex mt-3">
               <div class="col-md-12 d-flex justify-content-end pr-5">
-                <button class="btnSend">Enviar</button>
+                <button class="btnSend" (click)="sendNews()">Enviar</button>
               </div>
             </div>
           </form>
