@@ -63,9 +63,11 @@ export class StructureCrudComponent implements OnInit {
   async aeStructure() {
     if (this.action === 'Crear') {
       await this.structService.addStructure();
+      await this.structService.getStructureBosses();
     } else if (this.action === 'Editar') {
       await this.structService.editStructure(this.selected);
     }
+    this.structService.setFormStructure();
     alert(this.structService.msg);
   }
 

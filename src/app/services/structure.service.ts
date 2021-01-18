@@ -250,7 +250,6 @@ export class StructureService {
       .toPromise();
 
     if (response["msg"] !== 0) {
-      await this.getStructureBosses();
       this.msg = "Monitor Añadido";
     } else {
       this.msg = "Ocurrió un error";
@@ -274,9 +273,9 @@ export class StructureService {
         this.formStructure.controls.idMonitor.value,
         response
       );
-  
+
       this.bossType = "Monitor";
-      this.setFormStructure();
+
     } else {
       this.msg = "Ya existe una estructura con este nombre.";
     }
