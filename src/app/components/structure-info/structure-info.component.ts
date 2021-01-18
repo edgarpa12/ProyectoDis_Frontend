@@ -22,6 +22,8 @@ export class StructureInfoComponent implements OnInit {
 
   async ngOnInit() {
     this.structService.getFlow();
+    this.structService.memberList = [];
+    this.structService.bossList = [];
     await this.structService.getStructureMembers();
     await this.structService.getStructureBosses();
     this.structService.getType();
@@ -40,7 +42,7 @@ export class StructureInfoComponent implements OnInit {
   async addBoss(member) {
     const response = await this.structService.addBoss(member.id);
 
-    alert(response['message']);
+    alert("Jefe añadido");
 
   }
 
@@ -101,6 +103,8 @@ export class StructureInfoComponent implements OnInit {
   }
 
   goBack() {
+    this.structService.structureFlow.pop();
+    this.structService.setFlow();
     this.location.back();
   }
 

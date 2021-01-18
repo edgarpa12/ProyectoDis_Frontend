@@ -185,6 +185,7 @@ export class StructureService {
     const response = await this.http
       .post(this.uri + "/addMemberToGroup", obj)
       .toPromise();
+
     if (response["msg"] != 0) {
       this.msg = "Usuario Añadido";
     } else {
@@ -270,24 +271,16 @@ export class StructureService {
       this.getLevel(this.structureId);
       this.msg = "Estructura añadida correctamente";
 
-      const monitorAdded = await this.addMonitor(
+      await this.addMonitor(
         this.formStructure.controls.idMonitor.value,
         response
       );
-  
+
       this.bossType = "Monitor";
       this.setFormStructure();
     } else {
       this.msg = "Ya existe una estructura con este nombre.";
     }
-
-    // const monitorAdded = await this.addMonitor(
-    //   this.formStructure.controls.idMonitor.value
-    // );
-    // alert("Monitor Agregado");
-
-    // this.bossType = "Monitor";
-    // this.setFormStructure();
   }
 
   async structuresXMember(id: string) {
