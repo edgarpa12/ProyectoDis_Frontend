@@ -29,22 +29,7 @@ export class BossMenuComponent implements OnInit {
   }
 
   verIntegrantes() {
-    this.router.navigate(['/groupInfo']);
-  }
-
-  verDatos(member) {
-    this.memberService.member = member;
-    this.router.navigate(['/memberInfo']);
-  }
-
-  enviarCCG(member) {
-    this.memberService.member = member;
-    this.router.navigate(['/sendCCG']);
-  }
-
-  verNews(member) {
-    this.memberService.member = member;
-    this.router.navigate(['/inboxNews']);
+    this.router.navigate(['/info']);
   }
 
   verGruposACargo() {
@@ -52,7 +37,7 @@ export class BossMenuComponent implements OnInit {
   }
 
   verDatosZonasRamas() {
-
+    this.router.navigate(['/menu']);
   }
 
   verNodo() {
