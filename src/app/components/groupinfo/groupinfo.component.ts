@@ -30,49 +30,9 @@ export class GroupInfoComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-
-  async addMember(member) {
-    await this.structService.addMember(member.id);
-    await this.structService.getStructureMembers();
-    alert(this.structService.msg);
-  }
-
-  async addBoss(member) {
-    await this.structService.addBoss(member.id);
-    await this.structService.getStructureMembers();
-    alert(this.memberService.msg);
-
-  }
-
   getMemberInfo(member) {
     this.memberService.member = member;
     this.router.navigate(['/memberInfo']);
-  }
-
-  // deleteMemberAux(member) {
-  //   this.selected = member;
-  //   this.structService.type = 'member';
-  // }
-
-  async deleteMember() {
-    const structureFlow = this.structService.structureFlow;
-    const group = structureFlow[structureFlow.length - 1];
-    await this.structService.deleteMember(this.selected.id, group._id);
-    await this.structService.getStructureMembers();
-    alert(this.memberService.msg);
-
-  }
-
-  deleteBossAux(boss) {
-    this.selected = boss;
-    this.structService.type = 'boss';
-  }
-
-  async deleteBoss() {
-    const structureFlow = this.structService.structureFlow;
-    const group = structureFlow[structureFlow.length - 1];
-    const parent = structureFlow[structureFlow.length - 2];
-    await this.structService.deleteBoss(this.selected.id, parent, group);
   }
 
   breadcrumb(type) {

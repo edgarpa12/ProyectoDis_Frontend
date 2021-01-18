@@ -35,6 +35,7 @@
 
               <div class="px-5">
                 <button
+                  *ngIf="this.memberService.loggedUser.role === 'CEO'"
                   class="boton btn px-5 d-flex justify-content-around align-items-center"
                   style="
                     width: 100%;

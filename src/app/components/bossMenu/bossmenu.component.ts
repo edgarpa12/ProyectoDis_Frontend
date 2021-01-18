@@ -24,6 +24,10 @@ export class BossMenuComponent implements OnInit {
 
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   verIntegrantes() {
     this.router.navigate(['/groupInfo']);
   }

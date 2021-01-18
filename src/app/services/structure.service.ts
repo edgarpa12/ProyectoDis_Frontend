@@ -102,7 +102,7 @@ export class StructureService {
       const response = await this.http
         .post(this.uri + "/create", obj)
         .toPromise();
-      if (response["msg"] != 0) {
+      if (response !== 0) {
         this.getLevel(this.structureId);
         this.msg = "Estructura añadida correctamente";
         this.setFormStructure();
@@ -238,8 +238,9 @@ export class StructureService {
     await this.getStructureBosses();
   }
 
-  async addMonitor(idMember) {
+  async addMonitor(idMember, group) {
     const ids = this.getIds();
+    ids.push(group["_id"]);
     const obj = {
       ids,
       idMonitor: idMember,
@@ -247,7 +248,8 @@ export class StructureService {
     const response = await this.http
       .post(this.uri + "/addMonitorToGroup", obj)
       .toPromise();
-    if (response["msg"] != 0) {
+
+    if (response["msg"] !== 0) {
       await this.getStructureBosses();
       this.msg = "Monitor Añadido";
     } else {
@@ -264,17 +266,28 @@ export class StructureService {
     const response = await this.http
       .post(this.uri + "/create", obj)
       .toPromise();
+    if (response !== 0) {
+      this.getLevel(this.structureId);
+      this.msg = "Estructura añadida correctamente";
 
-    await this.getLevel(this.structureId);
-    await this.structureFlow.push(response);
+      const monitorAdded = await this.addMonitor(
+        this.formStructure.controls.idMonitor.value,
+        response
+      );
+  
+      this.bossType = "Monitor";
+      this.setFormStructure();
+    } else {
+      this.msg = "Ya existe una estructura con este nombre.";
+    }
 
-    const monitorAdded = await this.addMonitor(
-      this.formStructure.controls.idMonitor.value
-    );
-    alert("Monitor Agregado");
+    // const monitorAdded = await this.addMonitor(
+    //   this.formStructure.controls.idMonitor.value
+    // );
+    // alert("Monitor Agregado");
 
-    this.bossType = "Monitor";
-    this.setFormStructure();
+    // this.bossType = "Monitor";
+    // this.setFormStructure();
   }
 
   async structuresXMember(id: string) {

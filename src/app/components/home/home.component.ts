@@ -17,25 +17,25 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  onMenu() {
-    if (this.memberService.loggedUser.role === "CEO") {
-      this.router.navigate(['/menu']);
-    } else {
-      this.structService.structureFlow = [];
-      this.structService.setFlow();
-      this.structService.setID(this.structService.org[0]);
-      this.structService.setType('zone');
-      this.router.navigate(['/manager']);
-    }
-
-  }
-
   getMembers() {
-    this.router.navigate(['/memberCrud']);
+    if (this.memberService.loggedUser.role === "CEO") {
+      this.router.navigate(['/memberCrud']);
+    }else{
+      this.memberService.member = this.memberService.loggedUser;
+      this.router.navigate(['/memberInfo']);
+    }
   }
 
   onSendCCGs() {
     this.router.navigate(['/sendCCG']);
+  }
+
+  onMenu(){
+    if (this.memberService.loggedUser.role === "CEO") {
+      this.router.navigate(['/menu']);
+    } else {
+      this.router.navigate(['/bossMenu']);
+    }
   }
 
 }

@@ -23,15 +23,14 @@
               *ngIf="structService.structureFlow.length >= 2"
             >
               <a (click)="breadcrumb(2)"
-                >{{ structService.structureFlow[1].name }}
-                {{ structService.structureFlow[1].groupNumber }}</a
+                >{{ structService.structureFlow[1].name }}</a
               >
             </li>
             <li
               class="breadcrumb-item"
               *ngIf="structService.structureFlow.length >= 3"
             >
-              <a>{{ structService.structureFlow[2].name }}</a>
+              <a>{{ structService.structureFlow[2].name }} {{ structService.structureFlow[2].groupNumber }}</a>
             </li>
           </ol>
         </nav>

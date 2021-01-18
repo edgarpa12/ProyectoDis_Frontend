@@ -17,7 +17,7 @@ export class MemberCrudComponent implements OnInit {
     name: '',
     phone: '',
     direction: '',
-    monitor: false,
+    role: '',
     email: ''
   };
 

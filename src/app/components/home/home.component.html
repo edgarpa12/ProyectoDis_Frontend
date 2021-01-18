@@ -1,7 +1,7 @@
 <div class="container-fluid my-auto">
   <div class="row">
     <div class="col-md-12 mt-5 d-flex justify-content-center">
-      <span class="text-white" style="font-size: 32px">
+      <span *ngIf="this.memberService.loggedUser.role === 'CEO'" class="text-white" style="font-size: 32px">
         Surfy Te Ayuda A <br />
         <b>Manejar Tu Gran Organización</b>
       </span>
@@ -23,7 +23,8 @@
         </button>
       </div>
     </div>
-    <div class="col-md-3 d-flex justify-content-center pb-4">
+    <div *ngIf="this.memberService.loggedUser.role !== 'MEMBER'"
+    class="col-md-3 d-flex justify-content-center pb-4">
       <div
         class="card py-4 px-2 d-flex justify-content-around"
         style="margin-top: 100px"
@@ -33,7 +34,7 @@
           {{
             memberService.loggedUser.role === "CEO"
               ? "Define la estructura de tu organización"
-              : "Ver la estructura de la organización"
+              : "Ver estructura de Organización"
           }}
         </p>
         <button
