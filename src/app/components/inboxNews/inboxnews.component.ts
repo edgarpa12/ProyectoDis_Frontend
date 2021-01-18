@@ -17,13 +17,20 @@ export class InboxNewsComponent implements OnInit {
   }
 
   news = [];
+  showLoading = true;
 
   async ngOnInit() {
+    this.showLoading = true;
     this.news = await this.structureService.getNews(this.memberService.loggedUser._id);
+    this.showLoading = false;
   }
 
   goBack() {
     this.location.back();
   }
 
+  showNews(n: any) {
+    localStorage.setItem('news', JSON.stringify(n));
+    this.router.navigate(['/showNew']);
+  }
 }

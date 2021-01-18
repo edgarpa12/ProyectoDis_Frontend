@@ -4,31 +4,39 @@
       <div class="card-page">
         <div class="card-body">
           <div class="row d-flex my-3">
-            <div class="col-md-12">
+            <div class="col-md-12 d-flex justify-content-between">
               <button class="btn" (click)="goBack()">
                 <i
                   class="fa fa-arrow-circle-left fa-3x"
                   style="color: #134e6f"></i>
               </button>
-              <h1 class="text-black">Noticia</h1>
+              <h1 class="text-black flex-grow-1">Noticia</h1>
             </div>
-            <div class="col-md-12 mt-1">
-              <h3>Mensaje de: </h3>
-              <p>Kendall</p>
+            <div class="col-md-12 mt-5">
+              <h4>Mensaje de: </h4>
+              <small>{{ news.data.from }}</small>
+            </div>
+            <div class="col-md-12 mt-4">
+              <h4>Publicado en: </h4>
+              <small>{{ news.path }}</small>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-8">
-              <textarea class="form-control" id="textAreaNews" rows="5" disabled>bla bla bla</textarea>
+            <div class="col-md-12">
+              <h4>Contenido: </h4>
+              <textarea class="form-control" id="textAreaNews" rows="5" disabled>{{ news.data.body }}</textarea>
             </div>
-            <div class="col-md-4">
-              Imagenes:
+            <div class="col-md-12 mt-4 mb-2">
+              <h4>Imágenes:</h4>
+              <div class="w-100 d-flex flex-wrap">
+                <img class="newsImage img-fluid col-6 my-2" [src]="imagesUri.slice(0, -4) + '/uploads/' + image" alt="" *ngFor="let image of news.data.images">
+              </div>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 

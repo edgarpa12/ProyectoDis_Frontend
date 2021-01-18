@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../environments/environment.prod";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment.prod';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { visit } from '@angular/compiler-cli/src/ngtsc/util/src/visitor';
 import { forEach } from "@angular/router/src/utils/collection";
 
 @Injectable({
@@ -305,9 +306,10 @@ export class StructureService {
     }
   }
 
-  async structuresXMember(id: string) {
+  async structuresXMember(id: string, includeBosses: boolean = false) {
     const obj = {
       idUser: id,
+      includeBosses
     };
     this.groupsOfMember = await this.http
       .post(this.uri + '/getStructureXMember', obj)
@@ -377,9 +379,47 @@ export class StructureService {
   }
 
   async getNews(userId: string) {
-    await this.structuresXMember(userId);
-    console.log('Structures: ', this.groupsOfMember);
-    return [];
+    await this.structuresXMember(userId, true);
+
+    const structures = [];
+    for (const group of this.groupsOfMember) {
+      const obj = {
+        structureId: group.id
+      };
+      const path = await this.http.post(this.uri + '/getPath', obj).toPromise();
+      structures.push(path);
+    }
+
+    const seenNews: any = (await this.http.post(this.uri + '/getSeenNews', { idMember: userId }).toPromise());
+    const visited = [];
+    const news = [];
+
+    for (const path of structures) {
+      const relativePath = [];
+      for (const node of path) {
+        relativePath.push(node.name);
+        if (visited.indexOf(node.id) <= -1) {
+          visited.push(node.id);
+          const elementNews: any = await this.http.post(this.uri + '/getNews', {
+              structureId: node.id
+            }
+          ).toPromise();
+          if (elementNews.length > 0) {
+            for (const news1 of elementNews) {
+              news1.seen = seenNews.indexOf(news1._id) > -1;
+              news.push({
+                data: news1,
+                path: relativePath.join(' > ')
+              });
+            }
+          }
+        }
+      }
+    }
+
+    console.log('Final news: ', news);
+
+    return news;
   }
 
   async enabledCCGs(structId: String){
@@ -409,4 +449,10 @@ export class StructureService {
     console.log(this.foundCCG);
   }
 
+  async markesAsSeen(seenNews: string, idMember: string) {
+    await this.http.post(this.uri + '/seenNews', {
+      idMember,
+      seenNews
+    }).toPromise();
+  }
 }

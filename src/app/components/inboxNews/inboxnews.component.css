@@ -30,7 +30,7 @@ label{
 
 .textarea1{
     border-radius: 10px;
-    
+
 }
 
 input[type="file"] {
@@ -86,3 +86,12 @@ a{
     font-size: 20px !important;
 }
 
+small {
+  font-size: 1rem;
+}
+
+.news-container {
+  padding: 10px;
+  margin: 15px 0;
+  cursor: pointer;
+}

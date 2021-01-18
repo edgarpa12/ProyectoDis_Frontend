@@ -16,8 +16,15 @@
           <div class="col-md-12 mt-1">
             <h3>Lista de noticias:</h3>
             <!-- *ngfor="let news in structService.getNews()" -->
-            <div>
-
+            <p *ngIf="showLoading">Cargando ...</p>
+            <div *ngIf="!showLoading">
+              <div class="card news-container" *ngFor="let n of news" (click)="showNews(n)">
+                <small
+                  class="text-black-50 d-flex justify-content-between"><span><b>{{ n.path }}</b></span><span>{{ n.data.date | date: 'dd-MM-yyyy HH:mm:ss' }}</span></small>
+                <small
+                  class="text-black-50 d-flex justify-content-between"><span>Enviada por {{ n.data.from }}</span><span
+                  class="text-danger" *ngIf="!n.data.seen"><i>¡Nuevo!</i></span></small>
+              </div>
             </div>
           </div>
         </div>
