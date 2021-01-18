@@ -22,15 +22,18 @@
               class="breadcrumb-item"
               *ngIf="structService.structureFlow.length >= 2"
             >
-              <a (click)="breadcrumb(2)"
-                >{{ structService.structureFlow[1].name }}</a
-              >
+              <a (click)="breadcrumb(2)">{{
+                structService.structureFlow[1].name
+              }}</a>
             </li>
             <li
               class="breadcrumb-item"
               *ngIf="structService.structureFlow.length >= 3"
             >
-              <a>{{ structService.structureFlow[2].name }} {{ structService.structureFlow[2].groupNumber }}</a>
+              <a
+                >{{ structService.structureFlow[2].name }}
+                {{ structService.structureFlow[2].groupNumber }}</a
+              >
             </li>
           </ol>
         </nav>
@@ -43,13 +46,9 @@
                 *ngIf="this.structService.bossType != 'Monitor'"
                 class="col-md-12 scrollable"
               >
-                Jefatura
-              </h1>
-              <h1
-                *ngIf="this.structService.bossType == 'Monitor'"
-                class="col-md-12 scrollable"
-              >
-                Monitor
+                {{
+                  structService.bossType !== "MONITOR" ? "Jefatura" : "Monitor"
+                }}
               </h1>
             </div>
             <div class="col-md-12">
@@ -57,10 +56,12 @@
                 <div
                   class="col-md-4"
                   style="margin-top: 10px"
-                  *ngIf="2 > structService.bossList.length"
+                  *ngIf="
+                    2 > structService.bossList.length &&
+                    this.memberService.loggedUser.role === 'CEO'
+                  "
                 >
                   <button
-                    *ngIf="this.memberService.loggedUser.role === 'CEO'"
                     class="col-md-12 boton btn"
                     role="button"
                     data-toggle="modal"
@@ -112,11 +113,13 @@
                 <div
                   class="col-md-4"
                   style="margin-top: 10px"
-                  *ngIf="structService.getType() == 'group'"
+                  *ngIf="
+                    structService.getType() == 'group' &&
+                    this.memberService.loggedUser.role === 'CEO'
+                  "
                   (click)="addMemberAux()"
                 >
                   <button
-                    *ngIf="this.memberService.loggedUser.role === 'CEO'"
                     class="col-md-12 btn boton"
                     role="button"
                     data-toggle="modal"

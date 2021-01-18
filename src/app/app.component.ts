@@ -22,6 +22,7 @@ export class AppComponent {
   ngOnInit() {
     this.memberService.getLoggedUser();
     this.structureService.getOrg();
+    this.memberService.getMembers();
   }
 
   async signOut() {

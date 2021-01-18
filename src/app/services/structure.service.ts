@@ -27,12 +27,18 @@ export class StructureService {
     groupNumber: new FormControl("", Validators.required),
     monitor: new FormControl("", Validators.required),
     idMonitor: new FormControl("", Validators.required),
+    integrante1: new FormControl("", Validators.required),
+    idintegrante1: new FormControl("", Validators.required),
+    integrante2: new FormControl("", Validators.required),
+    idintegrante2: new FormControl("", Validators.required)
   });
 
   setFormStructure() {
     this.formStructure.controls.name.setValue("");
     this.formStructure.controls.groupNumber.setValue("");
     this.formStructure.controls.monitor.setValue("");
+    this.formStructure.controls.integrante1.setValue("");
+    this.formStructure.controls.integrante2.setValue("");
   }
 
   // Guarda un id en el localstorage y en el servicio
@@ -112,6 +118,12 @@ export class StructureService {
     }
   }
 
+  // Filtro para que no se repitan selecciones
+  filtrarMiembros(member, list) {
+    for (const selectedMembers of list)
+      return selectedMembers.id === member.id ? false : true;
+  }
+
   // Edita una estructura
   async editStructure(structure) {
     const data = structure;
@@ -176,8 +188,11 @@ export class StructureService {
       .toPromise();
   }
 
-  async addMember(idMember) {
+  async addMember(idMember, group) {
     const ids = this.getIds();
+    if (this.type === "group") {
+      ids.push(group["_id"]);
+    }
     const obj = {
       idMember,
       ids,
@@ -276,7 +291,9 @@ export class StructureService {
         response
       );
 
-      this.bossType = "Monitor";
+      await this.addMember(this.formStructure.controls.idintegrante1.value, response);
+      await this.addMember(this.formStructure.controls.idintegrante2.value, response);
+
       this.setFormStructure();
     } else {
       this.msg = "Ya existe una estructura con este nombre.";
@@ -292,10 +309,10 @@ export class StructureService {
       .toPromise();
   }
 
-  async isMember(id: string){
-    if(this.structuresXMember(id)){
+  async isMember(id: string) {
+    if (this.structuresXMember(id)) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
