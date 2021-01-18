@@ -214,13 +214,14 @@ export class StructureService {
     const obj = {
       ids,
       idBoss: idMember,
+      bossType: "BOSS"
     };
     const response = await this.http
       .post(this.uri + '/addBossToGroup', obj)
       .toPromise();
     if (response['msg'] != 0) {
       await this.getStructureBosses();
-      this.bossType = 'Boss';
+      this.bossType = 'BOSS';
       this.msg = 'Jefe añadido correctamente';
     } else {
       this.msg = 'Ocurrio un problema, intente de nuevo';
@@ -261,6 +262,7 @@ export class StructureService {
     const obj = {
       ids,
       idMonitor: idMember,
+      bossType: "MONITOR"
     };
     const response = await this.http
       .post(this.uri + '/addMonitorToGroup', obj)
@@ -377,11 +379,11 @@ export class StructureService {
     console.log('Structures: ', this.groupsOfMember);
     return [];
   }
-  async enabledCCGs(structure){
+  async enabledCCGs(structure) {
     const obj = {
       _id: structure._id,
     }
-    await this.http.put(this.uri + '/enabledCCGs',obj).toPromise();
+    await this.http.put(this.uri + '/enabledCCGs', obj).toPromise();
   }
 
 }

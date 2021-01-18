@@ -32,6 +32,7 @@ export class StructureInfoComponent implements OnInit {
 
   addMemberAux() {
     this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.bossList));
+    this.memberService.memberList = this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.structService.memberList));
   }
 
   async addMember(member) {
