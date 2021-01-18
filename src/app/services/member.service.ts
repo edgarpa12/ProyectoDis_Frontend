@@ -61,7 +61,7 @@ export class MemberService {
   // Form News
   formNews: FormGroup = new FormGroup({
     body: new FormControl('', Validators.required),
-    images: new FormControl('', Validators.required),
+    images: new FormControl([], Validators.required),
     imagesData: new FormControl([]),
   });
 
@@ -119,11 +119,6 @@ export class MemberService {
 
     this.setFormMiembro();
     this.setFormOrganizacion();
-
-    // return this.http.post(this.uriOrganization + '/signup', this.toFormData(obj)).subscribe(response => {
-    //   this.setFormMiembro();
-    //   this.setFormOrganizacion();
-    // });
   }
 
   toFormData<T>(formValue: T) {

@@ -19,12 +19,15 @@ export class StructureCrudComponent implements OnInit {
 
   selected;
   action;
+  integrante;
+  listaSeleccionados = [];
 
   ngOnInit() {
     this.structService.getLevel(this.structService.getID());
     this.structService.type = this.structService.getType();
     this.structService.getFlow();
     this.structService.getOrg();
+    this.structService.isMember(this.memberService.loggedUser.id);
   }
 
   changeCategory() {
@@ -103,8 +106,10 @@ export class StructureCrudComponent implements OnInit {
     }
   }
 
-  loadMembers() {
-    this.memberService.getMembers();
+  async loadMembers(integrante) {
+    this.integrante = integrante;
+    await this.memberService.getMembers();
+    this.memberService.memberList = await this.memberService.memberList.filter((member) => this.structService.filtrarMiembros(member, this.listaSeleccionados));
   }
 
   loadMonitors() {
@@ -122,10 +127,16 @@ export class StructureCrudComponent implements OnInit {
   selectMonitor(member) {
     this.structService.formStructure.controls.monitor.setValue(member.name);
     this.structService.formStructure.controls.idMonitor.setValue(member.id);
+    this.listaSeleccionados.push(member);
+  }
+
+  selectMember(member) {
+    this.structService.formStructure.controls[this.integrante].setValue(member.name);
+    this.structService.formStructure.controls["id" + this.integrante].setValue(member.id);
+    this.listaSeleccionados.push(member);
   }
 
   goBack() {
     this.location.back();
   }
-
 }

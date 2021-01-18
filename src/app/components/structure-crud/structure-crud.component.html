@@ -61,8 +61,8 @@
                 <div class="col-12 px-6 py-3">
                   <span
                     >{{ structure.name }}
-                    <small>{{ structure.groupNumber }}</small></span
-                  >
+                    <small>{{ structure.groupNumber }}</small>
+                  </span>
                 </div>
                 <div class="col-12 px-2 buttons-div">
                   <button
@@ -234,9 +234,6 @@
             </div>
           </div>
         </form>
-        <!-- <div *ngIf="structService.msg != ''">
-          <p style="color: red">{{ structService.msg }}</p>
-        </div> -->
         <form
           class="blue-form align-self-start mt-4 d-flex justify-content-center"
           [formGroup]="structService.formStructure"
@@ -267,6 +264,60 @@
             </div>
           </div>
         </form>
+        <form
+          class="blue-form align-self-start mt-4 d-flex justify-content-center"
+          [formGroup]="structService.formStructure"
+          *ngIf="structService.type == 'group'"
+        >
+          <div class="form-group my-4">
+            <div class="row">
+              <input
+                type="text"
+                class="form-control px-3 pt-2"
+                formControlName="integrante1"
+                role="button"
+                data-toggle="modal"
+                href="#integrante"
+                (click)="loadMembers('integrante1')"
+                data-dismiss="modal"
+                readonly
+                style="background-color: #134e6f; color: white"
+              />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+                style="margin-left: 30px !important"
+              />
+              <p class="placeholder-text" style="margin-left: 50px !important">
+                Integrante #1
+              </p>
+            </div>
+          </div>
+          <div class="form-group my-4 mx-5">
+            <div class="row">
+              <input
+                type="text"
+                class="form-control px-3 pt-2"
+                formControlName="integrante2"
+                role="button"
+                data-toggle="modal"
+                href="#integrante"
+                (click)="loadMembers('integrante2')"
+                data-dismiss="modal"
+                readonly
+                style="background-color: #134e6f; color: white"
+              />
+              <img
+                src="./assets/landing/placeholder.svg"
+                class="placeholder-bg"
+                style="margin-left: 30px !important"
+              />
+              <p class="placeholder-text" style="margin-left: 50px !important">
+                Integrante #2
+              </p>
+            </div>
+          </div>
+        </form>
       </div>
 
       <div class="modal-footer">
@@ -292,6 +343,8 @@
   </div>
 </div>
 
+<!-- Modal de Monitor -->
+
 <div
   class="modal fade"
   id="monitor"
@@ -311,6 +364,44 @@
             style="margin-top: 10px"
             *ngFor="let member of memberService.memberList"
             (click)="selectMonitor(member)"
+            data-dismiss="modal"
+            data-toggle="modal"
+            href="#struct"
+          >
+            <div class="element">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-12 d-flex py-2 justify-content-center">
+                  <span>{{ member.name }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Integrante -->
+<div
+  class="modal fade"
+  id="integrante"
+  role="dialog"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Elegir Integrante</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row scrollable">
+          <div
+            class="col-md-12"
+            style="margin-top: 10px"
+            *ngFor="let member of memberService.memberList"
+            (click)="selectMember(member)"
             data-dismiss="modal"
             data-toggle="modal"
             href="#struct"

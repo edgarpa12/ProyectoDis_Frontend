@@ -37,7 +37,7 @@ export class OrgMenuComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.location.back();
   }
 
 }
