@@ -292,6 +292,14 @@ export class StructureService {
       .toPromise();
   }
 
+  async isMember(id: string){
+    if(this.structuresXMember(id)){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   async getDefaultBranches() {
     this.org[9] = await this.http
       .get(this.uri + "/getDefaultBranches")

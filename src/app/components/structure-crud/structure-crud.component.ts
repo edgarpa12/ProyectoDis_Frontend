@@ -25,6 +25,7 @@ export class StructureCrudComponent implements OnInit {
     this.structService.type = this.structService.getType();
     this.structService.getFlow();
     this.structService.getOrg();
+    this.structService.isMember(this.memberService.loggedUser.id);
   }
 
   changeCategory() {
@@ -125,5 +126,4 @@ export class StructureCrudComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-
 }

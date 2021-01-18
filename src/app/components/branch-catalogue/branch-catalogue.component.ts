@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {StructureService} from 'src/app/services/structure.service';
+import { MemberService } from 'src/app/services/member.service';
 
 @Component({
   selector: 'app-branch-catalogue',
@@ -9,7 +10,7 @@ import {StructureService} from 'src/app/services/structure.service';
 })
 export class BranchCatalogueComponent implements OnInit {
 
-  constructor(public router: Router, public structService: StructureService) {
+  constructor(public router: Router, public structService: StructureService, public memberService: MemberService) {
   }
 
   selected;
