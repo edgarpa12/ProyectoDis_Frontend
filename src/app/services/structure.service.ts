@@ -353,4 +353,18 @@ export class StructureService {
       this.msg = "Ocurrio un error intente de nuevo"
     }
   }
+
+  async getNews(userId: string){
+    const response = await this.structuresXMember(userId);
+    console.log("Estructuras: ", response);
+    return response;
+  }
+
+  async enabledCCGs(structure){
+    const obj = {
+      _id: structure._id,
+    }
+    await this.http.put(this.uri + '/enabledCCGs',obj).toPromise();
+  }
+
 }
