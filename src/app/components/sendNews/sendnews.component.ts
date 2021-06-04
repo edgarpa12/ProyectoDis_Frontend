@@ -45,6 +45,7 @@ export class SendNewsComponent {
       }
 
       console.log('Form files: ', formFiles);
+      alert("Archivo cargado, puede añadir otro")
       this.memberService.formNews.patchValue({
         [field]: formFiles
       });
